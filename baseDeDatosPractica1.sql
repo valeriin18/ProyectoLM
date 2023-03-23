@@ -1,14 +1,15 @@
 CREATE DATABASE IF NOT EXISTS basePrueba;
 use basePrueba;
 CREATE TABLE Usuario(
-dni VARCHAR(9) NOT NULL PRIMARY KEY,
+dni VARCHAR(9) PRIMARY KEY,
 nombre VARCHAR(15) NOT NULL,
+username VARCHAR(15) NOT NULL,
 apellidos VARCHAR(15) NOT NULL,
-email VARCHAR(80) NOT NULL UNIQUE KEY,
-id_ciudad INT NOT NULL,
-fecha_nacimiento DATE NOT NULL,
+email VARCHAR(80) UNIQUE KEY,
+id_ciudad INT NULL,
+fecha_nacimiento DATE,
 descuento INT UNSIGNED,
-fecha_alta DATE NOT NULL,
+fecha_alta DATE,
 contraseña varchar(16) NOT NULL,
 CONSTRAINT UsuarioReserva
 FOREIGN KEY(id_ciudad) REFERENCES Ciudad (id_ciudad)
