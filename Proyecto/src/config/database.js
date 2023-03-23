@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 // npm install sequelize
 // npm install mysql2
 
-const db = new Sequelize('tutorial9', 'root', '', {
+const db = new Sequelize('basePrueba', 'root', '', {
     host : "localhost",
     dialect : "mysql"
 });
