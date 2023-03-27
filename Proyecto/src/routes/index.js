@@ -1,5 +1,6 @@
 import express from "express";
 import { Register } from "../controllers/users.js";
+import { GetUsers } from "../controllers/users.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {    
@@ -7,4 +8,5 @@ router.get('/', (req, res) => {
 });
 
 router.post('/register',Register);
+router.post('/getUsers', GetUsers);
 export default router;
