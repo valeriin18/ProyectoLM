@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize";
-
 // npm install sequelize
 // npm install mysql2
 
