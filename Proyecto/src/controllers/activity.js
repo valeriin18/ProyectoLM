@@ -13,3 +13,13 @@ export const CreateActivity = async(req, res) =>{
         console.log(error);
     }
 }
+export const GetActivity = async(req, res) => {
+    try {
+        const activity = await Activity.findAll({
+            attributes:['id','name']
+        });
+        res.json(activity);
+    } catch (error) {
+        console.log(error);
+    }
+}
