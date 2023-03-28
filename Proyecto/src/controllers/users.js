@@ -31,14 +31,3 @@ export const GetUsers = async(req, res) => {
         console.log(error);
     }
 }
-
-export const GetUsers = async(req, res) => {
-    try {
-        const users = await Users.findAll({
-            attributes:['id','name','surname','username','password']
-        });
-        res.json(users);
-    } catch (error) {
-        console.log(error);
-    }
-}
