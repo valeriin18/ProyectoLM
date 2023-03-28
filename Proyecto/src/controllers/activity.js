@@ -1,7 +1,7 @@
-import activity from '../models/activityModel.js';
+import Activity from '../models/activityModel.js';
 import bcrypt from "bcrypt";
 
-export const Activity = async(req, res) =>{
+export const CreateActivity = async(req, res) =>{
     const{name, description} = req.body;
     try{
         await Activity.create({
