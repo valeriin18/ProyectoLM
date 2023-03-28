@@ -15,8 +15,19 @@ export const Register = async(req, res) => {
             username: username,
             password: hashPassword
         });
-        res.json({msg: "Se ha registrado correctamente"});
+        res.render('pages/actividades.ejs');
     } catch (error) {
-        console.log(error)
+        console.log(error);
+    }
+}
+
+export const GetUsers = async(req, res) => {
+    try {
+        const users = await Users.findAll({
+            attributes:['id','name','surname','username','password']
+        });
+        res.json(users);
+    } catch (error) {
+        console.log(error);
     }
 }
