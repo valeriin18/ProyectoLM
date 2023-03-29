@@ -16,7 +16,7 @@ export const CreateActivity = async(req, res) =>{
 export const GetActivity = async(req, res) => {
     try {
         const activity = await Activity.findAll({
-            attributes:['id','name']
+            attributes:['idAct','name']
         });
         res.json(activity);
     } catch (error) {

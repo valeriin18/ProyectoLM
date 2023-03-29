@@ -24,7 +24,7 @@ export const Register = async(req, res) => {
 export const GetUsers = async(req, res) => {
     try {
         const users = await Users.findAll({
-            attributes:['id','name','surname','username','password']
+            attributes:['idUser','name','surname','username','password']
         });
         res.json(users);
     } catch (error) {
