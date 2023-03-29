@@ -8,7 +8,7 @@ export const CreateActivity = async(req, res) =>{
             name : name,
             description : description
         });
-        res.render('pages/prueba.ejs');
+        res.json("Actividad creada");
     }catch(error){
         console.log(error);
     }
