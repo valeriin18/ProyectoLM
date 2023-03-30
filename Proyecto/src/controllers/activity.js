@@ -8,7 +8,7 @@ export const CreateActivity = async(req, res) =>{
             name : name,
             description : description
         });
-        res.render('pages/prueba.ejs');
+        res.json("Actividad creada");
     }catch(error){
         console.log(error);
     }
@@ -16,7 +16,7 @@ export const CreateActivity = async(req, res) =>{
 export const GetActivity = async(req, res) => {
     try {
         const activity = await Activity.findAll({
-            attributes:['idAct','name']
+            attributes:['idAct','name','createdAt', 'updatedAt']
         });
         res.json(activity);
     } catch (error) {
