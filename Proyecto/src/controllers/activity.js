@@ -1,14 +1,15 @@
 import Activity from '../models/activityModel.js';
-import bcrypt from "bcrypt";
 
 export const CreateActivity = async(req, res) =>{
-    const{name, description} = req.body;
+    const{name, description, date} = req.body;
+    console.log(date)
     try{
         await Activity.create({
             name : name,
-            description : description
+            description : description,
+            date : date
         });
-        res.json("Actividad creada");
+        res.json("Activity create");
     }catch(error){
         console.log(error);
     }
@@ -16,7 +17,7 @@ export const CreateActivity = async(req, res) =>{
 export const GetActivity = async(req, res) => {
     try {
         const activity = await Activity.findAll({
-            attributes:['idAct','name','createdAt', 'updatedAt']
+            attributes:['idAct','name','date','createdAt', 'updatedAt']
         });
         res.json(activity);
     } catch (error) {

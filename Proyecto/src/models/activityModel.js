@@ -14,6 +14,9 @@ const Activity = db.define('activity',{
     },
     descipcion:{
         type: DataTypes.STRING
+    },
+    date:{
+        type: DataTypes.DATE
     }
 },{
     freezeTableName:true

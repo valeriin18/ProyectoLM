@@ -15,7 +15,7 @@ export const Register = async(req, res) => {
             username: username,
             password: hashPassword
         });
-        res.render('pages/actividades.ejs');
+        res.render('pages/activity.ejs');
     } catch (error) {
         console.log(error);
     }
