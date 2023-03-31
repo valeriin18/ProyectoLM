@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/activity" method="post">
+        Name : <input type="text" name="name" value="" /><br><br>
+        Description :<input type="text" name="description" value=""><br><br>
+        Date : <input type="text" name="date" value=""><br><br>
+        <input type="submit" value="Activity"/><br><br><hr>
+    </form>
+    <form action="/getActivity" method="post">
+        <input type="submit" value="Activities"/><br><br><hr>
+    </form>
+    <form action="/participants" method="post">
+        idUser : <input type="text" name="idUser" value="" /><br><br>
+        idAct :<input type="text" name="idAct" value=""><br><br>
+        <input type="submit" value="Join"/><br><br><hr>
+    </form>
+</body>
+</html>
