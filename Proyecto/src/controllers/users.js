@@ -1,8 +1,5 @@
 import Users from '../models/userModel.js';
 import bcrypt from "bcrypt";
-
-// npm install bcrypt
-
 export const Register = async(req, res) => {
     const { name, surname, username, password, confPassword } = req.body;
     if(password !== confPassword) return res.status(400).json({msg: "Las contraseñas no coincides"});
@@ -20,7 +17,6 @@ export const Register = async(req, res) => {
         console.log(error);
     }
 }
-
 export const GetUsers = async(req, res) => {
     try {
         const users = await Users.findAll({

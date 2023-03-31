@@ -1,8 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
-
 const { DataTypes } = Sequelize;
-
 const Activity = db.define('activity',{
     idAct:{
         type: DataTypes.INTEGER,
@@ -24,5 +22,4 @@ const Activity = db.define('activity',{
 (async () =>{
     await db.sync();
 })();
-
 export default Activity;

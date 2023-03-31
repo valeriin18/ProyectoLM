@@ -1,5 +1,4 @@
 import Activity from '../models/activityModel.js';
-
 export const CreateActivity = async(req, res) =>{
     const{name, description, date} = req.body;
     console.log(date)
