@@ -1,6 +1,4 @@
-import Activity from "../models/activityModel.js";
-import Users from "../models/userModel.js";
-export const addParticipants = async(req, res) =>{
+
     const{idUser, idAct} = req.body;
     console.log(idAct)
     console.log(idUser)
