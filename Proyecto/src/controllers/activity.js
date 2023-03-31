@@ -1,6 +1,9 @@
 import Activity from '../models/activityModel.js';
+<<<<<<< Updated upstream
 import bcrypt from "bcrypt";
 
+=======
+>>>>>>> Stashed changes
 export const CreateActivity = async(req, res) =>{
     const{name, description} = req.body;
     try{
