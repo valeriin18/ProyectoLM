@@ -1,20 +1,22 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import Users from "./userModel.js";
 const { DataTypes } = Sequelize;
-const Activity = db.define('activity',{
-    idAct:{
+
+const Customers = db.define('customers',{
+    idUser:{
         type: DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true
     },
-    idUser:{
-        type: DataTypes.STRING
+    gender:{
+        type: DataTypes.BOOLEAN
     },
-    name:{
-        type: DataTypes.STRING
-    },
-    description:{
+    specialcares:{
         type: DataTypes.DATE
+    },
+    tutordata:{
+        type: DataTypes.STRING
     }
 },{
     freezeTableName:true
@@ -22,4 +24,7 @@ const Activity = db.define('activity',{
 (async () =>{
     await db.sync();
 })();
-export default Activity;
+
+Customers.belongsTo(Users, { through: Users });
+
+export default Customers;
