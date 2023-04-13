@@ -7,13 +7,25 @@ const Users = db.define('users',{
         primaryKey : true,
         autoIncrement : true
     },
+    dni:{
+        type: DataTypes.STRING
+    },
     name:{
         type: DataTypes.STRING
     },
-    surname:{
+    surname1:{
         type: DataTypes.STRING
     },
-    username:{
+    surname2:{
+        type: DataTypes.STRING
+    },
+    birthyear:{
+        type: DataTypes.INTEGER
+    },
+    email:{
+        type: DataTypes.STRING
+    },
+    telephonenumber:{
         type: DataTypes.STRING
     },
     password:{
@@ -22,7 +34,6 @@ const Users = db.define('users',{
 },{
     freezeTableName: true
 });
-
 (async () => {
     await db.sync();
 })();
