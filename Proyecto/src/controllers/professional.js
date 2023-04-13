@@ -1,4 +1,4 @@
-import Professional from "../models/professional.js";
+import Professional from "../models/professionalModels.js";
 export const CreateProfessional = async(req, res) =>{
     const{availability} = req.body;
     console.log(date)
