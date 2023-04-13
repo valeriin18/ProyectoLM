@@ -1,19 +1,17 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
-const Activity = db.define('activity',{
+
+const repeatedactivity = db.define('repeatedactivity',{
     idAct:{
         type: DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true
     },
     idUser:{
-        type: DataTypes.STRING
+        type: DataTypes.BOOLEAN
     },
-    name:{
-        type: DataTypes.STRING
-    },
-    description:{
+    date:{
         type: DataTypes.DATE
     }
 },{
@@ -22,4 +20,5 @@ const Activity = db.define('activity',{
 (async () =>{
     await db.sync();
 })();
-export default Activity;
+
+export default repeatedactivity;
