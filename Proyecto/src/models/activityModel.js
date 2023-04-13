@@ -7,13 +7,13 @@ const Activity = db.define('activity',{
         primaryKey : true,
         autoIncrement : true
     },
-    idUser:{
-        type: DataTypes.STRING
-    },
     name:{
         type: DataTypes.STRING
     },
-    description:{
+    descipcion:{
+        type: DataTypes.STRING
+    },
+    date:{
         type: DataTypes.DATE
     }
 },{
