@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import router from "./routes/index.js";
 const app = express();
 //Configurations
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 app.set('json spaces', 2);
 // set the view engine to ejs
 app.set('view engine', 'ejs');
