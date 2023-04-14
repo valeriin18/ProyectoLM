@@ -1,12 +1,17 @@
-import repetitiveActivity from '../models/repetitiveActivityModel.js';
+import RepetitiveActivity from '../models/repetitiveActivityModel.js';
 
-export const GetrepetitiveActivity = async(req, res) => {
+export const CreateRepetitiveActivity = async(req, res) => {
+    const { idRepetitiveActivity, idUser, datetime , idActivity} = req.body;
     try {
-        const repetitiveActivity = await repetitiveActivity.findAll({
-            attributes:['idRepetitiveActivity','idUser','datetime','idActivity']
+        await RepetitiveActivity.create({
+            idRepetitiveActivity: idRepetitiveActivity,
+            idUser: idUser,
+            datetime: datetime,
+            idActivity : idActivity
         });
-        res.json(repetitiveActivity);
+        res.json({msg: "The activity has been added correctly"});
     } catch (error) {
         console.log(error);
+        res.json({msg: "Error one of the folders is incomplete"});
     }
 }

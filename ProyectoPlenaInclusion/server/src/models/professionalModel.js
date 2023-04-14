@@ -24,6 +24,6 @@ const Professional = db.define('professional',{
     await db.sync();
 })();
 
-Professional.belongsTo(Users, { foreignKey: 'idUser' });
+Professional.belongsTo(Users, { foreignKey: 'idUser', onDelete: 'CASCADE' });
 
 export default Professional;

@@ -12,6 +12,7 @@ const Customers = db.define('customers',{
             model: Users,
             key: 'idUser'
         }
+        
     },
     gender:{
         type: DataTypes.BOOLEAN
@@ -29,6 +30,6 @@ const Customers = db.define('customers',{
     await db.sync();
 })();
 
-Customers.belongsTo(Users, { foreignKey: 'idUser' });
+Customers.belongsTo(Users, { foreignKey: 'idUser', onDelete: 'CASCADE' });
 
 export default Customers;

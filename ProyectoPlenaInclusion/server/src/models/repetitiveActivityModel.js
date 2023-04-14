@@ -5,16 +5,26 @@ import Activity from "../models/activityModel.js";
 const { DataTypes } = Sequelize;
 const RepetitiveActivity = db.define('repetitiveActivity',{
     idRepetitiveActivity:{
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
+        primaryKey : true,
+        autoIncrement : true
     },
     idUser:{
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
+        references: {
+            model: Professional,
+            key: 'idUser'
+        }
     },
     datetime:{
         type: DataTypes.DATE
     },
     idActivity:{
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
+        references: {
+            model: Activity,
+            key: 'idActivity'
+        }
     }
 },{
     freezeTableName:true
@@ -22,6 +32,6 @@ const RepetitiveActivity = db.define('repetitiveActivity',{
 (async () =>{
     await db.sync();
 })();
-RepetitiveActivity.belongsTo(Professional, { through: Professional });
-RepetitiveActivity.belongsTo(Activity, { through: Activity });
+RepetitiveActivity.belongsTo(Professional, {  foreignKey: 'idUser'  });
+RepetitiveActivity.belongsTo(Activity, {  foreignKey: 'idActivity'  });
 export default RepetitiveActivity;

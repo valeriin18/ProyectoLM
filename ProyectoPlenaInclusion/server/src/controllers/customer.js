@@ -30,3 +30,18 @@ export const RegisterCustom = async(req, res) => {
         console.log(error);
     }
 }
+
+export const DeleteUsers = async(req, res) => {
+    const {idUser} = req.body;
+    try {
+        await Users.destroy({
+            where: {
+                idUser: idUser
+            }
+          });
+        res.json({msg: "The user has been deleted"});
+    } catch (error) {
+        console.log(error);
+        res.json({msg: "Error user not found"});
+    }
+}

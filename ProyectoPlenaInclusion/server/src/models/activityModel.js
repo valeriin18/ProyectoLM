@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 const Activity = db.define('activity',{
-    idAct:{
+    idActivity:{
         type: DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true
@@ -14,7 +14,7 @@ const Activity = db.define('activity',{
         type: DataTypes.STRING
     },
     description:{
-        type: DataTypes.DATE
+        type: DataTypes.STRING
     }
 },{
     freezeTableName:true

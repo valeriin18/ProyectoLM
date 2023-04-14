@@ -1,16 +1,16 @@
 import Activity from '../models/activityModel.js';
-export const CreateActivity = async(req, res) =>{
-    const{name, description, date} = req.body;
-    console.log(date)
-    try{
+export const AddModelActivity = async(req, res) => {
+    const { idUser, name, description } = req.body;
+    try {
         await Activity.create({
-            name : name,
-            description : description,
-            date : date
+            idUser: idUser,
+            name: name,
+            description: description
         });
-        res.json("Activity create");
-    }catch(error){
+        res.json({msg: "The activity has been added correctly"});
+    } catch (error) {
         console.log(error);
+        res.json({msg: "Error one of the folders is incomplete"});
     }
 }
 export const GetActivity = async(req, res) => {

@@ -25,3 +25,24 @@ export const RegisterProfessional = async(req, res) => {
         console.log(error);
     }
 }
+
+export const LoginProfessional = async(req, res) => {
+    const { mail, password } = req.body;
+    if (!mail || !password) {
+      return res.status(400).json({msg: "Username and Password are required"});
+    }
+    try {
+      const professional = await Users.findOne({ where: { mail } });
+      if (!professional) {
+        return res.status(400).json({msg: "Invalid Username or Password"});
+      }
+      const isMatch = await bcrypt.compare(password, professional.password);
+      if (!isMatch) {
+        return res.status(400).json({msg: "Invalid Username or Password"});
+      }
+      res.json({msg: "Login Successful"});
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({msg: "Internal Server Error"});
+    }
+  }

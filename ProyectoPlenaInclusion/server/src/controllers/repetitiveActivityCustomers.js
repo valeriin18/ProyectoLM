@@ -1,15 +1,13 @@
-import RepetitiveActivity from "../models/repetitiveActivityModel.js";
 import RepetitiveActivityCustomers from "../models/repetitiveActivityCustomersModel.js";
-import Users from "../models/userModel.js";
+import Customer from "../models/customerModel.js";
+import RepetitiveActivity from "../models/repetitiveActivityModel.js";
 export const addParticipants = async(req, res) =>{
     const{idUser, idRepetitiveActivity} = req.body;
-    console.log(idRepetitiveActivity)
-    console.log(idUser)
     try{
-        let user = await Users.findByPk(idUser);
-        let repetitiveActivity = await Activity.findByPk(idRepetitiveActivity);
-        console.log(Activity);
-        user.addActivities(idRepetitiveActivity);
+        let user = await Customer.findByPk(idUser);
+        let activity = await RepetitiveActivity.findByPk(idRepetitiveActivity);
+        user.addParticipants(idRepetitiveActivity);
+        activity.addParticipants(idUser)
         res.json("Registration Successfully")
     }catch(error){
         console.log(error);
