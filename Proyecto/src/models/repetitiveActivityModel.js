@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
-import Professional from "./professionalModel.js";
-import Activity from "./activityModel.js";
+import Professional from "../models/professionalModel.js";
+import Activity from "../models/activityModel.js";
 const { DataTypes } = Sequelize;
-const repetitiveActivity = db.define('repetitiveActivity',{
+const RepetitiveActivity = db.define('repetitiveActivity',{
     idRepetitiveActivity:{
         type: DataTypes.STRING
     },
@@ -22,6 +22,6 @@ const repetitiveActivity = db.define('repetitiveActivity',{
 (async () =>{
     await db.sync();
 })();
-repetitiveActivity.belongsTo(Professional, { through: Professional });
-repetitiveActivity.belongsTo(Activity, { through: Activity });
-export default repetitiveActivity;
+RepetitiveActivity.belongsTo(Professional, { through: Professional });
+RepetitiveActivity.belongsTo(Activity, { through: Activity });
+export default RepetitiveActivity;
