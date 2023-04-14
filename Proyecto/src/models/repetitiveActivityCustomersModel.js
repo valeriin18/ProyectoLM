@@ -1,7 +1,8 @@
 import db from "../config/database.js";
-import repeatActivity from "./repeteadActivityModel.js";
+import Activity from "./activityModel.js";
+import RepetitiveActivity from "../models/repetitiveActivityModel.js";
 import Users from "./userModel.js";
 const repeatingActivityCustomers = db.define('repeatingActivityCustomers', {}, { timestamps: false });
-Users.belongsToMany(repeatActivity, { through: repeatingActivityCustomers });
+Users.belongsToMany(RepetitiveActivity, { through: repeatingActivityCustomers });
 Activity.belongsToMany(Users, { through: repeatingActivityCustomers });
 export default repeatingActivityCustomers;

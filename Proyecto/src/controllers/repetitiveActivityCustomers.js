@@ -1,5 +1,5 @@
-import repeteadActivity from "../models/repeteadActivityModel.js";
-import repeatingActivityCustomers from "../models/repeatingActivityCustomers.js";
+import RepetitiveActivity from "../models/repetitiveActivityModel.js";
+import RepeatingActivityCustomers from "../models/repetitiveActivityCustomersModel.js";
 import Users from "../models/userModel.js";
 export const addParticipants = async(req, res) =>{
     const{idUser, idRepetitveActivity} = req.body;

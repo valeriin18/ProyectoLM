@@ -5,7 +5,6 @@ import { CreateActivity } from "../controllers/activity.js";
 import { GetActivity } from "../controllers/activity.js"
 import { GetrepetitiveActivity } from "../controllers/repetitiveActivity.js";
 import { addParticipants } from "../controllers/participants.js";
-
 import { CreateCustomers } from "../controllers/customer.js"
 import { CreateProfessional } from "../controllers/professional.js";
 import {} from "../controllers/repetitiveActivityCustomers.js";
