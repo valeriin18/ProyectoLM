@@ -7,6 +7,7 @@ import { GetrepetitiveActivity } from "../controllers/repetitiveActivity.js";
 import { addParticipants } from "../controllers/participants.js";
 import { CreateCustomers } from "../controllers/customer.js"
 import { CreateProfessional } from "../controllers/professional.js";
+import {}from "../controllers/repetitiveActivityCustomers.js";
 const router = express.Router();
 router.get('/', (req, res) => {    
     res.render('pages/index');
