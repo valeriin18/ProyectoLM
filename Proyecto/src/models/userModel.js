@@ -7,7 +7,7 @@ const Users = db.define('users',{
         primaryKey : true,
         autoIncrement : true
     },
-    dni:{
+    DNI:{
         type: DataTypes.STRING
     },
     name:{
@@ -22,10 +22,7 @@ const Users = db.define('users',{
     birthyear:{
         type: DataTypes.INTEGER
     },
-    email:{
-        type: DataTypes.STRING
-    },
-    telephonenumber:{
+    mail:{
         type: DataTypes.STRING
     },
     password:{

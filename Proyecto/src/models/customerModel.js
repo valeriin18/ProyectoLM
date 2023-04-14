@@ -7,7 +7,11 @@ const Customers = db.define('customers',{
     idUser:{
         type: DataTypes.INTEGER,
         primaryKey : true,
-        autoIncrement : true
+        autoIncrement : true,
+        references: {
+            model: Users,
+            key: 'idUser'
+        }
     },
     gender:{
         type: DataTypes.BOOLEAN
@@ -25,6 +29,6 @@ const Customers = db.define('customers',{
     await db.sync();
 })();
 
-Customers.belongsTo(Users, { through: Users });
+Customers.belongsTo(Users, { foreignKey: 'idUser' });
 
 export default Customers;
