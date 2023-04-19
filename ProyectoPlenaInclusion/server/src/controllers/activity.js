@@ -39,3 +39,21 @@ export const deleteModelActivity = async(req, res) => {
         res.json({msg: "Error al eliminar la actividad con ID ${id}"});
     }
 }
+export const UpdateModelActivity = async(req, res) => {
+    const { idActivity, idUser, name, description } = req.body;
+    try {
+        await Activity.update({
+            idUser: idUser,
+            name: name,
+            description: description
+        }, {
+            where: {
+                idActivity: idActivity
+            }
+        });
+        res.json({msg: "The activity has been updated correctly"});
+    } catch (error) {
+        console.log(error);
+        res.json({msg: "Error updating activity"});
+    }
+}
