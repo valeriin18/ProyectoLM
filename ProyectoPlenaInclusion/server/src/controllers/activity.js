@@ -16,10 +16,26 @@ export const AddModelActivity = async(req, res) => {
 export const GetActivity = async(req, res) => {
     try {
         const activity = await Activity.findAll({
-            attributes:['idAct','name','date','createdAt', 'updatedAt']
+            attributes:['idActivity','name','description','createdAt', 'updatedAt']
         });
         res.json(activity);
     } catch (error) {
         console.log(error);
+    }
+}
+export const deleteModelActivity = async(req, res) => {
+    const { idActivity } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
+
+    try {
+        const actividad = await Activity.findByPk(idActivity); // Buscamos la actividad por su id
+        if (actividad) {
+            await actividad.destroy(); // Eliminamos la actividad
+            res.json({msg: "La actividad con ID ${id} ha sido eliminada correctamente"});
+        } else {
+            res.json({msg: "No se encontró ninguna actividad con ID ${id}"});
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({msg: "Error al eliminar la actividad con ID ${id}"});
     }
 }
