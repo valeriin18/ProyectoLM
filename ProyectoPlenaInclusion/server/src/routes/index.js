@@ -4,7 +4,8 @@ import { GetActivity } from "../controllers/activity.js"
 import { deleteModelActivity } from "../controllers/activity.js";
 import { UpdateModelActivity } from "../controllers/activity.js";
 import { CreateRepetitiveActivity } from "../controllers/repetitiveActivity.js";
-import { RegisterCustom, DeleteUsers } from "../controllers/customer.js"
+import { RegisterCustom} from "../controllers/customer.js";
+import { DeleteCustomer} from "../controllers/customer.js";
 import { RegisterProfessional } from "../controllers/professional.js";
 import { LoginProfessional } from "../controllers/professional.js";
 import { addParticipants } from "../controllers/repetitiveActivityCustomers.js";
@@ -18,9 +19,9 @@ router.post('/getActivity', GetActivity);
 router.post('/deleteModelActivity', deleteModelActivity);
 router.post('/updateModelActivity',UpdateModelActivity);
 router.post('/addActivity',CreateRepetitiveActivity);
-router.post('/registerProfessional', RegisterProfessional)
-router.post('/registerCustomer' , RegisterCustom)
-router.post('/loginProfessional', LoginProfessional)
-router.post('/addParticipants', addParticipants)
-router.post('/deleteUsers', DeleteUsers)
+router.post('/registerProfessional', RegisterProfessional);
+router.post('/registerCustomer' , RegisterCustom);
+router.post('/loginProfessional', LoginProfessional);
+router.post('/addParticipants', addParticipants);
+router.post('/deleteCustomer', DeleteCustomer);
 export default router;
