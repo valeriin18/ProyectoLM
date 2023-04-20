@@ -9,11 +9,11 @@ const RepetitiveActivity = db.define('repetitiveActivity',{
         primaryKey : true,
         autoIncrement : true
     },
-    idUser:{
+    idProfessional:{
         type: DataTypes.INTEGER,
         references: {
             model: Professional,
-            key: 'idUser'
+            key: 'idProfessional'
         }
     },
     datetime:{
@@ -32,6 +32,6 @@ const RepetitiveActivity = db.define('repetitiveActivity',{
 (async () =>{
     await db.sync();
 })();
-RepetitiveActivity.belongsTo(Professional, {  foreignKey: 'idUser'  });
+RepetitiveActivity.belongsTo(Professional, {  foreignKey: 'idProfessional'  });
 RepetitiveActivity.belongsTo(Activity, {  foreignKey: 'idActivity'  });
 export default RepetitiveActivity;

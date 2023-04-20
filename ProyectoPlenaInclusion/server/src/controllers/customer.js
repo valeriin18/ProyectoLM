@@ -1,5 +1,4 @@
 import Customers from "../models/customerModel.js";
-import Users from "../models/userModel.js";
 import bcrypt from "bcrypt";
 export const RegisterCustom = async(req, res) => {
     const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor} = req.body;
@@ -11,16 +10,14 @@ export const RegisterCustom = async(req, res) => {
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try{
-        await Users.create({
+        await Customers.create({
             DNI : DNI,
             name : name,
             surname1: surname1,
             surname2: surname2,
             birthyear: birthyear,
             mail: mail,
-            password: hashPassword
-        });
-        await Customers.create({
+            password: hashPassword,
             gender: gender,
             specialCares: specialCares,
             dataTutor: dataTutor
@@ -31,18 +28,18 @@ export const RegisterCustom = async(req, res) => {
     }
 }
 export const DeleteCustomer = async(req, res) => {
-    const { idUser } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
+    const { idCustomer } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
 
     try {
-        const Customers = await Customers.findByPk(idUser); // Buscamos la actividad por su id
-        if (Customers) {
-            await Customers.destroy(); // Eliminamos la actividad
-            res.json({msg: "el usuario con ID ${idUser} ha sido eliminada correctamente"});
+        const customers = await Users.findByPk(idCustomer); // Buscamos la actividad por su id
+        if (customers) {
+            await customers.destroy(); // Eliminamos la actividad
+            res.json({msg: "el usuario con ID ${idCustomer} ha sido eliminada correctamente"});
         } else {
-            res.json({msg: "No se encontró ningun Usuario con ID ${idUser}"});
+            res.json({msg: "No se encontró ningun Usuario con ID ${idCustomer}"});
         }
     } catch (error) {
         console.log(error);
-        res.json({msg: "Error al eliminar el usuario con ID ${idUser}"});
+        res.json({msg: "Error al eliminar el usuario con ID ${idCustomer}"});
     }
 }

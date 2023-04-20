@@ -7,7 +7,7 @@ const Activity = db.define('activity',{
         primaryKey : true,
         autoIncrement : true
     },
-    idUser:{
+    idProfessional:{
         type: DataTypes.STRING
     },
     name:{

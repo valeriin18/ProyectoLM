@@ -48,7 +48,7 @@
             <body>
                 <h1>Add Model Activity</h1>
                 <form action="/addModelActivity" method="post">
-                    idUser : <input type="text" name="idUser" value="" /><br><br>
+                    idUser : <input type="text" name="idProfessional" value="" /><br><br>
                     name :<input type="text" name="name" value=""><br><br>
                     description : <input type="text" name="description" value=""><br><br>
                     <input type="submit" value="Activity"/><br><br><hr>
@@ -61,7 +61,7 @@
                 <h1>Update Model Activity</h1>
                 <form action="/updateModelActivity" method="post">
                     introduce el id de la actividad a modificar: <input type="text" name="idActivity" value=""><br><br>
-                    idUser : <input type="text" name="idUser" value="" /><br><br>
+                    idUser : <input type="text" name="idProfessional" value="" /><br><br>
                     name :<input type="text" name="name" value=""><br><br>
                     description : <input type="text" name="description" value=""><br><br>
                     <input type="submit" value="Delete"/><br><br><hr>
@@ -71,20 +71,20 @@
                 </form>
                 <h1>Add Activity</h1>
                 <form action="/addActivity" method="post">
-                    idUser : <input type="text" name="idUser" value="" /><br><br>
+                    idUser : <input type="text" name="idProfessional" value="" /><br><br>
                     datetime :<input type="date" name="datetime" value=""><br><br>
                     idActivity : <input type="text" name="idActivity" value=""><br><br>
                     <input type="submit" value="Activity"/><br><br><hr>
                 </form>
                 <h1>Add Participans</h1>
                 <form action="/addParticipants" method="post">
-                    idUser : <input type="text" name="idUser" value="" /><br><br>
+                    idUser : <input type="text" name="idCustomer" value="" /><br><br>
                     idRepetitiveActivity : <input type="text" name="idRepetitiveActivity" value=""><br><br>
                     <input type="submit" value="Activity"/><br><br><hr>
                 </form>
                 <h1>Eliminate user</h1>
             <form action="/deleteCustomer" method="post">
-                idUser: <input type="text" name="idUser" value="" /><br><br>
+                idUser: <input type="text" name="idCustomer" value="" /><br><br>
                 <input type="submit" value="Eliminar Cliente"><br><br><hr>
             </form>
             <form action="/getUsers" method="post">

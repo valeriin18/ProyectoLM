@@ -1,9 +1,9 @@
 import Activity from '../models/activityModel.js';
 export const AddModelActivity = async(req, res) => {
-    const { idUser, name, description } = req.body;
+    const { idProfessional, name, description } = req.body;
     try {
         await Activity.create({
-            idUser: idUser,
+            idProfessional: idProfessional,
             name: name,
             description: description
         });
@@ -40,10 +40,10 @@ export const deleteModelActivity = async(req, res) => {
     }
 }
 export const UpdateModelActivity = async(req, res) => {
-    const { idActivity, idUser, name, description } = req.body;
+    const { idActivity, idProfessional, name, description } = req.body;
     try {
         await Activity.update({
-            idUser: idUser,
+            idProfessional: idProfessional,
             name: name,
             description: description
         }, {

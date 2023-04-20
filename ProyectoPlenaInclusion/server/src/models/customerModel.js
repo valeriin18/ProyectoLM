@@ -1,18 +1,33 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
-import Users from "./userModel.js";
 const { DataTypes } = Sequelize;
 
 const Customers = db.define('customers',{
-    idUser:{
+    idCustomer:{
         type: DataTypes.INTEGER,
         primaryKey : true,
-        autoIncrement : true,
-        references: {
-            model: Users,
-            key: 'idUser'
-        }
-        
+        autoIncrement : true
+    },
+    DNI:{
+        type: DataTypes.STRING
+    },
+    name:{
+        type: DataTypes.STRING
+    },
+    surname1:{
+        type: DataTypes.STRING
+    },
+    surname2:{
+        type: DataTypes.STRING
+    },
+    birthyear:{
+        type: DataTypes.DATE
+    },
+    mail:{
+        type: DataTypes.STRING
+    },
+    password:{
+        type: DataTypes.STRING
     },
     gender:{
         type: DataTypes.BOOLEAN
@@ -29,7 +44,4 @@ const Customers = db.define('customers',{
 (async () =>{
     await db.sync();
 })();
-
-Customers.belongsTo(Users, { foreignKey: 'idUser', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
-
 export default Customers;

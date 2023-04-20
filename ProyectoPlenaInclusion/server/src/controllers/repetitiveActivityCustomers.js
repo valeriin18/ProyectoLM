@@ -4,10 +4,10 @@ import RepetitiveActivity from "../models/repetitiveActivityModel.js";
 export const addParticipants = async(req, res) =>{
     const{idUser, idRepetitiveActivity} = req.body;
     try{
-        let user = await Customer.findByPk(idUser);
+        let Customer = await Customer.findByPk(idCustomer);
         let activity = await RepetitiveActivity.findByPk(idRepetitiveActivity);
-        user.addParticipants(idRepetitiveActivity);
-        activity.addParticipants(idUser)
+        Customer.addParticipants(idRepetitiveActivity);
+        activity.addParticipants(idCustomer)
         res.json("Registration Successfully")
     }catch(error){
         console.log(error);

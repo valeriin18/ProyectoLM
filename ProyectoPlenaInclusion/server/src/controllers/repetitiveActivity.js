@@ -1,11 +1,11 @@
 import RepetitiveActivity from '../models/repetitiveActivityModel.js';
 
 export const CreateRepetitiveActivity = async(req, res) => {
-    const { idRepetitiveActivity, idUser, datetime , idActivity} = req.body;
+    const { idRepetitiveActivity, idProfessional, datetime , idActivity} = req.body;
     try {
         await RepetitiveActivity.create({
             idRepetitiveActivity: idRepetitiveActivity,
-            idUser: idUser,
+            idProfessional: idProfessional,
             datetime: datetime,
             idActivity : idActivity
         });
