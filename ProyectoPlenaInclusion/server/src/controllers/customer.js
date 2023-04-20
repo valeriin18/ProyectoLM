@@ -30,18 +30,19 @@ export const RegisterCustom = async(req, res) => {
         console.log(error);
     }
 }
+export const DeleteCustomer = async(req, res) => {
+    const { idUser } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
 
-export const DeleteUsers = async(req, res) => {
-    const {idUser} = req.body;
     try {
-        await Users.destroy({
-            where: {
-                idUser: idUser
-            }
-          });
-        res.json({msg: "The user has been deleted"});
+        const Customers = await Customers.findByPk(idUser); // Buscamos la actividad por su id
+        if (Customers) {
+            await Customers.destroy(); // Eliminamos la actividad
+            res.json({msg: "el usuario con ID ${idUser} ha sido eliminada correctamente"});
+        } else {
+            res.json({msg: "No se encontró ningun Usuario con ID ${idUser}"});
+        }
     } catch (error) {
         console.log(error);
-        res.json({msg: "Error user not found"});
+        res.json({msg: "Error al eliminar el usuario con ID ${idUser}"});
     }
 }
