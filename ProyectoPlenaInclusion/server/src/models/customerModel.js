@@ -18,9 +18,9 @@ const Customers = db.define('customers',{
         type: DataTypes.BOOLEAN
     },
     specialcares:{
-        type: DataTypes.DATE
+        type: DataTypes.BOOLEAN
     },
-    tutordata:{
+    dataTutor:{
         type: DataTypes.STRING
     }
 },{
@@ -30,6 +30,6 @@ const Customers = db.define('customers',{
     await db.sync();
 })();
 
-Customers.belongsTo(Users, { foreignKey: 'idUser', onDelete: 'CASCADE' });
+Customers.belongsTo(Users, { foreignKey: 'idUser', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
 export default Customers;

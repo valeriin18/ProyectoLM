@@ -2,7 +2,7 @@ import Customers from "../models/customerModel.js";
 import Users from "../models/userModel.js";
 import bcrypt from "bcrypt";
 export const RegisterCustom = async(req, res) => {
-    const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCare, dataTutor} = req.body;
+    const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor} = req.body;
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let password = " "
         for (let i = 0; i < 10; i++) {
@@ -22,7 +22,7 @@ export const RegisterCustom = async(req, res) => {
         });
         await Customers.create({
             gender: gender,
-            specialCare: specialCare,
+            specialCares: specialCares,
             dataTutor: dataTutor
         })
         res.json("Register");
