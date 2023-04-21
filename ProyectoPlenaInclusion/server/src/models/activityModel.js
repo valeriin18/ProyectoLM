@@ -3,7 +3,7 @@ import db from "../config/database.js";
 import Professional from "./professionalModel.js";
 import Model from "./modelModel.js";
 const { DataTypes } = Sequelize;
-const Activity = db.define('activityModel',{
+const Activity = db.define('activity',{
     idActivity:{
         type: DataTypes.INTEGER,
         primaryKey : true,
