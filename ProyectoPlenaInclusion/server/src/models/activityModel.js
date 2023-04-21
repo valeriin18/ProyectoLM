@@ -1,20 +1,30 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import Professional from "./professionalModel.js";
+import Model from "./modelModel.js";
 const { DataTypes } = Sequelize;
-const Activity = db.define('activity',{
+const Activity = db.define('activityModel',{
     idActivity:{
         type: DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true
     },
     idProfessional:{
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
+        references: {
+            model: Professional,
+            key: 'idProfessional'
+        }
     },
-    name:{
-        type: DataTypes.STRING
+    datetime:{
+        type: DataTypes.DATE
     },
-    description:{
-        type: DataTypes.STRING
+    idModel:{
+        type: DataTypes.INTEGER,
+        references: {
+            model: Model,
+            key: 'idModel'
+        }
     }
 },{
     freezeTableName:true
@@ -22,4 +32,6 @@ const Activity = db.define('activity',{
 (async () =>{
     await db.sync();
 })();
+Activity.belongsTo(Professional, {  foreignKey: 'idProfessional'  });
+Activity.belongsTo(Model, {  foreignKey: 'idModel'  });
 export default Activity;

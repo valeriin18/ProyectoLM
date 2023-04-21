@@ -1,27 +1,31 @@
 import express from "express";
-import { AddModelActivity } from "../controllers/activity.js";
-import { GetActivity } from "../controllers/activity.js"
-import { deleteModelActivity } from "../controllers/activity.js";
-import { UpdateModelActivity } from "../controllers/activity.js";
-import { CreateRepetitiveActivity } from "../controllers/repetitiveActivity.js";
+import { AddModel } from "../controllers/model.js";
+import { GetModel } from "../controllers/model.js"
+import { deleteModel } from "../controllers/model.js";
+import { UpdateModel } from "../controllers/model.js";
+import { CreateActivity } from "../controllers/activity.js";
 import { RegisterCustom} from "../controllers/customer.js";
 import { DeleteCustomer} from "../controllers/customer.js";
 import { RegisterProfessional } from "../controllers/professional.js";
 import { LoginProfessional } from "../controllers/professional.js";
-import { addParticipants } from "../controllers/repetitiveActivityCustomers.js";
+import { deleteModelProfessional } from "../controllers/professional.js";
+import { UpdateModelProfessional } from "../controllers/professional.js";
+import { addParticipants } from "../controllers/participants.js";
 
 const router = express.Router();
 router.get('/', (req, res) => {    
     res.render('pages/index');
 });
-router.post('/addModelActivity', AddModelActivity);
-router.post('/getActivity', GetActivity);
-router.post('/deleteModelActivity', deleteModelActivity);
-router.post('/updateModelActivity',UpdateModelActivity);
-router.post('/addActivity',CreateRepetitiveActivity);
+router.post('/addModel', AddModel);
+router.post('/getActivity', GetModel);
+router.post('/deleteModel', deleteModel);
+router.post('/updateModel',UpdateModel);
+router.post('/addActivity',CreateActivity);
 router.post('/registerProfessional', RegisterProfessional);
 router.post('/registerCustomer' , RegisterCustom);
 router.post('/loginProfessional', LoginProfessional);
+router.post('/deleteProfessional', deleteModelProfessional);
+router.post('/updateModelProfessional',UpdateModelProfessional);
 router.post('/addParticipants', addParticipants);
 router.post('/deleteCustomer', DeleteCustomer);
 export default router;
