@@ -31,7 +31,7 @@ export const DeleteCustomer = async(req, res) => {
     const { idCustomer } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
 
     try {
-        const customers = await Users.findByPk(idCustomer); // Buscamos la actividad por su id
+        const customers = await customers.findByPk(idCustomer);
         if (customers) {
             await customers.destroy(); // Eliminamos la actividad
             res.json({msg: "el usuario con ID ${idCustomer} ha sido eliminada correctamente"});
@@ -43,3 +43,31 @@ export const DeleteCustomer = async(req, res) => {
         res.json({msg: "Error al eliminar el usuario con ID ${idCustomer}"});
     }
 }
+
+export const UpdateCustommer = async(req, res) => {
+    const { idCustomer, DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor, createdAt,updatedAt } = req.body;
+    try {
+        await Customers.update({
+            idCustomer: idCustomer,
+            DNI:DNI,
+            name: name,
+            surname1: surname1,
+            surname2: surname2,
+            birthyear: birthyear,
+            mail: mail,
+            gender: gender,
+            specialCares: specialCares,
+            dataTutor: dataTutor,
+            createdAt:createdAt,
+            updatedAt:updatedAt
+        }, {
+            where: {
+                idCustomer: idCustomer
+            }
+        });
+        res.json({msg: "The customer has been updated correctly"});
+    } catch (error) {
+        console.log(error);
+        res.json({msg: "Error updating customer"});
+    }
+  }
