@@ -1,5 +1,4 @@
 import Activity from '../models/activityModel.js';
-import { Sequelize } from "sequelize";
 import { Op } from "sequelize";
 
 export const CreateActivity = async(req, res) => {
