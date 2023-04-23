@@ -1,6 +1,7 @@
 import participants from "../models/participantsModel.js";
 import Customer from "../models/customerModel.js";
 import Activity from "../models/activityModel.js";
+import { and } from "sequelize";
 
 export const addParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
@@ -35,5 +36,23 @@ export const GetParticipans = async(req, res) => {
       res.json(participant);
   } catch (error) {
       console.log(error);
+  }
+}
+export const UpdateParticipant = async(req, res) => {
+  const { idCustomer, idActivity } = req.body;
+  try {
+      await participants.update({
+          idCustomer: idCustomer,
+          idActivity: idActivity
+      }, {
+          where: {
+              idCustomer: idCustomer,
+              idActivity: idActivity
+          }
+      });
+      res.json({msg: "The customer has been updated correctly"});
+  } catch (error) {
+      console.log(error);
+      res.json({msg: "Error updating customer"});
   }
 }

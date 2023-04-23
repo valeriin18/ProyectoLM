@@ -13,6 +13,7 @@ import { deleteModelProfessional } from "../controllers/professional.js";
 import { UpdateModelProfessional } from "../controllers/professional.js";
 import { addParticipants } from "../controllers/participants.js";
 import { GetParticipans } from "../controllers/participants.js";
+import { UpdateParticipant } from "../controllers/participants.js";
 
 const router = express.Router();
 router.get('/', (req, res) => {    
@@ -32,5 +33,5 @@ router.post('/addParticipants', addParticipants);
 router.post('/deleteCustomer', DeleteCustomer);
 router.post('/getParticipans', GetParticipans);
 router.post('/updateCustomer', UpdateCustommer);
-
+router.post('/UpdateParticipant', UpdateParticipant);
 export default router;
