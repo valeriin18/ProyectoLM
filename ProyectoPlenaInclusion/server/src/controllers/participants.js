@@ -21,8 +21,19 @@ export const addParticipants = async (req, res) => {
       idActivity: activity.idActivity
     });
 
-    res.redirect("/addParticipants");
+    res.json("Add");
   } catch (error) {
     console.log(error);
+  }
+}
+export const GetParticipans = async(req, res) => {
+  const { idParticipant } = req.body;
+  try {
+      const participant = await participants.findByPk(idParticipant,{
+          attributes:['idCustomer','idActivity','createdAt', 'updatedAt']
+      });
+      res.json(participant);
+  } catch (error) {
+      console.log(error);
   }
 }

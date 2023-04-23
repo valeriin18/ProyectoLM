@@ -92,15 +92,11 @@
             <form action="/getUsers" method="post">
                 <input type="submit" value="Mostrar Usuarios"/><br><br><hr>
             </form>
-
-
-
             <h1>Delete Model Professional</h1>
                 <form action="/deleteModelProfessional" method="post">
                     introduce el id del profesional a eliminar: <input type="text" name="idProfessional" value=""><br><br>
                     <input type="submit" value="Delete"/><br><br><hr>
                 </form>
-
                 <h1>Update Model Professional</h1>
                 <form action="/updateModelProfessional" method="post">
                     introduce el id del profesional a modificar: <input type="text" name="idProfessional" value=""><br><br>
@@ -115,9 +111,11 @@
                     updatedAt:<input type="date", name="updatedAt" value=""><br><br>
                     <input type="submit" value="updated"/><br><br><hr>
                 </form>
-
-
-
+                <h1>Get Activities by id</h1>
+                <form action="/getParticipans" method="post">
+                    idParticipant : <input type="text" name="idParticipant" value="" /><br><br>
+                    <input type="submit" value="Show Activities"/><br><br><hr>
+                </form>
             </body>
     </main>
     <footer>
