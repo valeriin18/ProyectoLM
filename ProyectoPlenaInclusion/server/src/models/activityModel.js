@@ -17,7 +17,7 @@ const Activity = db.define('activity',{
         }
     },
     datetime:{
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     idModel:{
         type: DataTypes.INTEGER,

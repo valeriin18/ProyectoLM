@@ -1,4 +1,6 @@
 import Activity from '../models/activityModel.js';
+import { Sequelize } from "sequelize";
+import { Op } from "sequelize";
 
 export const CreateActivity = async(req, res) => {
     const { idActivity, idProfessional, datetime , idModel} = req.body;
@@ -50,24 +52,27 @@ export const UpdateActivity = async(req, res) => {
         console.log(error);
         res.json({msg: "Error updating activity"});
     }
-  }
-  export const GetActivities = async (req, res) => {
+}
+export const GetActivities = async(req, res) => {
     const { fromDate, toDate } = req.body;
+    console.log('fromDate:', fromDate); // Agrega este console.log para verificar el valor y tipo de fromDate
     try {
-      const activities = await Activity.findAll({
-        where: {
-          datetime: {
-            [Op.between]: [
-              new Date(fromDate),
-              toDate ? new Date(toDate) : new Date(new Date(fromDate).getTime() + 7 * 24 * 60 * 60 * 1000) // Si no se especifica toDate, se toma como 7 días después de fromDate
-            ]
-          }
+        let endDate = toDate;
+        if (!endDate) {
+            // Si no se proporciona una segunda fecha, calcular la fecha de los próximos siete días a partir de la fecha actual
+            console.log('Calculando fecha final...');
+            endDate = new Date(fromDate);
+            endDate.setDate(endDate.getDate() + 7);
         }
-      });
-      res.json({ activities });
+        const participation = await Activity.findAll({
+            where: {
+                datetime: {
+                    [Op.between]: [fromDate, endDate]
+                }
+            }
+        });
+        res.json(participation);
     } catch (error) {
-      console.log(error);
-      res.json({ msg: "Error getting activities" });
+        console.log(error);
     }
-  };
-  
+}

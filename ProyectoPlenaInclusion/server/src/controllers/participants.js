@@ -1,7 +1,6 @@
 import participants from "../models/participantsModel.js";
 import Customer from "../models/customerModel.js";
 import Activity from "../models/activityModel.js";
-import { and } from "sequelize";
 
 export const addParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
@@ -28,11 +27,12 @@ export const addParticipants = async (req, res) => {
   }
 }
 export const GetParticipants = async(req, res) => {
-  const { idParticipant } = req.body;
+  const { idCustomer } = req.body;
   try {
-      const participant = await participants.findByPk(idParticipant,{
-          attributes:['idCustomer','idActivity','createdAt', 'updatedAt']
-      });
+    const participant = await participants.findAll({
+      where: { idCustomer },
+      attributes: ['idCustomer', 'idActivity', 'createdAt', 'updatedAt']
+    });
       res.json(participant);
   } catch (error) {
       console.log(error);
