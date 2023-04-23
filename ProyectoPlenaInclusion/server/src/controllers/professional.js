@@ -43,7 +43,7 @@ export const LoginProfessional = async(req, res) => {
       res.status(500).json({msg: "Internal Server Error"});
     }
   }
-  export const deleteModelProfessional = async(req, res) => {
+export const deleteModelProfessional = async(req, res) => {
     const { idProfessional } = req.body;
     try {
         const professional = await Professional.findByPk(idProfessional);
