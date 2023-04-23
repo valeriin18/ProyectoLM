@@ -22,7 +22,6 @@ export const RegisterProfessional = async(req, res) => {
         console.log(error);
     }
 }
-
 export const LoginProfessional = async(req, res) => {
     const { mail, password } = req.body;
     if (!mail || !password) {
@@ -43,7 +42,7 @@ export const LoginProfessional = async(req, res) => {
       res.status(500).json({msg: "Internal Server Error"});
     }
   }
-export const deleteModelProfessional = async(req, res) => {
+  export const deleteProfessional = async(req, res) => {
     const { idProfessional } = req.body;
     try {
         const professional = await Professional.findByPk(idProfessional);
@@ -58,8 +57,7 @@ export const deleteModelProfessional = async(req, res) => {
         res.json({msg: "Error al eliminar el profesional con ID ${id}"});
     }
 }
-
-export const UpdateModelProfessional = async(req, res) => {
+export const UpdateProfessional = async(req, res) => {
   const { idProfessional, DNI, name, surname1, surname2, birthyear, mail, availability,createdAt,updatedAt } = req.body;
   try {
       await Professional.update({
