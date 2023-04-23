@@ -51,3 +51,23 @@ export const UpdateActivity = async(req, res) => {
         res.json({msg: "Error updating activity"});
     }
   }
+  export const GetActivities = async (req, res) => {
+    const { fromDate, toDate } = req.body;
+    try {
+      const activities = await Activity.findAll({
+        where: {
+          datetime: {
+            [Op.between]: [
+              new Date(fromDate),
+              toDate ? new Date(toDate) : new Date(new Date(fromDate).getTime() + 7 * 24 * 60 * 60 * 1000) // Si no se especifica toDate, se toma como 7 días después de fromDate
+            ]
+          }
+        }
+      });
+      res.json({ activities });
+    } catch (error) {
+      console.log(error);
+      res.json({ msg: "Error getting activities" });
+    }
+  };
+  
