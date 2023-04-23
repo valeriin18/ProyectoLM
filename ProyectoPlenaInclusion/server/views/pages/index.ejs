@@ -96,13 +96,13 @@
 
 
             <h1>Delete Model Professional</h1>
-                <form action="/deleteModelProfessional" method="post">
+                <form action="/deleteProfessional" method="post">
                     introduce el id del profesional a eliminar: <input type="text" name="idProfessional" value=""><br><br>
                     <input type="submit" value="Delete"/><br><br><hr>
                 </form>
 
                 <h1>Update Model Professional</h1>
-                <form action="/updateModelProfessional" method="post">
+                <form action="/updatelProfessional" method="post">
                     introduce el id del profesional a modificar: <input type="text" name="idProfessional" value=""><br><br>
                     DNI : <input type="text" name="DNI" value="" /><br><br>
                     name :<input type="text" name="name" value=""><br><br>
@@ -116,6 +116,20 @@
                     <input type="submit" value="updated"/><br><br><hr>
                 </form>
 
+                <h1>Delete Model Activity</h1>
+                <form action="/deleteActivity" method="post">
+                    introduce el id del actividad a eliminar: <input type="text" name="idActivity" value=""><br><br>
+                    <input type="submit" value="Delete activity"/><br><br><hr>
+                </form>
+
+                <h1>Update Model activity</h1>
+                <form action="/updateActivity" method="post">
+                    introduce el id de la actividad a modificar: <input type="text" name="idActividad" value=""><br><br>
+                    introduce el id del profesional a modificar: <input type="text" name="idProfessional" value="" /><br><br>
+                    date :<input type="date" name="datetime" value=""><br><br>
+                    introduce el id del modelo a modificar: <input type="text" name="idModel" value=""><br><br>
+                    <input type="submit" value="updated"/><br><br><hr>
+                </form>
 
 
             </body>
