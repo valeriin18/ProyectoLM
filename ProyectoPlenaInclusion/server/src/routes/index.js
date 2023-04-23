@@ -6,6 +6,7 @@ import { UpdateModel } from "../controllers/model.js";
 import { CreateActivity } from "../controllers/activity.js";
 import { RegisterCustom} from "../controllers/customer.js";
 import { DeleteCustomer} from "../controllers/customer.js";
+import { UpdateCustommer } from "../controllers/customer.js";
 import { RegisterProfessional } from "../controllers/professional.js";
 import { LoginProfessional } from "../controllers/professional.js";
 import { deleteModelProfessional } from "../controllers/professional.js";
@@ -30,4 +31,6 @@ router.post('/updateModelProfessional',UpdateModelProfessional);
 router.post('/addParticipants', addParticipants);
 router.post('/deleteCustomer', DeleteCustomer);
 router.post('/getParticipans', GetParticipans);
+router.post('/updateCustomer', UpdateCustommer);
+
 export default router;
