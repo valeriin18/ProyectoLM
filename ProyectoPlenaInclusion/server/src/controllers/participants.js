@@ -27,7 +27,7 @@ export const addParticipants = async (req, res) => {
     console.log(error);
   }
 }
-export const GetParticipans = async(req, res) => {
+export const GetParticipants = async(req, res) => {
   const { idParticipant } = req.body;
   try {
       const participant = await participants.findByPk(idParticipant,{
