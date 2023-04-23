@@ -26,12 +26,29 @@ export const addParticipants = async (req, res) => {
     console.log(error);
   }
 }
-export const GetParticipans = async(req, res) => {
-  const { idParticipant } = req.body;
+export const deleteParticipants = async (req, res) => {
+  const { idCustomer, idActivity } = req.body;
   try {
-      const participant = await participants.findByPk(idParticipant,{
-          attributes:['idCustomer','idActivity','createdAt', 'updatedAt']
-      });
+    const participant = await participants.findByPk(idCustomer);
+    const activity = await Activity.findByPk(idActivity);
+    if (participant && activity && participant.idActivity === activity.idActivity) { // Verifica que el participante está registrado en la actividad
+      await participant.destroy();
+      res.json({ msg: `El participante con ID ${idCustomer} ha sido eliminado correctamente` });
+    } else {
+      res.json({ msg: `No se encontró ningún participante con ID ${idCustomer} registrado en la actividad con ID ${idActivity}` });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ msg: `Error al eliminar el participante con ID ${idCustomer}` });
+  }
+}
+export const GetParticipants = async(req, res) => {
+  const { idCustomer } = req.body;
+  try {
+    const participant = await participants.findAll({
+      where: { idCustomer },
+      attributes: ['idCustomer', 'idActivity', 'createdAt', 'updatedAt']
+    });
       res.json(participant);
   } catch (error) {
       console.log(error);

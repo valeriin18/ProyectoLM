@@ -12,7 +12,8 @@ import { LoginProfessional } from "../controllers/professional.js";
 import { deleteModelProfessional } from "../controllers/professional.js";
 import { UpdateModelProfessional } from "../controllers/professional.js";
 import { addParticipants } from "../controllers/participants.js";
-import { GetParticipans } from "../controllers/participants.js";
+import { GetParticipants } from "../controllers/participants.js";
+import { deleteParticipants } from "../controllers/participants.js";
 
 const router = express.Router();
 router.get('/', (req, res) => {    
@@ -30,7 +31,8 @@ router.post('/deleteProfessional', deleteModelProfessional);
 router.post('/updateModelProfessional',UpdateModelProfessional);
 router.post('/addParticipants', addParticipants);
 router.post('/deleteCustomer', DeleteCustomer);
-router.post('/getParticipans', GetParticipans);
+router.post('/getParticipants', GetParticipants);
 router.post('/updateCustomer', UpdateCustommer);
+router.post('/deleteParticipants', deleteParticipants);
 
 export default router;

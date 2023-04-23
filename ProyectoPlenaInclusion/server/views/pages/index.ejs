@@ -142,9 +142,15 @@
                     <input type="submit" value="updated"/><br><br><hr>
                 </form>
                 <h1>Get Activities by Id</h1>
-                <form action="/getParticipans" method="post">
-                    idParticipant : <input type="text" name="idParticipant" value="" /><br><br>
+                <form action="/getParticipants" method="post">
+                    idParticipant : <input type="text" name="idCustomer" value="" /><br><br>
                     <input type="submit" value="Show Activities"/><br><br><hr>
+                </form>
+                <h1>Delete Participants</h1>
+                <form action="/deleteParticipants" method="post">
+                    idParticipant : <input type="text" name="idCustomer" value="" /><br><br>
+                    idActivity : <input type="text" name="idActivity" value="" /><br><br>
+                    <input type="submit" value="Delete"/><br><br><hr>
                 </form>
             </body>
     </main>
