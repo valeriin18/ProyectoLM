@@ -11,6 +11,7 @@
 <body class="container">
     <main>
         <h1>APLICATION PLENA INCLUSION</h1>
+        <h1>Register Customer</h1>
         <form action="/registerCustomer" method="post">
             DNI : <input type="text" name="DNI" value="" /><br><br>
             name : <input type="text" name="name" value="" /><br><br>
@@ -42,6 +43,7 @@
                 idUser: <input type="text" name="idCustomer" value="" /><br><br>
                 <input type="submit" value="Eliminar Cliente"><br><br><hr>
             </form>
+        <h1>register Professional</h1>
         <form action="/registerProfessional" method="post">
             DNI : <input type="text" name="DNI" value="" /><br><br>
             name : <input type="text" name="name" value="" /><br><br>
@@ -54,22 +56,13 @@
             confPassword : <input type="password" name="confPassword" value="" /><br><br>
             <input type="submit" value="registerProfessional"/><br><br><hr>
         </form>
-        <h1>Login professional</h1>
-            <form action="/loginProfessional" method="post">
-                mail : <input type="mail" name="mail" value="" /><br><br>
-                Password: <input type="password" name="password" value="" /><br><br>
-                <input type="submit" value="Login"/><br><br><hr>
-            </form>
-            <form action="/getUsers" method="post">
-                <input type="submit" value="Usuarios"/><br><br><hr>
-            </form>
-        <h1>Delete Model Professional</h1>
-            <form action="/deleteModelProfessional" method="post">
+        <h1>Delete Professional</h1>
+            <form action="/deleteProfessional" method="post">
                 introduce el id del profesional a eliminar: <input type="text" name="idProfessional" value=""><br><br>
                 <input type="submit" value="Delete"/><br><br><hr>
             </form>
-        <h1>Update Model Professional</h1>
-            <form action="/updateModelProfessional" method="post">
+        <h1>Update Professional</h1>
+            <form action="/updateProfessional" method="post">
                 introduce el id del profesional a modificar: <input type="text" name="idProfessional" value=""><br><br>
                 DNI : <input type="text" name="DNI" value="" /><br><br>
                 name :<input type="text" name="name" value=""><br><br>
@@ -78,104 +71,85 @@
                 birthyear: <input type="int", name="birthyear" value=""><br><br>
                 mail:<input type="email", name="mail" value=""><br><br>
                 availability:<input type="checkbox", name="availability" value=""><br><br>
+                createdAt:<input type="date", name="createdAt" value=""><br><br>
+                updatedAt:<input type="date", name="updatedAt" value=""><br><br>
                 <input type="submit" value="updated"/><br><br><hr>
             </form>
-        <h1>Add Model Activity</h1>
+        <h1>Login professional</h1>
+            <form action="/loginProfessional" method="post">
+                mail : <input type="mail" name="mail" value="" /><br><br>
+                Password: <input type="password" name="password" value="" /><br><br>
+                <input type="submit" value="Login"/><br><br><hr>
+            </form>
+        <h1>Add Model</h1>
             <form action="/addModel" method="post">
                 idUser : <input type="text" name="idProfessional" value="" /><br><br>
                 name :<input type="text" name="name" value=""><br><br>
                 description : <input type="text" name="description" value=""><br><br>
                 <input type="submit" value="Activity"/><br><br><hr>
             </form>
-        <h1>Delete Model Activity</h1>
+        <h1>Delete Model</h1>
             <form action="/deleteModel" method="post">
                 introduce el id de la actividad a eliminar: <input type="text" name="idModel" value=""><br><br>
                 <input type="submit" value="Delete"/><br><br><hr>
             </form>
-        <h1>Update Model Activity</h1>
+        <h1>Update Model</h1>
             <form action="/updateModel" method="post">
                 introduce el id de la actividad a modificar: <input type="text" name="idModel" value=""><br><br>
-                    idUser : <input type="text" name="idProfessional" value="" /><br><br>
-                    name :<input type="text" name="name" value=""><br><br>
-                    description : <input type="text" name="description" value=""><br><br>
-                    <input type="submit" value="Delete"/><br><br><hr>
-                </form>
-                <form action="/getModel" method="post">
-                    <input type="submit" value="Models"/><br><br><hr>
-                </form>
-                <h1>Add Activity</h1>
-                <form action="/addActivity" method="post">
-                    idUser : <input type="text" name="idProfessional" value="" /><br><br>
-                    datetime :<input type="date" name="datetime" value=""><br><br>
-                    idModel : <input type="text" name="idModel" value=""><br><br>
-                    <input type="submit" value="Activity"/><br><br><hr>
-                </form>
-                <h1>Add Participans</h1>
-                <form action="/addParticipants" method="post" >
+                idUser : <input type="text" name="idProfessional" value="" /><br><br>
+                name :<input type="text" name="name" value=""><br><br>
+                description : <input type="text" name="description" value=""><br><br>
+                <input type="submit" value="Delete"/><br><br><hr>
+            </form>
+            <h1>Add Participans</h1>
+            <form action="/addParticipants" method="post" >
                 Customer ID:<input type="text" name="idCustomer" value="" /><br><br>
                 <br>
                 Activity ID:<input type="text" name="idActivity" value="" /><br><br>
                 <br>
                 <button type="submit">Submit</button>
-                </form>
-                <h1>Eliminate Customer</h1>
-            <form action="/getUsers" method="post">
-                <input type="submit" value="Mostrar Usuarios"/><br><br><hr>
             </form>
-            <h1>Delete Professional</h1>
-                <form action="/deleteProfessional" method="post">
-                    introduce el id del profesional a eliminar: <input type="text" name="idProfessional" value=""><br><br>
-                    <input type="submit" value="Delete"/><br><br><hr>
-                </form>
-                <h1>Update Professional</h1>
-                <form action="/updateProfessional" method="post">
-                    introduce el id del profesional a modificar: <input type="text" name="idProfessional" value=""><br><br>
-                    DNI : <input type="text" name="DNI" value="" /><br><br>
-                    name :<input type="text" name="name" value=""><br><br>
-                    surname1 : <input type="text" name="surname1" value=""><br><br>
-                    surname2 : <input type="text" name="surname2" value=""><br><br>
-                    birthyear: <input type="int", name="birthyear" value=""><br><br>
-                    mail:<input type="email", name="mail" value=""><br><br>
-                    availability:<input type="checkbox", name="availability" value=""><br><br>
-                    createdAt:<input type="date", name="createdAt" value=""><br><br>
-                    updatedAt:<input type="date", name="updatedAt" value=""><br><br>
-                    <input type="submit" value="updated"/><br><br><hr>
-                </form>
-                <h1>Get Activities by Id</h1>
-                <form action="/getParticipants" method="post">
-                    idParticipant : <input type="text" name="idCustomer" value="" /><br><br>
-                    <input type="submit" value="Show Activities"/><br><br><hr>
-                </form>
-                <h1>Update Participants</h1>
-                <form action="/updateParticipant" method="post">
-                    introduce el Customer ID a modificar: <input type="text" name="idProfessional" value=""><br><br>
-                    y su actividad: <input type="text" name="idActivity" value="" /><br><br>
-                    Customer ID:<input type="text" name="idCustomer" value="" /><br><br>
-                    Activity ID:<input type="text" name="idActivity" value="" /><br><br>
+            <h1>Delete Participants</h1>
+            <form action="/deleteParticipants" method="post">
+                idParticipant : <input type="text" name="idCustomer" value="" /><br><br>
+                idActivity : <input type="text" name="idActivity" value="" /><br><br>
+                <input type="submit" value="Delete"/><br><br><hr>
+            </form>
+        <h1>Get Activities by Id</h1>
+            <form action="/getParticipants" method="post">
+                idParticipant : <input type="text" name="idCustomer" value="" /><br><br>
+                <input type="submit" value="Show Activities"/><br><br><hr>
+            </form>
+        <h1>Update Participants</h1>
+            <form action="/updateParticipant" method="post">
+                introduce el Customer ID a modificar: <input type="text" name="idProfessional" value=""><br><br>
+                y su actividad: <input type="text" name="idActivity" value="" /><br><br>
+                Customer ID:<input type="text" name="idCustomer" value="" /><br><br>
+                Activity ID:<input type="text" name="idActivity" value="" /><br><br>
                 <br>
-                    <input type="submit" value="updated"/><br><br><hr>
-                <h1>Delete Participants</h1>
-                <form action="/deleteParticipants" method="post">
-                    idParticipant : <input type="text" name="idCustomer" value="" /><br><br>
-                    idActivity : <input type="text" name="idActivity" value="" /><br><br>
-                    <input type="submit" value="Delete"/><br><br><hr>
-                </form>
-                <h1>Delete Model Activity</h1>
-                <form action="/deleteActivity" method="post">
-                    introduce el id del actividad a eliminar: <input type="text" name="idActivity" value=""><br><br>
-                    <input type="submit" value="Delete activity"/><br><br><hr>
-                </form>
-
-                <h1>Update Model activity</h1>
-                <form action="/updateActivity" method="post">
-                    introduce el id de la actividad a modificar: <input type="text" name="idActividad" value=""><br><br>
-                    introduce el id del profesional a modificar: <input type="text" name="idProfessional" value="" /><br><br>
-                    date :<input type="date" name="datetime" value=""><br><br>
-                    introduce el id del modelo a modificar: <input type="text" name="idModel" value=""><br><br>
-                    <input type="submit" value="updated"/><br><br><hr>
-                </form>
-            </body>
-            <h1>Get Activities en un tiempo</h1>
+                <input type="submit" value="updated"/><br><br><hr>
+            </form>
+        <h1>Add Activity</h1>
+            <form action="/addActivity" method="post">
+                idUser : <input type="text" name="idProfessional" value="" /><br><br>
+                datetime :<input type="date" name="datetime" value=""><br><br>
+                idModel : <input type="text" name="idModel" value=""><br><br>
+                <input type="submit" value="Activity"/><br><br><hr>
+            </form>
+        <h1>Delete Activity</h1>
+            <form action="/deleteActivity" method="post">
+                introduce el id del actividad a eliminar: <input type="text" name="idActivity" value=""><br><br>
+                <input type="submit" value="Delete activity"/><br><br><hr>
+            </form>
+        <h1>Update activity</h1>
+            <form action="/updateActivity" method="post">
+                introduce el id de la actividad a modificar: <input type="text" name="idActividad" value=""><br><br>
+                introduce el id del profesional a modificar: <input type="text" name="idProfessional" value="" /><br><br>
+                date :<input type="date" name="datetime" value=""><br><br>
+                introduce el id del modelo a modificar: <input type="text" name="idModel" value=""><br><br>
+                <input type="submit" value="updated"/><br><br><hr>
+            </form>
+        <h1>Get Activities en un tiempo</h1>
             <form action="/getActivitiesInTime" method="post">
                 <label for="fromDate">Start Date:</label>
                 <input type="date" name="fromDate"><br><br>
