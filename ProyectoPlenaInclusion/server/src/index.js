@@ -5,6 +5,7 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
+
 //Configurations
 app.set('port', process.env.PORT || 5000);
 app.set('json spaces', 2);

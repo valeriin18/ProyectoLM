@@ -7,13 +7,11 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
     const history = useNavigate();
-    console.log(email);
-    console.log(password)
 
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/loginProfessional', {
+            await axios.post('http://localhost:5000/loginProfessional', {
                 email: email,
                 password: password
             });
