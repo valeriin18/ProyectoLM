@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>} />
-          {/* <Route path="/dashboard" element={<><Navbar/> <Dashboard/> <Footer/></>} />*/}
+          <Route path="/dashboard" element={<><Navbar/> <Dashboard/> <Footer/></>} />
           {/* <Route path="/register" element={<Register/>} />
           <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />

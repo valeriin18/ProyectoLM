@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
     const history = useNavigate();
@@ -12,13 +12,14 @@ const Login = () => {
         e.preventDefault();
         try {
             await axios.post('/loginProfessional', {
-                email: email,
+                mail: mail,
                 password: password
             });
             history("/dashboard");
         } catch (error) {
             if (error.response) {
                 setMsg(error.response.data.msg);
+                window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
             }
         }
     }
@@ -35,7 +36,7 @@ const Login = () => {
                                 <div className="field mt-5">
                                     <label className="label">Email</label>
                                     <div className="controls">
-                                        <input type="text" className="input" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <input type="text" className="input" placeholder="Username" value={mail} onChange={(e) => setMail(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="field mt-5">
