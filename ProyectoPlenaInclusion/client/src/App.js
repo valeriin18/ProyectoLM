@@ -20,7 +20,7 @@ function App() {
           <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />
           <Route path="/searchActivities" element={<><Navbar/> <SearchActivities/> <Footer/></>} />
-          <Route path='*' element={<Navigate to = '/login' />} /> */}
+          <Route path='*' element={<Navigate to = '/login' />} />
             {/* <Navbar/>
             <Dashboard/>
           </Route> */}
