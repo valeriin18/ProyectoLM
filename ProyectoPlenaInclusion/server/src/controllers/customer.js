@@ -70,4 +70,4 @@ export const UpdateCustommer = async(req, res) => {
         console.log(error);
         res.json({msg: "Error updating customer"});
     }
-  }
+}

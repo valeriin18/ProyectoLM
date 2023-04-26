@@ -21,7 +21,7 @@ const Professional = db.define('professional',{
         type: DataTypes.STRING
     },
     birthyear:{
-        type: DataTypes.INTEGER
+        type: DataTypes.DATE
     },
     mail:{
         type: DataTypes.STRING
@@ -32,7 +32,7 @@ const Professional = db.define('professional',{
     availability: {
         type: DataTypes.BOOLEAN, 
         defaultValue: false 
-      }
+    }
 },{
     freezeTableName: true
 });
