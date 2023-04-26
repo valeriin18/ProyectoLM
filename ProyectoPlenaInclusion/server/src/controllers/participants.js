@@ -28,6 +28,7 @@ export const addParticipants = async (req, res) => {
 }
 export const GetParticipants = async(req, res) => {
   const { idCustomer } = req.body;
+  const { fromDate, toDate } = req.body;
   try {
     const participant = await participants.findAll({
       where: { idCustomer },

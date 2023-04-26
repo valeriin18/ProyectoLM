@@ -140,10 +140,10 @@ const Dashboard = () => {
 
     const getActivitiesByUserDate = async (e) => {
         e.preventDefault();
-        const response = await axiosJWT.post('http://localhost:5050/activitiesByUserDate',
+        const response = await axiosJWT.post('/GetParticipants',
             {
                 params: { 
-                    startDate: startDate, endDate: endDate 
+                    startDate: startDate, endDate: endDate , idUser : 1
                 } 
             }
         );
@@ -205,7 +205,6 @@ const Dashboard = () => {
             ]
         });
     }
-
     return (
         <div className="container mt-5 top">
             <div className='p-5 text-center'>
