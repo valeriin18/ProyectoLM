@@ -7,6 +7,7 @@ export const RegisterCustom = async(req, res) => {
         for (let i = 0; i < 10; i++) {
         password += characters.charAt(Math.floor(Math.random() * characters.length));
         }
+        console.log(password);
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try{
