@@ -79,7 +79,6 @@ export const GetParticipantsDates = async(req, res) => {
   try {
     let endDate = toDate;
         if (!endDate) {
-            console.log('Calculando fecha final...');
             endDate = new Date(fromDate);
             endDate.setDate(endDate.getDate() + 7);
         }

@@ -146,20 +146,23 @@ const Dashboard = () => {
         );
         // response.data[0].prueba = "Hola";
         console.log(response.data);
-        const parsedActivities = await ParseActivities(response.data);
+        console.log(1)
+        const parsedActivities = (response.data);
+        console.log(2)
         setActivitiesByUserDate(parsedActivities);
+        console.log(3)
     }
 
     // Calculate how many days remain/have passed from today's date
     // and parse date and other parameters for a better compression
-    const ParseActivities = async (participants) => {
-        var currDate = new Date();
-        participants.forEach(participant => {
-            participant.activity.countdown = days(new Date(participant.activity.date), currDate);
-            participant.activity.date = participant.activity.date.substring(0,10);
-        });
-        return participants;
-    }
+    // const ParseActivities = async (participants) => {
+    //     var currDate = new Date();
+    //     participants.forEach(participant => {
+    //         participant.activity.countdown = days(new Date(participant.activity.date), currDate);
+    //         participant.activity.date = participant.activity.date.substring(0,10);
+    //     });
+    //     return participants;
+    // }
 
     // Difference between 2 dates in days
     const days = (date_1, date_2) =>{
@@ -251,15 +254,13 @@ const Dashboard = () => {
             }
             <Row xs={1} md={4} className="g-4 mt-1 mb-5">
                 {activitiesByUserDate.map((activitiesByUserDate) => (
-                    <Col key={activitiesByUserDate[0].activity.id}>
-                        <Card className={`box-shadow ${activitiesByUserDate.activity.countdown < 0 ? 'passedCard' : 'futureCard'}`} key={activitiesByUserDate.activity.id} 
-                            onClick={(e) => OpenActivityProfile(e, activitiesByUserDate.activity.id, activitiesByUserDate.activity.countdown)} style={activitiesByUserDate.activity.countdown >= 0 ? {cursor: "pointer"} : {}}>
+                    <Col key={activitiesByUserDate.idActivity}>
+                        <Card>
                             {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate[0].activities[0].model.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate[0].customers[0].activities[0].datetime}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Dirección:</span> {activitiesByUserDate.activity.address}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Email:</span> {activitiesByUserDate[0].customers[0].mail}</Card.Text>
+                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.activities[0].model.name}</Card.Title>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.activities[0].datetime}</Card.Text>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Email:</span> {activitiesByUserDate.customers[0].mail}</Card.Text>
                                 <div className='mt-4 text-center'>
                                     {/* <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
                                         Mensaje
