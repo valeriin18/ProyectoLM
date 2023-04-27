@@ -25,14 +25,31 @@ const participants = db.define("participants",{
 });
 // En el modelo Customer
 Customer.belongsToMany(Activity, {
-    through: "participants",
-    foreignKey: "idCustomer",
-  });
-  
-  // En el modelo RepetitiveActivity
-  Activity.belongsToMany(Customer, {
-    through: "participants",
-    foreignKey: "idActivity",
-  });
+  through: participants,
+  foreignKey: "idCustomer",
+});
+
+// En el modelo RepetitiveActivity
+Activity.belongsToMany(Customer, {
+  through: participants,
+  foreignKey: "idActivity",
+});
+
+participants.hasMany(Customer,{
+  foreignKey: "idCustomer"
+});
+
+Customer.belongsTo(participants,{
+  foreignKey: "idCustomer",
+  targetKey: "idCustomer"
+});
+
+participants.hasMany(Activity,{
+  foreignKey: "idActivity"
+});
+
+Activity.belongsTo(participants,{
+  foreignKey: "idActivity",
+  targetKey: "idActivity"
+});
 export default participants;  
-  

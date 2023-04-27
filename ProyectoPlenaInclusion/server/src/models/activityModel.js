@@ -32,6 +32,18 @@ const Activity = db.define('activity',{
 (async () =>{
     await db.sync();
 })();
-Activity.belongsTo(Professional, {  foreignKey: 'idProfessional'  });
-Activity.belongsTo(Model, {  foreignKey: 'idModel'  });
+Professional.hasMany(Activity,{
+    foreignKey: "idProfessional"
+});
+Activity.belongsTo(Professional, {  
+    foreignKey: 'idProfessional', 
+    targetKey: 'idProfessional'  
+});
+Model.hasMany(Activity,{
+    foreignKey: "idModel"
+});
+Activity.belongsTo(Model, {  
+    foreignKey: 'idModel', 
+    targetKey: 'idModel'
+});
 export default Activity;

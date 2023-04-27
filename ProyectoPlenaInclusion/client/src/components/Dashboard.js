@@ -29,30 +29,27 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const Dashboard = () => {
-    const [user, setUser] = useState({
-        userId: -1,
-        name: ''
-    });
-    const [token, setToken] = useState('');
-    const [expire, setExpire] = useState('');
+    // const [token, setToken] = useState('');
+    // const [expire, setExpire] = useState('');
     // const [users, setUsers] = useState([]);
     // const [activities, setActivities] = useState([]);
     // const [activitiesByUser, setActivitiesByUser] = useState([]);
     const [activitiesByUserDate, setActivitiesByUserDate] = useState([]);
+    const [idCustomer, setIdCustomer] = useState('');
 
     // Default startDate (today) and endDate (today + 7)
     var curr = new Date();
     var date = curr.toISOString().substring(0,10);
     curr.setDate(curr.getDate() + 7);
-    const [startDate, setStartDate] = useState(date);
+    const [fromDate, setFromDate] = useState(date);
     date = curr.toISOString().substring(0,10);
-    const [endDate, setEndDate] = useState(date);
+    const [toDate, setToDate] = useState(date);
     
 
     const navigation = useNavigate();
 
     useEffect(() => {
-        refreshToken();
+        //refreshToken();
         // getUsers();
         // getActivities();
         // getActivitiesByUser();
@@ -63,61 +60,61 @@ const Dashboard = () => {
 
     const defaultDate = async () => {
         var curr = new Date();
-        var startDate = curr.toISOString().substring(0,10);
+        var fromDate = curr.toISOString().substring(0,10);
         curr.setDate(curr.getDate() + 7);
-        var endDate = curr.toISOString().substring(0,10);
-        setStartDate(startDate); setEndDate(endDate);
+        var toDate = curr.toISOString().substring(0,10);
+        setFromDate(fromDate); setToDate(toDate);
     }
 
-    const refreshToken = async () => {
-        try {
-            const response = await axios.get('http://localhost:5050/token');
-            setToken(response.data.accessToken);
-            const decoded = jwt_decode(response.data.accessToken);
-            setUser({
-                ...user, // Copy other fields
-                userId: decoded.userId,
-                name: decoded.name
-            });
-            setExpire(decoded.exp);
-        } catch (error) {
-            if (error.response) {
-                navigation("/");
-            }
-        }
-    }
+    // const refreshToken = async () => {
+    //     try {
+    //         const response = await axios.get('http://localhost:5050/token');
+    //         setToken(response.data.accessToken);
+    //         const decoded = jwt_decode(response.data.accessToken);
+    //         setUser({
+    //             ...user, // Copy other fields
+    //             userId: decoded.userId,
+    //             name: decoded.name
+    //         });
+    //         setExpire(decoded.exp);
+    //     } catch (error) {
+    //         if (error.response) {
+    //             navigation("/");
+    //         }
+    //     }
+    // }
 
     const axiosJWT = axios.create();
 
     // Siempre que se realice una peticion segura se ejcuta esta
     // funcion que actualiza el accessToken si es necesario
     // y en config añade los headers y los datos para las queries
-    axiosJWT.interceptors.request.use(async (config) => {
-        const currentDate = new Date();
-        if (expire * 1000 < currentDate.getTime() || expire == undefined) {
-            const response = await axios.get('http://localhost:5050/token');
-            config.headers.Authorization = `Bearer ${response.data.accessToken}`;
-            setToken(response.data.accessToken);
-            const decoded = jwt_decode(response.data.accessToken);
-            setUser({
-                ...user, // Copy other fields
-                userId: decoded.userId,
-                name: decoded.name
-            });
-            config.params = {
-                userId: decoded.userId
-            }
-            setExpire(decoded.exp);
-        } else {
-            config.headers.Authorization = `Bearer ${token}`;
-            config.params = {
-                userId: user.userId
-            }
-        }
-        return config;
-    }, (error) => {
-        return Promise.reject(error);
-    });
+    // axiosJWT.interceptors.request.use(async (config) => {
+    //     const currentDate = new Date();
+    //     if (expire * 1000 < currentDate.getTime() || expire == undefined) {
+    //         const response = await axios.get('http://localhost:5050/token');
+    //         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+    //         setToken(response.data.accessToken);
+    //         const decoded = jwt_decode(response.data.accessToken);
+    //         setUser({
+    //             ...user, // Copy other fields
+    //             userId: decoded.userId,
+    //             name: decoded.name
+    //         });
+    //         config.params = {
+    //             userId: decoded.userId
+    //         }
+    //         setExpire(decoded.exp);
+    //     } else {
+    //         config.headers.Authorization = `Bearer ${token}`;
+    //         config.params = {
+    //             userId: user.userId
+    //         }
+    //     }
+    //     return config;
+    // }, (error) => {
+    //     return Promise.reject(error);
+    // });
 
     // const getUsers = async () => {
     //     try {
@@ -140,13 +137,14 @@ const Dashboard = () => {
 
     const getActivitiesByUserDate = async (e) => {
         e.preventDefault();
-        const response = await axiosJWT.post('/GetParticipants',
+        const response = await axiosJWT.post('/GetParticipantsDates',
             {
                 params: { 
-                    startDate: startDate, endDate: endDate , idUser : 1
+                    fromDate: fromDate, toDate: toDate , idCustomer : idCustomer
                 } 
             }
         );
+        console.log('hola')
         // response.data[0].prueba = "Hola";
         console.log(response.data);
         const parsedActivities = await ParseActivities(response.data);
@@ -223,9 +221,11 @@ const Dashboard = () => {
                     </Nav>
                     <Form className="d-flex" onSubmit={getActivitiesByUserDate}>
                         <Form.Control className="me-2" type="date" placeholder="Date" 
-                            value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                            value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
                         <Form.Control className="me-2" type="date" placeholder="Date" 
-                            value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                            value={toDate} onChange={(e) => setToDate(e.target.value)} />
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search" 
+                        aria-label="User ID" value={idCustomer} onChange={e => setIdCustomer(e.target.value)} />
                         {/* <Form.Control
                             type="search"
                             placeholder="Search by name"
@@ -255,7 +255,7 @@ const Dashboard = () => {
                     <Col key={activitiesByUserDate.activity.id}>
                         <Card className={`box-shadow ${activitiesByUserDate.activity.countdown < 0 ? 'passedCard' : 'futureCard'}`} key={activitiesByUserDate.activity.id} 
                             onClick={(e) => OpenActivityProfile(e, activitiesByUserDate.activity.id, activitiesByUserDate.activity.countdown)} style={activitiesByUserDate.activity.countdown >= 0 ? {cursor: "pointer"} : {}}>
-                            <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} />
+                            {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>
                                 <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.activity.name}</Card.Title>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Hora de inicio:</span> {activitiesByUserDate.activity.time}</Card.Text>

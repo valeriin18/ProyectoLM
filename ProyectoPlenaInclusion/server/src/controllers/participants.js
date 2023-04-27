@@ -74,15 +74,26 @@ export const UpdateParticipant = async(req, res) => {
   }
 }
 export const GetParticipantsDates = async(req, res) => {
-  const { idCustomer, fromDate, toDate } = req.body;
+  const { idCustomer, fromDate, toDate } = req.body.params;
+  console.log(idCustomer + fromDate + toDate);
   try {
+    let endDate = toDate;
+        if (!endDate) {
+            console.log('Calculando fecha final...');
+            endDate = new Date(fromDate);
+            endDate.setDate(endDate.getDate() + 7);
+        }
     const participant = await participants.findAll({
-      where: { idCustomer, fromDate, toDate}, 
+      where: { idCustomer }, 
       attributes: ['idCustomer', 'idActivity', 'createdAt', 'updatedAt'],
-      include: [{ all: true}],
+      include: [
+        { 
+          all: true,
+          include: [{ all : true }]
+        }
+      ],
     });
       res.json(participant);
-      console.log(participant);
   } catch (error) {
       console.log(error);
   }
