@@ -144,7 +144,6 @@ const Dashboard = () => {
                 } 
             }
         );
-        console.log('hola')
         // response.data[0].prueba = "Hola";
         console.log(response.data);
         const parsedActivities = await ParseActivities(response.data);
@@ -252,35 +251,31 @@ const Dashboard = () => {
             }
             <Row xs={1} md={4} className="g-4 mt-1 mb-5">
                 {activitiesByUserDate.map((activitiesByUserDate) => (
-                    <Col key={activitiesByUserDate.activity.id}>
+                    <Col key={activitiesByUserDate[0].activity.id}>
                         <Card className={`box-shadow ${activitiesByUserDate.activity.countdown < 0 ? 'passedCard' : 'futureCard'}`} key={activitiesByUserDate.activity.id} 
                             onClick={(e) => OpenActivityProfile(e, activitiesByUserDate.activity.id, activitiesByUserDate.activity.countdown)} style={activitiesByUserDate.activity.countdown >= 0 ? {cursor: "pointer"} : {}}>
                             {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.activity.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Hora de inicio:</span> {activitiesByUserDate.activity.time}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.activity.date}</Card.Text>
+                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate[0].activities[0].model.name}</Card.Title>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate[0].customers[0].activities[0].datetime}</Card.Text>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Dirección:</span> {activitiesByUserDate.activity.address}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Duración:</span> {activitiesByUserDate.activity.duration}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Teléfono:</span> {activitiesByUserDate.activity.contactNumber}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Email:</span> {activitiesByUserDate.activity.contactEmail}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Participantes:</span> {activitiesByUserDate.activity.nParticipants}/{activitiesByUserDate.activity.maxParticipants}</Card.Text>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Email:</span> {activitiesByUserDate[0].customers[0].mail}</Card.Text>
                                 <div className='mt-4 text-center'>
-                                    <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
+                                    {/* <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
                                         Mensaje
                                     </Button>
                                     <Button disabled={activitiesByUserDate.activity.countdown < 0} name="deleteButton" variant="danger" onClick={(e) => BeforeDeleteAlert(e, activitiesByUserDate.activity.id)}>
                                         Abandonar
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </Card.Body>
                             {/* Paint countdown timer to begin the activity */}
                             {(() => {
-                                switch (true) {
-                                    case (activitiesByUserDate.activity.countdown > 0):   return <Card.Footer className="text-muted">¡Quedan {activitiesByUserDate.activity.countdown} días!</Card.Footer>;
-                                    case (activitiesByUserDate.activity.countdown == 0):  return <Card.Footer className="text-muted">¡Es hoy!</Card.Footer>;
-                                    default:     return <Card.Footer className="text-muted">¡Fue hace {activitiesByUserDate.activity.countdown * -1} días!</Card.Footer>
-                                }
+                                // switch (true) {
+                                //     case (activitiesByUserDate.activity.countdown > 0):   return <Card.Footer className="text-muted">¡Quedan {activitiesByUserDate.activity.countdown} días!</Card.Footer>;
+                                //     case (activitiesByUserDate.activity.countdown == 0):  return <Card.Footer className="text-muted">¡Es hoy!</Card.Footer>;
+                                //     default:     return <Card.Footer className="text-muted">¡Fue hace {activitiesByUserDate.activity.countdown * -1} días!</Card.Footer>
+                                // }
                             })()}
                         </Card>
                     </Col>
