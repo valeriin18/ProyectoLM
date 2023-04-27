@@ -157,6 +157,15 @@
                 <input type="date"  name="toDate"><br><br>
                 <input type="submit" value="obtener">
             </form>
+        <h1>Actividades de un usuario apuntado</h1>
+            <form action="/GetParticipantsDates" method="post">
+                <label for="fromDate">Start Date:</label>
+                <input type="date" name="fromDate"><br><br>
+                <label for="toDate">End Date:</label>
+                <input type="date"  name="toDate"><br><br>
+                idCustomer : <input type="text" name="idCustomer" value="" /><br><br>
+                <input type="submit" value="obtener">
+            </form> 
     </main>
     <footer>
         <p class="text-center text-muted">© Copyright 2023</p>

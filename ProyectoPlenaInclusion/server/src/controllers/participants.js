@@ -1,6 +1,7 @@
 import participants from "../models/participantsModel.js";
 import Customer from "../models/customerModel.js";
 import Activity from "../models/activityModel.js";
+import { Op } from "sequelize";
 
 export const addParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
@@ -28,7 +29,6 @@ export const addParticipants = async (req, res) => {
 }
 export const GetParticipants = async(req, res) => {
   const { idCustomer } = req.body;
-  const { fromDate, toDate } = req.body;
   try {
     const participant = await participants.findAll({
       where: { idCustomer },
@@ -71,5 +71,19 @@ export const UpdateParticipant = async(req, res) => {
   } catch (error) {
       console.log(error);
       res.json({msg: "Error updating Participant"});
+  }
+}
+export const GetParticipantsDates = async(req, res) => {
+  const { idCustomer, fromDate, toDate } = req.body;
+  try {
+    const participant = await participants.findAll({
+      where: { idCustomer, fromDate, toDate}, 
+      attributes: ['idCustomer', 'idActivity', 'createdAt', 'updatedAt'],
+      include: [{ all: true}],
+    });
+      res.json(participant);
+      console.log(participant);
+  } catch (error) {
+      console.log(error);
   }
 }
