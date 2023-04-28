@@ -2,6 +2,8 @@ import participants from "../models/participantsModel.js";
 import Customer from "../models/customerModel.js";
 import Activity from "../models/activityModel.js";
 import { Op } from "sequelize";
+import Model from "../models/modelModel.js";
+import sequelize from "sequelize";
 
 export const addParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
@@ -73,27 +75,53 @@ export const UpdateParticipant = async(req, res) => {
       res.json({msg: "Error updating Participant"});
   }
 }
-export const GetParticipantsDates = async(req, res) => {
-  const { idCustomer, fromDate, toDate } = req.body.params;
+export const GetParticipantsDates = async (req, res) => {
+  const { idCustomer, fromDate, toDate } = req.body.parameters;
   console.log(idCustomer + fromDate + toDate);
   try {
     let endDate = toDate;
-        if (!endDate) {
-            endDate = new Date(fromDate);
-            endDate.setDate(endDate.getDate() + 7);
-        }
-    const participant = await participants.findAll({
-      where: { idCustomer }, 
-      attributes: ['idCustomer', 'idActivity', 'createdAt', 'updatedAt'],
+    if (!endDate) {
+      endDate = new Date(fromDate);
+      endDate.setDate(endDate.getDate() + 7);
+    }
+    const participantsList = await participants.findAll({
+      where: {
+        idCustomer,
+      },
       include: [
-        { 
-          all: true,
-          include: [{ all : true }]
-        }
+        {
+          model: Customer,
+        },
+        {
+          model: Activity,
+          include: [
+            {
+              model: Model,
+            },
+            {
+              model: participants,
+              where: {
+                idCustomer
+              },
+              required: true,
+              where: {
+                datetime: {
+                  [Op.between]: [fromDate, endDate]
+                }
+              }
+            }
+          ],
+          where: {
+            datetime: {
+              [Op.between]: [fromDate, endDate]
+            },
+          },
+        },
       ],
     });
-      res.json(participant);
+    console.log(participantsList); // Añadido para depurar
+    res.json(participantsList);
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
-}
+};

@@ -7,6 +7,7 @@ import Register from "./components/Register";
 // import ActivityProfile from "./components/ActivityProfile";
 //import SearchActivities from "./components/SearchActivities";
 import { Navigate } from 'react-router-dom';
+import  Navbar  from "./components/Navbar";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<><Dashboard/> </>} />
+          <Route path="/dashboard" element={<><Navbar /><Dashboard/> </>} />
           <Route path="/register" element={<Register/>} />
           {/* <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />
