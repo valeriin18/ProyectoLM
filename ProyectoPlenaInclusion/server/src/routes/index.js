@@ -19,6 +19,7 @@ import { GetParticipants } from "../controllers/participants.js";
 import { deleteParticipants } from "../controllers/participants.js";
 import { GetActivities } from "../controllers/activity.js";
 import { GetParticipantsDates } from "../controllers/participants.js"
+import { LoginCustomer } from "../controllers/customer.js";
 
 
 const router = express.Router();
@@ -45,5 +46,6 @@ router.post('/UpdateParticipant', UpdateParticipant);
 router.post('/deleteParticipants', deleteParticipants);
 router.post('/getActivitiesInTime', GetActivities);
 router.post('/getParticipantsDates', GetParticipantsDates);
+router.post('/loginCustomer', LoginCustomer);
 export default router;
 

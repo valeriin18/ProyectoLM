@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 export const RegisterCustom = async(req, res) => {
     const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor} = req.body;
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let password = " "
+    let password = ""
         for (let i = 0; i < 10; i++) {
         password += characters.charAt(Math.floor(Math.random() * characters.length));
         }
@@ -70,5 +70,25 @@ export const UpdateCustommer = async(req, res) => {
     } catch (error) {
         console.log(error);
         res.json({msg: "Error updating customer"});
+    }
+}
+export const LoginCustomer = async(req, res) => {
+    const { mail, password } = req.body;
+    if (!mail || !password) {
+    return res.status(400).json({msg: "Username and Password are required"});
+    }
+    try {
+    const customer = await Customers.findOne({ where: { mail } });
+    if (!customer) {
+        return res.status(400).json({msg: "Invalid Username or Password"});
+    }
+    const isMatch = await bcrypt.compare(password, customer.password);
+    if (!isMatch) {
+        return res.status(400).json({msg: "Invalid Username or Password"});
+    }
+    res.json({msg: "Login Successful"});
+    } catch (error) {
+    console.log(error);
+    res.status(500).json({msg: "Internal Server Error"});
     }
 }
