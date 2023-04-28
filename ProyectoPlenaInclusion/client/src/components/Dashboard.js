@@ -23,6 +23,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 // Alert before delete
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -44,6 +45,7 @@ const Dashboard = () => {
     const [fromDate, setFromDate] = useState(date);
     date = curr.toISOString().substring(0,10);
     const [toDate, setToDate] = useState(date);
+    
     
 
     const navigation = useNavigate();
@@ -242,6 +244,9 @@ const Dashboard = () => {
                         /> */}
                         <Button variant="outline-success" type="submit">Buscar</Button>
                     </Form>
+                        <Link to='/register'>
+                        <button>Registrar Usuario</button>
+                        </Link>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
