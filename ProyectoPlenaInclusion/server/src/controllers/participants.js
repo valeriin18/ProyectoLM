@@ -76,52 +76,38 @@ export const UpdateParticipant = async(req, res) => {
   }
 }
 export const GetParticipantsDates = async (req, res) => {
-  const { idCustomer, fromDate, toDate } = req.body.parameters;
-  console.log(idCustomer + fromDate + toDate);
+  const { idCustomer, fromDate, toDate } = req.body;
+  console.log(idCustomer, fromDate, toDate);
   try {
     let endDate = toDate;
     if (!endDate) {
       endDate = new Date(fromDate);
       endDate.setDate(endDate.getDate() + 7);
     }
-    const participantsList = await participants.findAll({
-      where: {
-        idCustomer,
-      },
-      include: [
-        {
-          model: Customer,
-        },
-        {
-          model: Activity,
-          include: [
-            {
-              model: Model,
-            },
-            {
-              model: participants,
-              where: {
-                idCustomer
-              },
-              required: true,
-              where: {
-                datetime: {
-                  [Op.between]: [fromDate, endDate]
-                }
-              }
-            }
-          ],
-          where: {
-            datetime: {
-              [Op.between]: [fromDate, endDate]
-            },
-          },
-        },
-      ],
+    const participantes = await participants.findAll({
+      where: { idCustomer },
+      attributes: ['idActivity'],
     });
-    console.log(participantsList); // Añadido para depurar
-    res.json(participantsList);
+    const idActivities = participantes.map((participants) => participants.idActivity);
+    const activities = await Activity.findAll({
+      include: {
+        model: Model,
+    attributes: ['name', 'description']
+      },
+      where: {
+        idActivity: {
+          [Op.in]: idActivities,
+        },
+        datetime: {
+          [Op.between]: [fromDate, endDate],
+        },
+      },
+      attributes: ['idActivity','datetime'],
+    });
+    res.json({ activities });
+    console.log(activities);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: 'Error fetching data' });
   }
 };
