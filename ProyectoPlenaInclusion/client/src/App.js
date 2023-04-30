@@ -8,6 +8,7 @@ import Register from "./components/Register";
 //import SearchActivities from "./components/SearchActivities";
 import { Navigate } from 'react-router-dom';
 import  Navbar  from "./components/Navbar";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/dashboard" element={<><Navbar /><Dashboard/> </>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/profile" element={<Profile/>} />
           {/* <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />
           <Route path="/searchActivities" element={<><Navbar/> <SearchActivities/> <Footer/></>} />

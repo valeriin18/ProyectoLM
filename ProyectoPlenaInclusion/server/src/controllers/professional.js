@@ -82,3 +82,15 @@ export const UpdateProfessional = async(req, res) => {
       res.json({msg: "Error updating professional"});
   }
 }
+export const GetProfessionals = async(req, res) => {
+  const { mail } = req.body;
+  try {
+  const user = await Professional.findAll({
+      where: { mail },
+      attributes: [ 'DNI' , 'name' , 'surname1' , 'surname2' , 'birthyear' , 'mail', 'availability' , 'password' ]
+  });
+      res.json(user);
+  } catch (error) {
+      console.log(error);
+  }
+}

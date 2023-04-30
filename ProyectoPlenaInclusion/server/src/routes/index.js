@@ -20,7 +20,8 @@ import { deleteParticipants } from "../controllers/participants.js";
 import { GetActivities } from "../controllers/activity.js";
 import { GetParticipantsDates } from "../controllers/participants.js"
 import { LoginCustomer } from "../controllers/customer.js";
-
+import { GetUsers } from "../controllers/customer.js";
+import { GetProfessionals } from "../controllers/professional.js";
 
 const router = express.Router();
 router.get('/', (req, res) => {    
@@ -47,5 +48,7 @@ router.post('/deleteParticipants', deleteParticipants);
 router.post('/getActivitiesInTime', GetActivities);
 router.post('/getParticipantsDates', GetParticipantsDates);
 router.post('/loginCustomer', LoginCustomer);
+router.post('/getUsers', GetUsers);
+router.post('/getProfessionals', GetProfessionals);
 export default router;
 
