@@ -58,24 +58,22 @@ export const LoginProfessional = async(req, res) => {
     }
 }
 export const UpdateProfessional = async(req, res) => {
-  const { idProfessional, DNI, name, surname1, surname2, birthyear, mail, availability,createdAt,updatedAt } = req.body;
-  try {
-      await Professional.update({
-          idProfessional: idProfessional,
-          DNI:DNI,
-          name: name,
-          surname1: surname1,
-          surname2: surname2,
-          birthyear: birthyear,
-          mail: mail,
-          availability:availability,
-          createdAt:createdAt,
-          updatedAt:updatedAt
-      }, {
-          where: {
-              idProfessional: idProfessional
-          }
-      });
+  const { idProfessional, newMail, newPassword } = req.body;
+    try {
+        let updateFields = {}
+        if (newMail) {
+            updateFields.mail = newMail
+        }
+        if (newPassword) {
+            const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(newPassword, salt);
+            updateFields.password = hashPassword
+        }
+        await Professional.update(updateFields, {
+            where: {
+                idProfessional: idProfessional
+            }
+        });
       res.json({msg: "The professional has been updated correctly"});
   } catch (error) {
       console.log(error);

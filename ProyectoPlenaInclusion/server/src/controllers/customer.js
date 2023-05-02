@@ -46,12 +46,16 @@ export const DeleteCustomer = async(req, res) => {
 export const UpdateCustommer = async(req, res) => {
     const { idCustomer, newMail, newPassword } = req.body;
     try {
-        const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(newPassword, salt);
-        await Customers.update({
-            mail: newMail,
-            password: hashPassword,
-        }, {
+        let updateFields = {}
+        if (newMail) {
+            updateFields.mail = newMail
+        }
+        if (newPassword) {
+            const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(newPassword, salt);
+            updateFields.password = hashPassword
+        }
+        await Customers.update(updateFields, {
             where: {
                 idCustomer: idCustomer
             }

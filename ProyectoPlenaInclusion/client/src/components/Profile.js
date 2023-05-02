@@ -25,23 +25,38 @@ function UserInformation() {
     const handleUpdate = async (e, user) => {
         e.preventDefault();
         try {
-            console.log(user.idCustomer, newMail, newPassword)
-            const res = await axios.post("/updateCustomer", { idCustomer: user.idCustomer, newMail: newMail || user.mail, newPassword: newPassword || user.password });
+            const { idCustomer, mail, password } = user;
+            let res;
+            if (idCustomer) {
+                res = await axios.post("/updateCustomer", {
+                    idCustomer,
+                    newMail: newMail || mail,
+                    newPassword: newPassword || password,
+                });
+                setCustomers(customers.map((u) => {
+                    if (u.idCustomer === user.idCustomer) {
+                        return { ...u, mail: newMail || u.mail };
+                    } else {
+                        return u;
+                    }
+                }));
+            } else {
+                const { idProfessional, mail, password } = user;
+                let res;
+                res = await axios.post("/updateProfessional", {
+                    idProfessional,
+                    newMail: newMail || mail,
+                    newPassword: newPassword || password,
+                });
+                setProfessionals(professionals.map((u) => {
+                    if (u.idProfessional === user.idProfessional) {
+                        return { ...u, mail: newMail || u.mail };
+                    } else {
+                        return u;
+                    }
+                }));
+            }
             console.log(res.data);
-            setCustomers(customers.map((u) => {
-                if (u.idCustomer === user.idCustomer) {
-                    return { ...u, mail: newMail || u.mail };
-                } else {
-                    return u;
-                }
-            }));
-            setProfessionals(professionals.map((u) => {
-                if (u.idProfessional === user.idProfessional) {
-                    return { ...u, mail: newMail || u.mail };
-                } else {
-                    return u;
-                }
-            }));
         } catch (error) {
             console.log(error);
         }

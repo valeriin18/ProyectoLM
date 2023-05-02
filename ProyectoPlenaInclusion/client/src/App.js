@@ -18,7 +18,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/dashboard" element={<><Navbar /><Dashboard/> </>} />
           <Route path="/register" element={<Register/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/profile" element={<><Navbar /><Profile/> </>} />
           {/* <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />
           <Route path="/searchActivities" element={<><Navbar/> <SearchActivities/> <Footer/></>} />
