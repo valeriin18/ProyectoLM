@@ -139,18 +139,17 @@ const Dashboard = () => {
 
     const getActivitiesByUserDate = async (e) => {
         e.preventDefault();
-        const response = await axiosJWT.post('/GetParticipantsDates',
-            {
-                params: { 
-                    fromDate: fromDate, toDate: toDate , idCustomer : idCustomer
-                } 
-            }
-        );
-        // response.data[0].prueba = "Hola";
+        const response = await axiosJWT.post('/GetParticipantsDates', { idCustomer, fromDate, toDate });
         console.log(response.data);
-        const parsedActivities = (response.data);
+        const activities = Array.isArray(response.data) ? response.data : [response.data];
+        const parsedActivities = activities.map(activity => ({
+          id: activity.idActivity,
+          datetime: activity.datetime,
+          name: activity.name,
+          description: activity.description,
+        }));
         setActivitiesByUserDate(parsedActivities);
-    }
+      }
 
     // Calculate how many days remain/have passed from today's date
     // and parse date and other parameters for a better compression
@@ -246,20 +245,19 @@ const Dashboard = () => {
             </Navbar>
             {/* <h1>Welcome Back: {user.name}</h1>
             <h1>Next activities:</h1>*/}
-            {activitiesByUserDate.length == 0 &&
+            {activitiesByUserDate.length <= 0 &&
                 <h2 className="noActivity">
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }
             <Row xs={1} md={4} className="g-4 mt-1 mb-5">
                 {activitiesByUserDate.map((activitiesByUserDate) => (
-                    <Col key={activitiesByUserDate.idCustomer}>
+                    <Col>
                         <Card>
                             {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.activities[0].model.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.activities[0].datetime}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Email:</span> {activitiesByUserDate.customers[0].mail}</Card.Text>
+                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.name}</Card.Title>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.datetime}</Card.Text>
                                 <div className='mt-4 text-center'>
                                     {/* <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
                                         Mensaje
