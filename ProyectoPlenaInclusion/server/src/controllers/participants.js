@@ -76,7 +76,7 @@ export const UpdateParticipant = async(req, res) => {
   }
 }
 export const GetParticipantsDates = async (req, res) => {
-  const { idCustomer, fromDate, toDate } = req.body;
+  const { idCustomer, fromDate, toDate } = req.body.params;
   console.log(idCustomer, fromDate, toDate);
   try {
     let endDate = toDate;
