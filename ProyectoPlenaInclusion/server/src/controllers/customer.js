@@ -92,3 +92,15 @@ export const LoginCustomer = async(req, res) => {
     res.status(500).json({msg: "Internal Server Error"});
     }
 }
+export const GetUsers = async(req, res) => {
+    const { mail } = req.body;
+    try {
+    const user = await Customers.findAll({
+        where: { mail },
+        attributes: [ 'idCustomer' , 'DNI' , 'name' , 'surname1' , 'surname2' , 'birthyear' , 'mail' , 'gender', 'specialCares', 'dataTutor' , 'createdAt' , 'updatedAt' ]
+    });
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    const [dni, setDni] = useState('');
+    const [DNI, setDni] = useState('');
     const [name, setName] = useState('');
     const [surname1, setSurname1] = useState('');
     const [surname2, setSurname2] = useState('');
@@ -19,7 +19,7 @@ const Register = () => {
         e.preventDefault();
         try {
             await axios.post('/RegisterCustomer', {
-                dni: dni,
+                DNI: DNI,
                 name: name,
                 surname1: surname1,
                 surname2: surname2,
@@ -56,7 +56,7 @@ const Register = () => {
                                             type="text"
                                             className="input"
                                             placeholder="12345678A"
-                                            value={dni}
+                                            value={DNI}
                                             onChange={(e) => setDni(e.target.value)}
                                         />
                                     </div>

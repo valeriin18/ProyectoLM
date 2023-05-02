@@ -148,11 +148,8 @@ const Dashboard = () => {
         );
         // response.data[0].prueba = "Hola";
         console.log(response.data);
-        console.log(1)
         const parsedActivities = (response.data);
-        console.log(2)
         setActivitiesByUserDate(parsedActivities);
-        console.log(3)
     }
 
     // Calculate how many days remain/have passed from today's date
@@ -242,11 +239,8 @@ const Dashboard = () => {
                             className="me-2"
                             aria-label="Search"
                         /> */}
-                        <Button variant="outline-success" type="submit">Buscar</Button>
+                        <Button variant="outline-success"  type="submit">Buscar</Button>
                     </Form>
-                        <Link to='/register'>
-                        <button>Registrar Usuario</button>
-                        </Link>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -259,7 +253,7 @@ const Dashboard = () => {
             }
             <Row xs={1} md={4} className="g-4 mt-1 mb-5">
                 {activitiesByUserDate.map((activitiesByUserDate) => (
-                    <Col key={activitiesByUserDate.idActivity}>
+                    <Col key={activitiesByUserDate.idCustomer}>
                         <Card>
                             {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>

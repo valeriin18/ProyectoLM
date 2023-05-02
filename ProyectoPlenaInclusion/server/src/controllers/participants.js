@@ -2,6 +2,8 @@ import participants from "../models/participantsModel.js";
 import Customer from "../models/customerModel.js";
 import Activity from "../models/activityModel.js";
 import { Op } from "sequelize";
+import Model from "../models/modelModel.js";
+import sequelize from "sequelize";
 
 export const addParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
@@ -73,27 +75,39 @@ export const UpdateParticipant = async(req, res) => {
       res.json({msg: "Error updating Participant"});
   }
 }
-export const GetParticipantsDates = async(req, res) => {
+export const GetParticipantsDates = async (req, res) => {
   const { idCustomer, fromDate, toDate } = req.body.params;
-  console.log(idCustomer + fromDate + toDate);
+  console.log(idCustomer, fromDate, toDate);
   try {
     let endDate = toDate;
-        if (!endDate) {
-            endDate = new Date(fromDate);
-            endDate.setDate(endDate.getDate() + 7);
-        }
-    const participant = await participants.findAll({
-      where: { idCustomer }, 
-      attributes: ['idCustomer', 'idActivity', 'createdAt', 'updatedAt'],
-      include: [
-        { 
-          all: true,
-          include: [{ all : true }]
-        }
-      ],
+    if (!endDate) {
+      endDate = new Date(fromDate);
+      endDate.setDate(endDate.getDate() + 7);
+    }
+    const participantes = await participants.findAll({
+      where: { idCustomer },
+      attributes: ['idActivity'],
     });
-      res.json(participant);
+    const idActivities = participantes.map((participants) => participants.idActivity);
+    const activities = await Activity.findAll({
+      include: {
+        model: Model,
+    attributes: ['name', 'description']
+      },
+      where: {
+        idActivity: {
+          [Op.in]: idActivities,
+        },
+        datetime: {
+          [Op.between]: [fromDate, endDate],
+        },
+      },
+      attributes: ['idActivity','datetime'],
+    });
+    res.json({ activities });
+    console.log(activities);
   } catch (error) {
-      console.log(error);
+    console.log(error);
+    res.status(500).json({ message: 'Error fetching data' });
   }
-}
+};
