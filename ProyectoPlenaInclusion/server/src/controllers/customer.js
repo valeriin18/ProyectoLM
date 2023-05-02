@@ -1,5 +1,5 @@
 import Customers from "../models/customerModel.js";
-import bcrypt from "bcrypt";
+import bcrypt, { genSalt, genSaltSync } from "bcrypt";
 export const RegisterCustom = async(req, res) => {
     const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor} = req.body;
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -30,7 +30,6 @@ export const RegisterCustom = async(req, res) => {
 }
 export const DeleteCustomer = async(req, res) => {
     const { idCustomer } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
-
     try {
         const customers = await customers.findByPk(idCustomer);
         if (customers) {
@@ -44,23 +43,14 @@ export const DeleteCustomer = async(req, res) => {
         res.json({msg: "Error al eliminar el usuario con ID ${idCustomer}"});
     }
 }
-
 export const UpdateCustommer = async(req, res) => {
-    const { idCustomer, DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor, createdAt,updatedAt } = req.body;
+    const { idCustomer, newMail, newPassword } = req.body;
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(newPassword, salt);
         await Customers.update({
-            idCustomer: idCustomer,
-            DNI:DNI,
-            name: name,
-            surname1: surname1,
-            surname2: surname2,
-            birthyear: birthyear,
-            mail: mail,
-            gender: gender,
-            specialCares: specialCares,
-            dataTutor: dataTutor,
-            createdAt:createdAt,
-            updatedAt:updatedAt
+            mail: newMail,
+            password: hashPassword,
         }, {
             where: {
                 idCustomer: idCustomer
