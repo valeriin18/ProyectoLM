@@ -40,13 +40,13 @@ const Dashboard = () => {
 
     // Default startDate (today) and endDate (today + 7)
     var curr = new Date();
-    var date = curr.toISOString().substring(0,10);
+    var date = curr.toISOString().substring(0, 10);
     curr.setDate(curr.getDate() + 7);
     const [fromDate, setFromDate] = useState(date);
-    date = curr.toISOString().substring(0,10);
+    date = curr.toISOString().substring(0, 10);
     const [toDate, setToDate] = useState(date);
-    
-    
+
+
 
     const navigation = useNavigate();
 
@@ -62,9 +62,9 @@ const Dashboard = () => {
 
     const defaultDate = async () => {
         var curr = new Date();
-        var fromDate = curr.toISOString().substring(0,10);
+        var fromDate = curr.toISOString().substring(0, 10);
         curr.setDate(curr.getDate() + 7);
-        var toDate = curr.toISOString().substring(0,10);
+        var toDate = curr.toISOString().substring(0, 10);
         setFromDate(fromDate); setToDate(toDate);
     }
 
@@ -139,16 +139,15 @@ const Dashboard = () => {
 
     const getActivitiesByUserDate = async (e) => {
         e.preventDefault();
-        const response = await axiosJWT.post('/GetParticipantsDates',
-            {
-                params: { 
-                    fromDate: fromDate, toDate: toDate , idCustomer : idCustomer
-                } 
-            }
-        );
-        // response.data[0].prueba = "Hola";
+        const response = await axiosJWT.post('/GetParticipantsDates', { idCustomer, fromDate, toDate });
         console.log(response.data);
-        const parsedActivities = (response.data);
+        const activities = Array.isArray(response.data) ? response.data : [response.data];
+        const parsedActivities = activities.map(activity => ({
+            id: activity.idActivity,
+            datetime: activity.datetime,
+            name: activity.name,
+            description: activity.description,
+        }));
         setActivitiesByUserDate(parsedActivities);
     }
 
@@ -164,7 +163,7 @@ const Dashboard = () => {
     // }
 
     // Difference between 2 dates in days
-    const days = (date_1, date_2) =>{
+    const days = (date_1, date_2) => {
         let difference = date_1.getTime() - date_2.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         return TotalDays;
@@ -184,7 +183,7 @@ const Dashboard = () => {
     }
 
     const OpenActivityProfile = async (e, activityId, countdown) => {
-        if(e.target == null || e.target.name != 'deleteButton' && countdown > 0) {
+        if (e.target == null || e.target.name != 'deleteButton' && countdown > 0) {
             navigation('/activityProfile/' + activityId);
         }
     }
@@ -213,21 +212,21 @@ const Dashboard = () => {
                 <Container fluid>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
-                        
-                    </Nav>
-                    <Form className="d-flex" onSubmit={getActivitiesByUserDate}>
-                        <Form.Control className="me-2" type="date" placeholder="Date" 
-                            value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
-                        <Form.Control className="me-2" type="date" placeholder="Date" 
-                            value={toDate} onChange={(e) => setToDate(e.target.value)} />
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" 
-                        aria-label="User ID" value={idCustomer} onChange={e => setIdCustomer(e.target.value)} />
-                        {/* <Form.Control
+                        <Nav
+                            className="me-auto my-2 my-lg-0"
+                            style={{ maxHeight: '100px' }}
+                            navbarScroll
+                        >
+
+                        </Nav>
+                        <Form className="d-flex" onSubmit={getActivitiesByUserDate}>
+                            <Form.Control className="me-2" type="date" placeholder="Date"
+                                value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
+                            <Form.Control className="me-2" type="date" placeholder="Date"
+                                value={toDate} onChange={(e) => setToDate(e.target.value)} />
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search"
+                                aria-label="User ID" value={idCustomer} onChange={e => setIdCustomer(e.target.value)} />
+                            {/* <Form.Control
                             type="search"
                             placeholder="Search by name"
                             className="me-2"
@@ -239,27 +238,26 @@ const Dashboard = () => {
                             className="me-2"
                             aria-label="Search"
                         /> */}
-                        <Button variant="outline-success"  type="submit">Buscar</Button>
-                    </Form>
+                            <Button variant="outline-success" type="submit">Buscar</Button>
+                        </Form>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
             {/* <h1>Welcome Back: {user.name}</h1>
             <h1>Next activities:</h1>*/}
-            {activitiesByUserDate.length == 0 &&
+            {activitiesByUserDate.length <= 0 &&
                 <h2 className="noActivity">
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }
             <Row xs={1} md={4} className="g-4 mt-1 mb-5">
                 {activitiesByUserDate.map((activitiesByUserDate) => (
-                    <Col key={activitiesByUserDate.idCustomer}>
+                    <Col>
                         <Card>
                             {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.activities[0].model.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.activities[0].datetime}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Email:</span> {activitiesByUserDate.customers[0].mail}</Card.Text>
+                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.name}</Card.Title>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.datetime}</Card.Text>
                                 <div className='mt-4 text-center'>
                                     {/* <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
                                         Mensaje

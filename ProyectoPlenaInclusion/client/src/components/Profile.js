@@ -5,6 +5,8 @@ function UserInformation() {
     const [mail, setMail] = useState("");
     const [customers, setCustomers] = useState([]);
     const [professionals, setProfessionals] = useState([]);
+    const [newMail, setNewMail] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,6 +17,46 @@ function UserInformation() {
             ]);
             setCustomers(customersRes.data);
             setProfessionals(professionalsRes.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleUpdate = async (e, user) => {
+        e.preventDefault();
+        try {
+            const { idCustomer, mail, password } = user;
+            let res;
+            if (idCustomer) {
+                res = await axios.post("/updateCustomer", {
+                    idCustomer,
+                    newMail: newMail || mail,
+                    newPassword: newPassword || password,
+                });
+                setCustomers(customers.map((u) => {
+                    if (u.idCustomer === user.idCustomer) {
+                        return { ...u, mail: newMail || u.mail };
+                    } else {
+                        return u;
+                    }
+                }));
+            } else {
+                const { idProfessional, mail, password } = user;
+                let res;
+                res = await axios.post("/updateProfessional", {
+                    idProfessional,
+                    newMail: newMail || mail,
+                    newPassword: newPassword || password,
+                });
+                setProfessionals(professionals.map((u) => {
+                    if (u.idProfessional === user.idProfessional) {
+                        return { ...u, mail: newMail || u.mail };
+                    } else {
+                        return u;
+                    }
+                }));
+            }
+            console.log(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -35,9 +77,17 @@ function UserInformation() {
                     <p>DNI: {user.DNI}</p>
                     <p>Birth Year: {user.birthyear}</p>
                     <p>Mail: {user.mail}</p>
-                    <p>Gender: {user.gender}</p>
-                    <p>Special Cares: {user.specialCares}</p>
-                    <p>Tutor Data: {user.dataTutor}</p>
+                    <form onSubmit={(e) => handleUpdate(e, user)}>
+                        <label>
+                            Nuevo Mail:
+                            <input type="text" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
+                        </label>
+                        <label>
+                            Nueva Contraseña:
+                            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                        </label>
+                        <button type="submit">Actualizar</button>
+                    </form>
                 </div>
             ))}
             {professionals.map((user) => (
@@ -47,6 +97,17 @@ function UserInformation() {
                     <p>Birth Year: {user.birthyear}</p>
                     <p>Mail: {user.mail}</p>
                     <p>Availability: {user.availability}</p>
+                    <form onSubmit={(e) => handleUpdate(e, user)}>
+                        <label>
+                            Nuevo Mail:
+                            <input type="text" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
+                        </label>
+                        <label>
+                            Nueva Contraseña:
+                            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                        </label>
+                        <button type="submit">Actualizar</button>
+                    </form>
                 </div>
             ))}
         </div>
