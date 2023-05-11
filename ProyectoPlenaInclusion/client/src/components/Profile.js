@@ -17,6 +17,8 @@ function UserInformation() {
             ]);
             setCustomers(customersRes.data);
             setProfessionals(professionalsRes.data);
+            console.log(customersRes.data)
+            console.log(professionalsRes.data)
         } catch (error) {
             console.log(error);
         }
@@ -42,8 +44,8 @@ function UserInformation() {
                 }));
             } else {
                 const { idProfessional, mail, password } = user;
-                let res;
-                res = await axios.post("/updateProfessional", {
+                let res1;
+                res1 = await axios.post("/updateProfessional", {
                     idProfessional,
                     newMail: newMail || mail,
                     newPassword: newPassword || password,
