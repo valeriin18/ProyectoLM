@@ -76,7 +76,7 @@ export const UpdateParticipant = async(req, res) => {
   }
 }
 export const GetParticipantsDates = async (req, res) => {
-  const { idCustomer, fromDate, toDate } = req.body;
+  const { idCustomer, fromDate, toDate } = req.body.params;
   try {
     let endDate = toDate;
     if (!endDate) {
@@ -103,7 +103,7 @@ export const GetParticipantsDates = async (req, res) => {
       },
       attributes: ['idActivity','datetime'],
     });
-    res.json({ activities });
+    res.json( activities );
     console.log(activities);
   } catch (error) {
     console.log(error);
