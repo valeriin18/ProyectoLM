@@ -1,6 +1,7 @@
 import Activity from '../models/activityModel.js';
 import { Op } from "sequelize";
-
+import Model from "../models/modelModel.js";
+import sequelize from "sequelize";
 export const CreateActivity = async(req, res) => {
     const { idActivity, idProfessional, datetime , idModel} = req.body;
     try {
@@ -53,25 +54,37 @@ export const UpdateActivity = async(req, res) => {
     }
 }
 export const GetActivities = async(req, res) => {
-    const { fromDate, toDate } = req.body;
+    const { fromDate, toDate } = req.body.params;
     console.log('fromDate:', fromDate); // Agrega este console.log para verificar el valor y tipo de fromDate
     try {
         let endDate = toDate;
         if (!endDate) {
-            // Si no se proporciona una segunda fecha, calcular la fecha de los próximos siete días a partir de la fecha actual
-            console.log('Calculando fecha final...');
-            endDate = new Date(fromDate);
-            endDate.setDate(endDate.getDate() + 7);
+          endDate = new Date(fromDate);
+          endDate.setDate(endDate.getDate() + 7);
         }
-        const participation = await Activity.findAll({
+        const activityy = await Activity.findAll({
+            attributes: ['idActivity'],
+          });
+          const idActivities = activityy.map((Activity) => Activity.idActivity);
+          const activities = await Activity.findAll({
+            include: {
+              model: Model,
+          attributes: ['name', 'description']
+            },
             where: {
-                datetime: {
-                    [Op.between]: [fromDate, endDate]
-                }
-            }
-        });
-        res.json(participation);
-    } catch (error) {
-        console.log(error);
-    }
+              idActivity: {
+                [Op.in]: idActivities,
+              },
+              datetime: {
+                [Op.between]: [fromDate, endDate],
+              },
+            },
+            attributes: ['idActivity','datetime'],
+          });
+          res.json( activities );
+          console.log(activities);
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ message: 'Error fetching data' });
+        }
 }

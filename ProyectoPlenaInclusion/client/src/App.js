@@ -9,6 +9,7 @@ import Register from "./components/Register";
 import { Navigate } from 'react-router-dom';
 import  Navbar  from "./components/Navbar";
 import Profile from "./components/Profile";
+import Activities from "./components/Activities";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<><Navbar /><Dashboard/> </>} />
           <Route path="/register" element={<><Navbar /><Register/> </>} />
           <Route path="/profile" element={<><Navbar /><Profile/> </>} />
+          <Route path="/Activities" element={<><Navbar /><Activities/> </>} />
           {/* <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />
           <Route path="/searchActivities" element={<><Navbar/> <SearchActivities/> <Footer/></>} />

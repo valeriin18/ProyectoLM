@@ -37,7 +37,6 @@ Professional.hasMany(Activity,{
 });
 Activity.belongsTo(Professional, {  
     foreignKey: 'idProfessional', 
-    targetKey: 'idProfessional'  
 });
 Model.hasMany(Activity,{
     foreignKey: "idModel"
