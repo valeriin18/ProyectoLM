@@ -36,6 +36,7 @@ const Dashboard = () => {
     // const [activities, setActivities] = useState([]);
     // const [activitiesByUser, setActivitiesByUser] = useState([]);
     const [activitiesByUserDate, setActivitiesByUserDate] = useState([]);
+    const [variable, setVariable] = useState([]);
     const [idCustomer, setIdCustomer] = useState('');
 
     // Default startDate (today) and endDate (today + 7)
@@ -55,7 +56,6 @@ const Dashboard = () => {
         // getUsers();
         // getActivities();
         // getActivitiesByUser();
-        // getActivitiesByUserDate();
         defaultDate();
         getActivitiesByUserDate(new Event('firstTime'));
     }, []);
@@ -139,16 +139,16 @@ const Dashboard = () => {
 
     const getActivitiesByUserDate = async (e) => {
         e.preventDefault();
-        const response = await axiosJWT.post('/GetParticipantsDates', { idCustomer, fromDate, toDate });
+        const response = await axiosJWT.post('/getParticipantsDates',
+            {
+                params: { 
+                    idCustomer: idCustomer, fromDate: fromDate, toDate: toDate 
+                } 
+            }
+        );
+        console.log(1);
         console.log(response.data);
-        const activities = Array.isArray(response.data) ? response.data : [response.data];
-        const parsedActivities = activities.map(activity => ({
-            id: activity.idActivity,
-            datetime: activity.datetime,
-            name: activity.name,
-            description: activity.description,
-        }));
-        setActivitiesByUserDate(parsedActivities);
+        setActivitiesByUserDate(response.data);
     }
 
     // Calculate how many days remain/have passed from today's date
@@ -217,7 +217,6 @@ const Dashboard = () => {
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
-
                         </Nav>
                         <Form className="d-flex" onSubmit={getActivitiesByUserDate}>
                             <Form.Control className="me-2" type="date" placeholder="Date"
@@ -251,13 +250,14 @@ const Dashboard = () => {
                 </h2>
             }
             <Row xs={1} md={4} className="g-4 mt-1 mb-5">
-                {activitiesByUserDate.map((activitiesByUserDate) => (
-                    <Col>
+                {activitiesByUserDate.map((activitiesbyUserdate) => (
+                    <Col key={activitiesbyUserdate.idActivity}>
                         <Card>
                             {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
                             <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesByUserDate.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesByUserDate.datetime}</Card.Text>
+                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
                                 <div className='mt-4 text-center'>
                                     {/* <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
                                         Mensaje
