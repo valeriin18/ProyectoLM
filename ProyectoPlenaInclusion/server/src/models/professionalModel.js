@@ -32,6 +32,12 @@ const Professional = db.define('professional',{
     availability: {
         type: DataTypes.BOOLEAN, 
         defaultValue: false 
+    },
+    accesToken:{
+        type: DataTypes.STRING
+    },
+    refreshToken:{
+        type: DataTypes.STRING
     }
 },{
     freezeTableName: true

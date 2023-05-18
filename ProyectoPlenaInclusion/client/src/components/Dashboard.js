@@ -52,7 +52,7 @@ const Dashboard = () => {
     const navigation = useNavigate();
 
     useEffect(() => {
-        //refreshToken();
+        // refreshToken();
         // getUsers();
         // getActivities();
         // getActivitiesByUser();

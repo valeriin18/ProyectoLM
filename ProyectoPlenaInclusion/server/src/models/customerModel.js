@@ -37,6 +37,12 @@ const Customers = db.define('customers',{
     },
     dataTutor:{
         type: DataTypes.STRING
+    },
+    accesToken:{
+        type: DataTypes.STRING
+    },
+    refreshToken:{
+        type: DataTypes.STRING
     }
 },{
     freezeTableName:true
