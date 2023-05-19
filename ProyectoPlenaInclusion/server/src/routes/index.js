@@ -22,11 +22,15 @@ import { GetParticipantsDates } from "../controllers/participants.js"
 import { LoginCustomer } from "../controllers/customer.js";
 import { GetUsers } from "../controllers/customer.js";
 import { GetProfessionals } from "../controllers/professional.js";
+import { verifyToken } from "../middleware/VerifyToken.js";
+import { refreshToken } from "../models/RefreshToken.js";
+
 
 const router = express.Router();
 router.get('/', (req, res) => {    
     res.render('pages/index');
 });
+
 router.post('/addModel', AddModel);
 router.post('/getActivity', GetModel);
 router.post('/deleteModel', deleteModel);
@@ -50,5 +54,6 @@ router.post('/getParticipantsDates', GetParticipantsDates);
 router.post('/loginCustomer', LoginCustomer);
 router.post('/getUsers', GetUsers);
 router.post('/getProfessionals', GetProfessionals);
+router.get('/token', refreshToken);
 export default router;
 

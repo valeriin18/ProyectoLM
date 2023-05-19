@@ -30,9 +30,10 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const Dashboard = () => {
-    // const [token, setToken] = useState('');
-    // const [expire, setExpire] = useState('');
-    // const [users, setUsers] = useState([]);
+    const [token, setToken] = useState('');
+    const [expire, setExpire] = useState('');
+    const [users, setUsers] = useState([]);
+    const [user, setUser] = useState([]);
     // const [activities, setActivities] = useState([]);
     // const [activitiesByUser, setActivitiesByUser] = useState([]);
     const [activitiesByUserDate, setActivitiesByUserDate] = useState([]);
@@ -52,7 +53,7 @@ const Dashboard = () => {
     const navigation = useNavigate();
 
     useEffect(() => {
-        // refreshToken();
+        refreshToken();
         // getUsers();
         // getActivities();
         // getActivitiesByUser();
@@ -68,23 +69,27 @@ const Dashboard = () => {
         setFromDate(fromDate); setToDate(toDate);
     }
 
-    // const refreshToken = async () => {
-    //     try {
-    //         const response = await axios.get('http://localhost:5050/token');
-    //         setToken(response.data.accessToken);
-    //         const decoded = jwt_decode(response.data.accessToken);
-    //         setUser({
-    //             ...user, // Copy other fields
-    //             userId: decoded.userId,
-    //             name: decoded.name
-    //         });
-    //         setExpire(decoded.exp);
-    //     } catch (error) {
-    //         if (error.response) {
-    //             navigation("/");
-    //         }
-    //     }
-    // }
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setUser({
+                ...user, // Copy other fields
+                idCustomer: decoded.idCustomer,
+                name: decoded.name,
+                mail: decoded.mail
+            });
+            console.log(1);
+            console.log(decoded.data);
+            console.log(decoded.data);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigation("/");
+            }
+        }
+    }
 
     const axiosJWT = axios.create();
 
@@ -146,7 +151,6 @@ const Dashboard = () => {
                 } 
             }
         );
-        console.log(1);
         console.log(response.data);
         setActivitiesByUserDate(response.data);
     }
