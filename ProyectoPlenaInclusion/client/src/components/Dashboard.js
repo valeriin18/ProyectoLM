@@ -76,13 +76,11 @@ const Dashboard = () => {
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
                 ...user, // Copy other fields
-                idCustomer: decoded.idCustomer,
+                userId: decoded.userId,
                 name: decoded.name,
                 mail: decoded.mail
             });
-            console.log(1);
-            console.log(decoded.data);
-            console.log(decoded.data);
+            console.log(decoded);
             setExpire(decoded.exp);
         } catch (error) {
             if (error.response) {
@@ -96,32 +94,34 @@ const Dashboard = () => {
     // Siempre que se realice una peticion segura se ejcuta esta
     // funcion que actualiza el accessToken si es necesario
     // y en config añade los headers y los datos para las queries
-    // axiosJWT.interceptors.request.use(async (config) => {
-    //     const currentDate = new Date();
-    //     if (expire * 1000 < currentDate.getTime() || expire == undefined) {
-    //         const response = await axios.get('http://localhost:5050/token');
-    //         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
-    //         setToken(response.data.accessToken);
-    //         const decoded = jwt_decode(response.data.accessToken);
-    //         setUser({
-    //             ...user, // Copy other fields
-    //             userId: decoded.userId,
-    //             name: decoded.name
-    //         });
-    //         config.params = {
-    //             userId: decoded.userId
-    //         }
-    //         setExpire(decoded.exp);
-    //     } else {
-    //         config.headers.Authorization = `Bearer ${token}`;
-    //         config.params = {
-    //             userId: user.userId
-    //         }
-    //     }
-    //     return config;
-    // }, (error) => {
-    //     return Promise.reject(error);
-    // });
+    axiosJWT.interceptors.request.use(async (config) => {
+        const currentDate = new Date();
+        if (expire * 1000 < currentDate.getTime() || expire == undefined) {
+            const response = await axios.get('/token');
+            console.log(response.data)
+            config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setUser({
+                ...user, // Copy other fields
+                userId: decoded.userId,
+                name: decoded.name,
+                mail: decoded.mail
+            });
+            config.params = {
+                userId: decoded.userId
+            }
+            setExpire(decoded.exp);
+        } else {
+            config.headers.Authorization = `Bearer ${token}`;
+            config.params = {
+                userId: user.userId
+            }
+        }
+        return config;
+    }, (error) => {
+        return Promise.reject(error);
+    });
 
     // const getUsers = async () => {
     //     try {

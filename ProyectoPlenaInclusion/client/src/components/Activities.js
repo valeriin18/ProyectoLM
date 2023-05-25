@@ -29,7 +29,6 @@ const Activities = () => {
         toDate: toDate
       }
     });
-    console.log(1);
     console.log(response.data);
     setActivitiesInTime(response.data);
   };

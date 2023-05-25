@@ -7,7 +7,7 @@ export const refreshToken = async(req, res) => {
         if(!refreshToken) return res.sendStatus(401);
         const user = await Customers.findAll({
             where:{
-                refresh_token: refreshToken
+                refreshToken: refreshToken
             }
         });
         if(!user) return res.sendStatus(403);

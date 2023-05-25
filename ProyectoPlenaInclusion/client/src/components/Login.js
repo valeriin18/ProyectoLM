@@ -57,7 +57,7 @@ const Login = () => {
                                     <button className="button is-success is-fullwidth">Login</button>
                                 </div>
                                 <div className="field mt-3">
-                                  {msg && <p className="help is-danger">{msg}</p>}
+                                {msg && <p className="help is-danger">{msg}</p>}
                                 </div>
                             </form>
                         </div>
