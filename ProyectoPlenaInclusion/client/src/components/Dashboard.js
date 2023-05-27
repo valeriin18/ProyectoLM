@@ -30,9 +30,10 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const Dashboard = () => {
-    // const [token, setToken] = useState('');
-    // const [expire, setExpire] = useState('');
-    // const [users, setUsers] = useState([]);
+    const [token, setToken] = useState('');
+    const [expire, setExpire] = useState('');
+    const [users, setUsers] = useState([]);
+    const [user, setUser] = useState([]);
     // const [activities, setActivities] = useState([]);
     // const [activitiesByUser, setActivitiesByUser] = useState([]);
     const [activitiesByUserDate, setActivitiesByUserDate] = useState([]);
@@ -52,7 +53,7 @@ const Dashboard = () => {
     const navigation = useNavigate();
 
     useEffect(() => {
-        //refreshToken();
+        refreshToken();
         // getUsers();
         // getActivities();
         // getActivitiesByUser();
@@ -68,55 +69,59 @@ const Dashboard = () => {
         setFromDate(fromDate); setToDate(toDate);
     }
 
-    // const refreshToken = async () => {
-    //     try {
-    //         const response = await axios.get('http://localhost:5050/token');
-    //         setToken(response.data.accessToken);
-    //         const decoded = jwt_decode(response.data.accessToken);
-    //         setUser({
-    //             ...user, // Copy other fields
-    //             userId: decoded.userId,
-    //             name: decoded.name
-    //         });
-    //         setExpire(decoded.exp);
-    //     } catch (error) {
-    //         if (error.response) {
-    //             navigation("/");
-    //         }
-    //     }
-    // }
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setUser({
+                ...user, // Copy other fields
+                userId: decoded.userId,
+                name: decoded.name,
+                mail: decoded.mail
+            });
+            console.log(decoded);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigation("/");
+            }
+        }
+    }
 
     const axiosJWT = axios.create();
 
     // Siempre que se realice una peticion segura se ejcuta esta
     // funcion que actualiza el accessToken si es necesario
     // y en config añade los headers y los datos para las queries
-    // axiosJWT.interceptors.request.use(async (config) => {
-    //     const currentDate = new Date();
-    //     if (expire * 1000 < currentDate.getTime() || expire == undefined) {
-    //         const response = await axios.get('http://localhost:5050/token');
-    //         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
-    //         setToken(response.data.accessToken);
-    //         const decoded = jwt_decode(response.data.accessToken);
-    //         setUser({
-    //             ...user, // Copy other fields
-    //             userId: decoded.userId,
-    //             name: decoded.name
-    //         });
-    //         config.params = {
-    //             userId: decoded.userId
-    //         }
-    //         setExpire(decoded.exp);
-    //     } else {
-    //         config.headers.Authorization = `Bearer ${token}`;
-    //         config.params = {
-    //             userId: user.userId
-    //         }
-    //     }
-    //     return config;
-    // }, (error) => {
-    //     return Promise.reject(error);
-    // });
+    axiosJWT.interceptors.request.use(async (config) => {
+        const currentDate = new Date();
+        if (expire * 1000 < currentDate.getTime() || expire == undefined) {
+            const response = await axios.get('/token');
+            console.log(response.data)
+            config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setUser({
+                ...user, // Copy other fields
+                userId: decoded.userId,
+                name: decoded.name,
+                mail: decoded.mail
+            });
+            config.params = {
+                userId: decoded.userId
+            }
+            setExpire(decoded.exp);
+        } else {
+            config.headers.Authorization = `Bearer ${token}`;
+            config.params = {
+                userId: user.userId
+            }
+        }
+        return config;
+    }, (error) => {
+        return Promise.reject(error);
+    });
 
     // const getUsers = async () => {
     //     try {
@@ -146,7 +151,6 @@ const Dashboard = () => {
                 } 
             }
         );
-        console.log(1);
         console.log(response.data);
         setActivitiesByUserDate(response.data);
     }
