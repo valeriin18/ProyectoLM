@@ -30,15 +30,18 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const Dashboard = () => {
+    const [user, setUser] = useState({
+        idCustomer: -1,
+        name: ''
+    });
+    console.log(user)
     const [token, setToken] = useState('');
     const [expire, setExpire] = useState('');
     const [users, setUsers] = useState([]);
-    const [user, setUser] = useState([]);
     // const [activities, setActivities] = useState([]);
     // const [activitiesByUser, setActivitiesByUser] = useState([]);
     const [activitiesByUserDate, setActivitiesByUserDate] = useState([]);
     const [variable, setVariable] = useState([]);
-    const [idCustomer, setIdCustomer] = useState('');
 
     // Default startDate (today) and endDate (today + 7)
     var curr = new Date();
@@ -76,10 +79,10 @@ const Dashboard = () => {
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
                 ...user, // Copy other fields
-                userId: decoded.userId,
-                name: decoded.name,
-                mail: decoded.mail
+                idCustomer: decoded.idCustomer,
+                name: decoded.name
             });
+            console.log(user.data)
             console.log(decoded);
             setExpire(decoded.exp);
         } catch (error) {
@@ -101,16 +104,17 @@ const Dashboard = () => {
             console.log(response.data)
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
+            console.log(token.data)
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
                 ...user, // Copy other fields
-                userId: decoded.userId,
-                name: decoded.name,
-                mail: decoded.mail
+                idCustomer : decoded.idCustomer,
+                name: decoded.name
             });
             config.params = {
-                userId: decoded.userId
+                idCustomer: decoded.idCustomer
             }
+            console.log(user.data)
             setExpire(decoded.exp);
         } else {
             config.headers.Authorization = `Bearer ${token}`;
@@ -147,7 +151,7 @@ const Dashboard = () => {
         const response = await axiosJWT.post('/getParticipantsDates',
             {
                 params: { 
-                    idCustomer: idCustomer, fromDate: fromDate, toDate: toDate 
+                    idCustomer : user.idCustomer, fromDate: fromDate, toDate: toDate 
                 } 
             }
         );
@@ -227,8 +231,6 @@ const Dashboard = () => {
                                 value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
                             <Form.Control className="me-2" type="date" placeholder="Date"
                                 value={toDate} onChange={(e) => setToDate(e.target.value)} />
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                                aria-label="User ID" value={idCustomer} onChange={e => setIdCustomer(e.target.value)} />
                             {/* <Form.Control
                             type="search"
                             placeholder="Search by name"

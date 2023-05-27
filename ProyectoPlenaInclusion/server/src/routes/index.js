@@ -50,7 +50,7 @@ router.post('/updateCustomer', UpdateCustommer);
 router.post('/UpdateParticipant', UpdateParticipant);
 router.post('/deleteParticipants', deleteParticipants);
 router.post('/getActivitiesInTime', GetActivities);
-router.post('/getParticipantsDates', GetParticipantsDates);
+router.post('/getParticipantsDates', verifyToken,GetParticipantsDates);
 router.post('/loginCustomer', LoginCustomer);
 router.post('/getUsers', GetUsers);
 router.post('/getProfessionals', GetProfessionals);

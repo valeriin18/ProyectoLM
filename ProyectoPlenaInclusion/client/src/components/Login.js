@@ -11,7 +11,7 @@ const Login = () => {
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/loginProfessional', {
+            await axios.post('/loginCustomer', {
                 mail: mail,
                 password: password
             });
@@ -21,7 +21,7 @@ const Login = () => {
                 setMsg(error.response.data.msg);
             } 
                 try {
-                    await axios.post('/loginCustomer', {
+                    await axios.post('/loginProfessional', {
                         mail: mail,
                         password: password
                     });
