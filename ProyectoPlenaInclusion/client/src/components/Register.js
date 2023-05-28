@@ -1,24 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Register = () => {
-    const [DNI, setDni] = useState('');
-    const [name, setName] = useState('');
-    const [surname1, setSurname1] = useState('');
-    const [surname2, setSurname2] = useState('');
-    const [birthyear, setBirthdyear] = useState('');
-    const [mail, setMail] = useState('');
-    const [gender, setGender] = useState('');
-    const [specialCare, setSpecialCare] = useState(false);
-    const [dataTutor, setDataTutor] = useState('');
-    const [errorMsg, setErrorMsg] = useState('');
-    const history = useNavigate();
+  const [DNI, setDni] = useState('');
+  const [name, setName] = useState('');
+  const [surname1, setSurname1] = useState('');
+  const [surname2, setSurname2] = useState('');
+  const [birthyear, setBirthdyear] = useState('');
+  const [mail, setMail] = useState('');
+  const [gender, setGender] = useState('');
+  const [specialCare, setSpecialCare] = useState(false);
+  const [dataTutor, setDataTutor] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post('/RegisterCustomer', {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    confirmAlert({
+      title: 'Confirmación',
+      message: '¿Está seguro de crear el usuario?',
+      buttons: [
+        {
+          label: 'Sí',
+          onClick: async () => {
+            try {
+              await axios.post('/RegisterCustomer', {
                 DNI: DNI,
                 name: name,
                 surname1: surname1,
@@ -28,40 +37,44 @@ const Register = () => {
                 gender: gender,
                 specialCares: specialCare,
                 dataTutor: dataTutor,
-            });
-            history("/dashboard");
-        } catch (error) {
-            if (error.response) {
+              });
+              navigate('/dashboard');
+            } catch (error) {
+              if (error.response) {
                 setErrorMsg(error.response.data.msg);
                 console.log(errorMsg);
+              }
             }
-        }
-    }
-    return (
-        <section className="hero has-background-grey-light is-fullheight is-fullwidth">
-            <div className="hero-body">
-                <div className="container">
-                    <div className="columns is-centered">
-                        <div className="column is-6-desktop">
-                            <form onSubmit={handleSubmit} className="box">
-                                <div className="field mt-5 has-text-centered">
-                                    <p className="has-text-centered" style={{ fontSize: 45 }}>
-                                        PlenaInclusión
-                                    </p>
-                                </div>
-                                <div className="field mt-5">
-                                    <label className="label">DNI</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            className="input"
-                                            placeholder="12345678A"
-                                            value={DNI}
-                                            onChange={(e) => setDni(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => {
+          },
+        },
+      ],
+    });
+  };
+  return (
+    <section className="hero has-background-grey-light is-fullheight is-fullwidth">
+      <div className="hero-body">
+        <div className="container">
+          <div className="columns is-centered">
+            <div className="column is-6-desktop">
+              <form className="box">
+                <div className="field mt-5">
+                  <label className="label">DNI</label>
+                  <div className="controls">
+                    <input
+                      type="text"
+                      className="input"
+                      placeholder="12345678A"
+                      value={DNI}
+                      onChange={(e) => setDni(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="field mt-5">
                                     <label className="label">Name</label>
                                     <div className="controls">
                                         <input
@@ -161,20 +174,23 @@ const Register = () => {
                                 <div className="field">
                                     <p className="help is-danger">{errorMsg}</p>
                                 </div>
-                                <div className="field mt-5">
-                                    <div className="controls">
-                                        <button type="submit" className="button is-link">
-                                            Register
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div className="field mt-5">
+                  <div className="controls">
+                    <button type="submit" className="button is-link" onClick={handleSubmit}>
+                      Register
+                    </button>
+                  </div>
                 </div>
+              </form>
             </div>
-        </section>
-    );
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Register;
+
+
+                                

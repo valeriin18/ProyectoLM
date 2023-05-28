@@ -87,11 +87,12 @@
                 Password: <input type="password" name="password" value="" /><br><br>
                 <input type="submit" value="Login"/><br><br><hr>
             </form>
-        <h1>Add Model</h1>
-            <form action="/addModel" method="post">
+            <h1>Add Model</h1>
+            <form action="/addModel" method="post" enctype="multipart/form-data">
                 idUser : <input type="text" name="idProfessional" value="" /><br><br>
                 name :<input type="text" name="name" value=""><br><br>
                 description : <input type="text" name="description" value=""><br><br>
+                Image : <input type="file" name="image" /><br><br>
                 <input type="submit" value="Activity"/><br><br><hr>
             </form>
         <h1>Delete Model</h1>

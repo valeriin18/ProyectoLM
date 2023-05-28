@@ -67,6 +67,7 @@ const Activities = () => {
         {activitiesInTime.map((activity) => (
           <Col key={activity.idActivity}>
             <Card>
+              <img src={'http://localhost:5000' + activity.model.imageUrl} alt="Imagen" />
               <Card.Body className="text-center"> {/* Agrega la clase "text-center" */}
                 <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activity.model.name}</Card.Title>
                 <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activity.datetime}</Card.Text>
