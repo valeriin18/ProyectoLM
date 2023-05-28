@@ -1,28 +1,97 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
+import 'bootstrap/dist/css/bootstrap.css';
+import './style.css';
 
-function UserInformation() {
-  const [mail, setMail] = useState("");
+function Profile() {
+  const [user, setUser] = useState({
+        idCustomer: -1,
+        name: ''
+    });
+  const [token, setToken] = useState('');
   const [customers, setCustomers] = useState([]);
   const [professionals, setProfessionals] = useState([]);
   const [newMail, setNewMail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [expire, setExpire] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const [customersRes, professionalsRes] = await Promise.all([
-        axios.post("/GetUsers", { mail }),
-        axios.post("/GetProfessionals", { mail })
-      ]);
-      setCustomers(customersRes.data);
-      setProfessionals(professionalsRes.data);
-      console.log(customersRes.data)
-      console.log(professionalsRes.data)
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const navigation = useNavigate();
+
+  useEffect(() => {
+    refreshToken();
+    getUsers();
+}, []);
+
+const refreshToken = async () => {
+  try {
+      const response = await axios.get('/token');
+      setToken(response.data.accessToken);
+      localStorage.setItem("myToken", token);
+      const decoded = jwt_decode(response.data.accessToken);
+      setUser({
+          ...user, // Copy other fields
+          idCustomer: decoded.idCustomer,
+          name: decoded.name
+      });
+      console.log(user.data)
+      console.log(decoded);
+      setExpire(decoded.exp);
+  } catch (error) {
+      if (error.response) {
+          navigation("/");
+      }
+  }
+}
+
+const axiosJWT = axios.create(); 
+
+// Siempre que se realice una peticion segura se ejcuta esta
+// funcion que actualiza el accessToken si es necesario
+// y en config añade los headers y los datos para las queries
+axiosJWT.interceptors.request.use(async (config) => {
+  const currentDate = new Date();
+  if (expire * 1000 < currentDate.getTime() || expire == undefined) {
+      const response = await axios.get('/token');
+      console.log(response.data)
+      config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+      setToken(response.data.accessToken);
+      console.log(token.data)
+      const decoded = jwt_decode(response.data.accessToken);
+      setUser({
+          ...user, // Copy other fields
+          idCustomer : decoded.idCustomer,
+          name: decoded.name
+      });
+      config.params = {
+          idCustomer: decoded.idCustomer
+      }
+      console.log(decoded)
+      console.log(user.idCustomer)
+      setExpire(decoded.exp);
+  } else {
+      config.headers.Authorization = `Bearer ${token}`;
+      config.params = {
+        idCustomer: user.idCustomer
+      }
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+  const getUsers = async () => {
+    const response = await axiosJWT.post('/getUsers',
+        {
+            params: { 
+              idCustomer : user.idCustomer
+            } 
+        }
+    );
+    console.log(response.data);
+    setCustomers(response.data);
+}
 
   const handleUpdate = async (e, user) => {
     e.preventDefault();
@@ -66,13 +135,6 @@ function UserInformation() {
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="mail" className="form-label">Mail:</label>
-          <input type="text" className="form-control" id="mail" value={mail} onChange={(e) => setMail(e.target.value)} />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
       {customers.map((user) => (
         <div key={user.idCustomer} className="my-4">
           <h2>{user.name} {user.surname1} {user.surname2}</h2>
@@ -117,4 +179,4 @@ function UserInformation() {
   );
 }
 
-export default UserInformation;
+export default Profile;
