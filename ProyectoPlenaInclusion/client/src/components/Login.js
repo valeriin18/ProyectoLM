@@ -11,16 +11,17 @@ const Login = () => {
 
     const Auth = async (e) => {
         e.preventDefault();
-        try {
-            await axios.post('/loginCustomer', {
-                mail: mail,
-                password: password
-            });
-            history("/dashboard");
-        } catch (error) {
-            if (error.response) {
-                setMsg(error.response.data.msg);
-            } 
+            setMsg(error.response.data.msg);
+            try {
+                await axios.post('/loginCustomer', {
+                    mail: mail,
+                    password: password
+                });
+                history("/dashboard");
+            } catch (error) {
+                window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
+            }
+
                 try {
                     await axios.post('/loginProfessional', {
                         mail: mail,
@@ -83,6 +84,4 @@ const Login = () => {
             </div>
         </section>
     )
-}
-
 export default Login

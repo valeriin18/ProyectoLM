@@ -1,15 +1,12 @@
-
+import userImage from '../fotos/fondoWeb.jpeg';
+import bgImage from '../fotos/trebol.jpg';
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import userImage from '../fotos/fondoWeb.jpeg';
-import bgImage from '../fotos/trebol.jpg';
 
-function UserInformation() {
-  const [mail, setMail] = useState("");
 function Profile() {
   const [user, setUser] = useState({
         idCustomer: -1,
@@ -187,4 +184,5 @@ axiosJWT.interceptors.request.use(async (config) => {
     </section>
   );
 }
-export default Profile
+
+export default Profile;

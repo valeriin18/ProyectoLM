@@ -29,14 +29,14 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const Dashboard = () => {
+    const [token, setToken] = useState('');
+    const [expire, setExpire] = useState('');
+    const [users, setUsers] = useState([]);
     const [user, setUser] = useState({
         idCustomer: -1,
         name: ''
     });
     console.log(user)
-    const [token, setToken] = useState('');
-    const [expire, setExpire] = useState('');
-    const [users, setUsers] = useState([]);
     // const [activities, setActivities] = useState([]);
     // const [activitiesByUser, setActivitiesByUser] = useState([]);
     const [activitiesByUserDate, setActivitiesByUserDate] = useState([]);
@@ -255,7 +255,7 @@ const Dashboard = () => {
                                 <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
-                                <div className='mt-4 text-center'>
+                                <div className='success'>
                                 </div>
                         </Card.Body>
                     </Card>
