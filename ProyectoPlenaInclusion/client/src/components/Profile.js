@@ -184,5 +184,4 @@ axiosJWT.interceptors.request.use(async (config) => {
     </section>
   );
 }
-
 export default Profile;

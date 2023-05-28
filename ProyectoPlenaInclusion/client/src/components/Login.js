@@ -11,6 +11,14 @@ const Login = () => {
 
     const Auth = async (e) => {
         e.preventDefault();
+        try {
+            await axios.post('/loginCustomer', {
+                mail: mail,
+                password: password
+            });
+            history("/dashboard");
+        } catch (error) {
+
             setMsg(error.response.data.msg);
             try {
                 await axios.post('/loginCustomer', {
@@ -22,6 +30,7 @@ const Login = () => {
                 window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
             }
 
+           
                 try {
                     await axios.post('/loginProfessional', {
                         mail: mail,
@@ -31,6 +40,7 @@ const Login = () => {
                 } catch (error) {
                     window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
                 }
+
         }
     }
 
@@ -63,7 +73,7 @@ const Login = () => {
                                     <div className="controls">
                                         <input type="password" 
                                         className="form-control" 
-                                        placeholder="******" 
+                                        placeholder="**" 
                                         value={password} 
                                         onChange={(e) => setPassword(e.target.value)} />
                                     </div>
@@ -84,4 +94,6 @@ const Login = () => {
             </div>
         </section>
     )
+}
+
 export default Login
