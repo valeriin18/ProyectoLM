@@ -1,10 +1,15 @@
+
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
+import userImage from '../fotos/fondoWeb.jpeg';
+import bgImage from '../fotos/trebol.jpg';
 
+function UserInformation() {
+  const [mail, setMail] = useState("");
 function Profile() {
   const [user, setUser] = useState({
         idCustomer: -1,
@@ -134,49 +139,52 @@ axiosJWT.interceptors.request.use(async (config) => {
   };
 
   return (
-    <div className="container">
-      {customers.map((user) => (
-        <div key={user.idCustomer} className="my-4">
-          <h2>{user.name} {user.surname1} {user.surname2}</h2>
-          <p>ID: {user.idCustomer}</p>
-          <p>DNI: {user.DNI}</p>
-          <p>Birth Year: {user.birthyear}</p>
-          <p>Mail: {user.mail}</p>
-          <form onSubmit={(e) => handleUpdate(e, user)}>
-            <div className="mb-3">
-              <label htmlFor="newMail" className="form-label">Nuevo Mail:</label>
-              <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
-              <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-            </div>
-            <button type="submit" className="btn btn-primary">Actualizar</button>
-          </form>
+    <section 
+            className="hero has-background-grey-light is-fullheight is-fullwidth"
+            style={{ 
+                backgroundImage: `url(${bgImage})`, 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center'
+            }}>
+    <div className="container my-4 d-flex flex-column align-items-center justify-content-center">
+      <form onSubmit={handleSubmit} className="mb-4 w-50">
+        <div className="form-group">
+          <label htmlFor="mail">Mail:</label>
+          <input type="text" className="form-control" id="mail" value={mail} onChange={(e) => setMail(e.target.value)} />
+          <br></br>
         </div>
-      ))}
-      {professionals.map((user) => (
-        <div key={user.idProfessional} className="my-4">
-          <h2>{user.name} {user.surname1} {user.surname2}</h2>
-          <p>DNI: {user.DNI}</p>
-          <p>Birth Year: {user.birthyear}</p>
-          <p>Mail: {user.mail}</p>
-          <p>Availability: {user.availability}</p>
-          <form onSubmit={(e) => handleUpdate(e, user)}>
-            <div className="mb-3">
-              <label htmlFor="newMail" className="form-label">Nuevo Mail:</label>
-              <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
+        <button type="submit" className="btn btn-success btn-block mt-3">Buscar</button>
+      </form>
+    
+      <div className="row w-100 justify-content-center">
+        {customers.map((user) => (
+          <div key={user.idCustomer} className="col-md-6">
+            <div className="card mb-4 shadow-sm" style={{backgroundColor: 'rgba(255, 255, 255, 0.85)'}}>
+              <div className="card-body" >
+              <img src={userImage} alt="User" className="rounded-circle mx-auto d-block" style={{ width: "100px", height: "100px" }} />
+                <h5 className="card-title mt-2 text-center">{user.name} {user.surname1} {user.surname2}</h5>
+                <p className="card-text">ID: {user.idCustomer}</p>
+                <p className="card-text">DNI: {user.DNI}</p>
+                <p className="card-text">Año de nacimiento: {user.birthyear}</p>
+                <p className="card-text">Mail: {user.mail}</p>
+                <form onSubmit={(e) => handleUpdate(e, user)}>
+                  <div className="form-group">
+                    <label htmlFor="newMail">Nuevo Mail:</label>
+                    <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="newPassword">Nueva Contraseña:</label>
+                    <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                  </div>
+                  <button type="submit" className="btn btn-success btn-block mt-3">Actualizar</button>
+                </form>
+              </div>
             </div>
-            <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
-              <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-            </div>
-            <button type="submit" className="btn btn-primary">Actualizar</button>
-          </form>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
+    </section>
   );
 }
-
-export default Profile;
+export default Profile
