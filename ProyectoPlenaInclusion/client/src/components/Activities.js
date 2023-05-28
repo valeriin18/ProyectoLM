@@ -68,6 +68,7 @@ const Activities = () => {
           <Col key={activity.idActivity}>
             <Card>
               <Card.Body className="text-center"> {/* Agrega la clase "text-center" */}
+              <img src={'http://localhost:5000' + activity.model.imageUrl} alt="Imagen" />
                 <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activity.model.name}</Card.Title>
                 <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activity.datetime}</Card.Text>
                 <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activity.model.description}</Card.Text>

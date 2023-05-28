@@ -24,14 +24,39 @@ import { GetUsers } from "../controllers/customer.js";
 import { GetProfessionals } from "../controllers/professional.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../models/RefreshToken.js";
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 router.get('/', (req, res) => {    
     res.render('pages/index');
 });
 
-router.post('/addModel', AddModel);
+const uploadsDirectory = path.join(__dirname, '../uploads'); // ajusta este camino según tu estructura de directorios
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadsDirectory);
+    },
+    
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
+
+router.post('/addModel', upload.single('image'), (req, res, next) => {
+    if (!req.file) {
+        res.status(400).json({ error: "No file uploaded" });
+    } else {
+        console.log(req.file);
+        next();
+    }
+}, AddModel);
 router.post('/getActivity', GetModel);
 router.post('/deleteModel', deleteModel);
 router.post('/updateModel',UpdateModel);
@@ -55,5 +80,6 @@ router.post('/loginCustomer', LoginCustomer);
 router.post('/getUsers', GetUsers);
 router.post('/getProfessionals', GetProfessionals);
 router.get('/token', refreshToken);
+
 export default router;
 

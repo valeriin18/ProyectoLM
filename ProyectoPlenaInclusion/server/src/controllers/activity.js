@@ -69,7 +69,7 @@ export const GetActivities = async(req, res) => {
           const activities = await Activity.findAll({
             include: {
               model: Model,
-          attributes: ['name', 'description']
+          attributes: ['name', 'description', 'imageUrl']
             },
             where: {
               idActivity: {

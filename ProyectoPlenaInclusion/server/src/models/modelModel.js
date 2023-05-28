@@ -15,6 +15,9 @@ const Model = db.define('model',{
     },
     description:{
         type: DataTypes.STRING
+    },
+    imageUrl:{
+        type: DataTypes.STRING
     }
 },{
     freezeTableName:true

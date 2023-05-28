@@ -28,6 +28,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 // Upload img
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Add this line
 // Cron sending emails
 
 // set the view engine to ejs
