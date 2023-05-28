@@ -110,3 +110,16 @@ export const getUsers = async(req, res) => {
         console.log(error);
     }
 }
+
+export const logout = async (req, res) => {
+    // Aquí debes realizar las acciones necesarias para cerrar la sesión del usuario
+    // y eliminar cualquier información relacionada con la sesión actual.
+    try {
+        res.clearCookie('refreshToken');
+    res.json({ message: 'Logout successful' });
+    } catch (error) {
+      // Manejo de errores en caso de que ocurra algún problema durante el logout
+    console.log(error);
+    res.status(500).json({ error: 'An error occurred during logout' });
+    }
+}
