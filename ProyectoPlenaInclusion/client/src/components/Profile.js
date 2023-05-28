@@ -18,10 +18,10 @@ function Profile() {
 
   const navigation = useNavigate();
 
-  useEffect(() => {
-    refreshToken();
-    getUsers(new Event('firstTime'));
-}, []);
+useEffect(() => {
+  refreshToken();
+  getUsers();
+}, [user.idCustomer]);
 
 
 const refreshToken = async () => {
@@ -81,7 +81,6 @@ axiosJWT.interceptors.request.use(async (config) => {
 });
 
   const getUsers = async (e) => {
-    e.preventDefault();
     const response = await axiosJWT.post('/getUsers',
         {
             params: { 
