@@ -25,7 +25,6 @@ function NavigationBar() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/dashboard">Inicio</Nav.Link>
-                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
                     <Nav.Link as={Link} to="/register">Register</Nav.Link>
                     <Nav.Link as={Link} to="/profile">Perfil</Nav.Link>
                     <Nav.Link as={Link} to="/Activities">actividades</Nav.Link>
