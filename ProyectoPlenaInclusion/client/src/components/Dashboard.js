@@ -258,38 +258,23 @@ const Dashboard = () => {
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }
-            <Row xs={1} md={4} className="g-4 mt-1 mb-5">
-                {activitiesByUserDate.map((activitiesbyUserdate) => (
-                    <Col key={activitiesbyUserdate.idActivity}>
-                        <Card>
-                            {/* <Card.Img variant="top" src={"http://localhost:5050/static/" + activitiesByUserDate.activity.image} /> */}
-                            <Card.Body>
+           <Row xs={1} md={4} className="g-4 mt-1 mb-5">
+  {activitiesByUserDate.map((activitiesbyUserdate) => (
+        <Col key={activitiesbyUserdate.idActivity}>
+                    <Card>
+                        <img src={'http://localhost:5000' + activitiesbyUserdate.model.imageUrl} alt="Imagen" />
+                        <Card.Body>
                                 <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
                                 <div className='mt-4 text-center'>
-                                    {/* <Button disabled={activitiesByUserDate.activity.countdown < 0} className='mr-2' variant="outline-success" onClick={() => navigation('/activityProfile/' + activitiesByUserDate.activity.id)}>
-                                        Mensaje
-                                    </Button>
-                                    <Button disabled={activitiesByUserDate.activity.countdown < 0} name="deleteButton" variant="danger" onClick={(e) => BeforeDeleteAlert(e, activitiesByUserDate.activity.id)}>
-                                        Abandonar
-                                    </Button> */}
                                 </div>
-                            </Card.Body>
-                            {/* Paint countdown timer to begin the activity */}
-                            {(() => {
-                                // switch (true) {
-                                //     case (activitiesByUserDate.activity.countdown > 0):   return <Card.Footer className="text-muted">¡Quedan {activitiesByUserDate.activity.countdown} días!</Card.Footer>;
-                                //     case (activitiesByUserDate.activity.countdown == 0):  return <Card.Footer className="text-muted">¡Es hoy!</Card.Footer>;
-                                //     default:     return <Card.Footer className="text-muted">¡Fue hace {activitiesByUserDate.activity.countdown * -1} días!</Card.Footer>
-                                // }
-                            })()}
-                        </Card>
-                    </Col>
+                        </Card.Body>
+                    </Card>
+                </Col>
                 ))}
             </Row>
         </div>
     )
 }
-
 export default Dashboard

@@ -1,11 +1,18 @@
 import Model from '../models/modelModel.js';
+
 export const AddModel = async(req, res) => {
     const { idProfessional, name, description } = req.body;
+    if (!req.file) {
+        res.json({msg: "No file uploaded"});
+        return;
+    }
+    const image = '/uploads/' + req.file.filename; 
     try {
         await Model.create({
             idProfessional: idProfessional,
             name: name,
-            description: description
+            description: description,
+            imageUrl: image
         });
         res.json({msg: "The activity has been added correctly"});
     } catch (error) {
