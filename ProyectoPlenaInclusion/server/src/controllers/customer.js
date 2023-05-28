@@ -98,8 +98,8 @@ export const LoginCustomer = async(req, res) => {
     res.status(500).json({msg: "Internal Server Error"});
     }
 }
-export const GetUsers = async(req, res) => {
-    const { idCustomer } = req.body;
+export const getUsers = async(req, res) => {
+    const { idCustomer } = req.body.params;
     try {
     const user = await Customers.findAll({
         where: { idCustomer },

@@ -23,7 +23,6 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import { Link } from 'react-router-dom';
 
 // Alert before delete
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -76,6 +75,7 @@ const Dashboard = () => {
         try {
             const response = await axios.get('/token');
             setToken(response.data.accessToken);
+            localStorage.setItem("myToken", token);
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
                 ...user, // Copy other fields
@@ -126,15 +126,6 @@ const Dashboard = () => {
     }, (error) => {
         return Promise.reject(error);
     });
-
-    // const getUsers = async () => {
-    //     try {
-    //         const response = await axiosJWT.get('http://localhost:5050/users');
-    //         setUsers(response.data);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
     // const getActivities = async () => {
     //     const response = await axiosJWT.get('http://localhost:5050/activities');
@@ -211,7 +202,7 @@ const Dashboard = () => {
             ]
         });
     }
-    return (
+    return (    
         <div className="container mt-5 top">
             <div className='p-5 text-center'>
                 <h1 className='mb-3' style={{ fontSize: 30, fontWeight: 'bold' }}>Mis actividades</h1>

@@ -20,7 +20,7 @@ import { deleteParticipants } from "../controllers/participants.js";
 import { GetActivities } from "../controllers/activity.js";
 import { GetParticipantsDates } from "../controllers/participants.js"
 import { LoginCustomer } from "../controllers/customer.js";
-import { GetUsers } from "../controllers/customer.js";
+import { getUsers } from "../controllers/customer.js";
 import { GetProfessionals } from "../controllers/professional.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../models/RefreshToken.js";
@@ -75,11 +75,9 @@ router.post('/updateCustomer', UpdateCustommer);
 router.post('/UpdateParticipant', UpdateParticipant);
 router.post('/deleteParticipants', deleteParticipants);
 router.post('/getActivitiesInTime', GetActivities);
-router.post('/getParticipantsDates', verifyToken,GetParticipantsDates);
+router.post('/getParticipantsDates', verifyToken, GetParticipantsDates);
 router.post('/loginCustomer', LoginCustomer);
-router.post('/getUsers', GetUsers);
 router.post('/getProfessionals', GetProfessionals);
 router.get('/token', refreshToken);
-
+router.post('/getUsers', verifyToken, getUsers);
 export default router;
-
