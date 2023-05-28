@@ -12,12 +12,13 @@ const Login = () => {
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/loginProfessional', {
+            await axios.post('/loginCustomer', {
                 mail: mail,
                 password: password
             });
             history("/dashboard");
         } catch (error) {
+
             setMsg(error.response.data.msg);
             try {
                 await axios.post('/loginCustomer', {
@@ -28,6 +29,18 @@ const Login = () => {
             } catch (error) {
                 window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
             }
+
+           
+                try {
+                    await axios.post('/loginProfessional', {
+                        mail: mail,
+                        password: password
+                    });
+                    history("/dashboard");
+                } catch (error) {
+                    window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
+                }
+
         }
     }
 
@@ -67,6 +80,9 @@ const Login = () => {
                                 </div>
                                 <div className="field mt-5">
                                     <button className="btn btn-success btn-block">Login</button>
+                                </div>
+                                <div className="field mt-3">
+                                {msg && <p className="help is-danger">{msg}</p>}
                                 </div>
                                 <div className="field mt-3">
                                 {msg && <p className="help is-danger">{msg}</p>}
