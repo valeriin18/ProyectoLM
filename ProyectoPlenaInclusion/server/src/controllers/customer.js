@@ -23,7 +23,7 @@ export const RegisterCustom = async(req, res) => {
             specialCares: specialCares,
             dataTutor: dataTutor
         })
-        res.json("Register");
+        res.json(password);
     } catch (error) {
         console.log(error);
     }
