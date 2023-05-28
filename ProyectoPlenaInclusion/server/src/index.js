@@ -39,6 +39,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // Routes
 app.use(router);
+
 //Inicializating server, reading...
 app.listen(app.get('port'),()=>{
     console.log(`Server listening on port ${app.get('port')}`);

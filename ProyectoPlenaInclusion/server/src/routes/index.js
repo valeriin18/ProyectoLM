@@ -24,6 +24,7 @@ import { getUsers } from "../controllers/customer.js";
 import { GetProfessionals } from "../controllers/professional.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../models/RefreshToken.js";
+import { logout } from "../controllers/customer.js";
 
 
 const router = express.Router();
@@ -55,6 +56,7 @@ router.post('/loginCustomer', LoginCustomer);
 router.post('/getProfessionals', GetProfessionals);
 router.get('/token', refreshToken);
 router.post('/getUsers', verifyToken, getUsers);
+router.post('/logout', logout);
 
 
 export default router;

@@ -108,7 +108,7 @@ const Dashboard = () => {
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
                 ...user, // Copy other fields
-                idCustomer : decoded.idCustomer,
+                idCustomer: decoded.idCustomer,
                 name: decoded.name
             });
             config.params = {
@@ -141,9 +141,9 @@ const Dashboard = () => {
         e.preventDefault();
         const response = await axiosJWT.post('/getParticipantsDates',
             {
-                params: { 
-                    idCustomer : user.idCustomer, fromDate: fromDate, toDate: toDate 
-                } 
+                params: {
+                    idCustomer: user.idCustomer, fromDate: fromDate, toDate: toDate
+                }
             }
         );
         console.log(response.data);
@@ -202,7 +202,7 @@ const Dashboard = () => {
             ]
         });
     }
-    return (    
+    return (
         <div className="container mt-5 top">
             <div className='p-5 text-center'>
                 <h1 className='mb-3' style={{ fontSize: 30, fontWeight: 'bold' }}>Mis actividades</h1>
