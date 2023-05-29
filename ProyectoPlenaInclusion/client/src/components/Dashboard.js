@@ -168,18 +168,41 @@ const Dashboard = () => {
         return TotalDays;
     }
 
-    const DeleteParticipant = async (e, activityId) => {
+    const DeleteParticipant = async (e, idActivity) => {
+        e.preventDefault();
         try {
-            await axiosJWT.post('http://localhost:5050/deleteParticipant', {
-                activityId: activityId
+            await axiosJWT.post('deleteParticipants', {
+                idActivity: idActivity, idCustomer: user.idCustomer
             });
-            getActivitiesByUserDate(new Event('firstTime'));
         } catch (error) {
             if (error.response) {
                 console.log(error.response);
             }
         }
     }
+
+
+    const handleUnsubscribe = (e, idActivity) => {
+    e.preventDefault();
+    confirmAlert({
+      title: 'Confirmación',
+      message: '¿Está seguro de desapuntarse de esta actividad?',
+      buttons: [
+        {
+          label: 'Sí',
+          onClick: () => {
+            DeleteParticipant(e, idActivity);
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => {
+            // No hacer nada
+          },
+        },
+      ],
+    });
+  };
 
     const OpenActivityProfile = async (e, activityId, countdown) => {
         if (e.target == null || e.target.name != 'deleteButton' && countdown > 0) {
@@ -246,7 +269,7 @@ const Dashboard = () => {
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }
-           <Row xs={1} md={4} className="g-4 mt-1 mb-5">
+        <Row xs={1} md={4} className="g-4 mt-1 mb-5">
   {activitiesByUserDate.map((activitiesbyUserdate) => (
         <Col key={activitiesbyUserdate.idActivity}>
                     <Card>
@@ -255,6 +278,7 @@ const Dashboard = () => {
                                 <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
                                 <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
+                                <Button variant="danger" onClick={(e) => handleUnsubscribe(e, activitiesbyUserdate.idActivity)}>Desapúntate</Button>
                                 <div className='success'>
                                 </div>
                         </Card.Body>

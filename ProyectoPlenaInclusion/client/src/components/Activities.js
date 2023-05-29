@@ -143,7 +143,7 @@ const Activities = () => {
 
   const addParticipant = async (idCustomer, idActivity) => {
     try {
-      await axios.post('/addParticipants', {
+      await axiosJWT.post('/addParticipants', {
         idCustomer: idCustomer,
         idActivity: idActivity,
       });
