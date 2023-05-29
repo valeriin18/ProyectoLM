@@ -63,15 +63,15 @@ const Activities = () => {
           No hay actividad en las fechas seleccionadas.
         </h2>
       }
-      <Row xs={1} md={4} className="g-4 mt-1 mb-5">
+      <Row xs={1} md={4} className="g-4 mt-1 mb-6">
         {activitiesInTime.map((activity) => (
           <Col key={activity.idActivity}>
             <Card>
               <img src={'http://localhost:5000' + activity.model.imageUrl} alt="Imagen" />
               <Card.Body className="text-center"> {/* Agrega la clase "text-center" */}
               
-                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activity.model.name}</Card.Title>
-                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activity.datetime}</Card.Text>
+                <Card.Title><span style={{ fontWeight: 'bold', textTransform:'uppercase'}}></span> {activity.model.name}</Card.Title>
+                <Card.Text><span style={{ fontWeight: 'bold'}}>Fecha:</span> {activity.datetime}</Card.Text>
                 <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activity.model.description}</Card.Text>
                 <Button variant="success">Apúntate</Button>
               </Card.Body>

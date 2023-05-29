@@ -27,7 +27,6 @@ import './style.css';
 // Alert before delete
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
 const Dashboard = () => {
     const [token, setToken] = useState('');
     const [expire, setExpire] = useState('');
@@ -216,10 +215,10 @@ const Dashboard = () => {
     }
     return (    
         <div className="container mt-5 top">
-            <div className='p-5 text-center'>
-                <h1 className='mb-3' style={{ fontSize: 30, fontWeight: 'bold' }}>Mis actividades</h1>
+            <div className='text-center bg-light py-5'>
+                <h1 className='mb-3 display-4'>Mis actividades</h1>
             </div>
-            <Navbar className="border-bottom border-gray pb-5">
+            <Navbar className="border-bottom border-gray py-3 bg-white">
                 <Container fluid>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
@@ -229,46 +228,35 @@ const Dashboard = () => {
                             navbarScroll
                         >
                         </Nav>
+                        
                         <Form className="d-flex" onSubmit={getActivitiesByUserDate}>
                             <Form.Control className="me-2" type="date" placeholder="Date"
                                 value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
                             <Form.Control className="me-2" type="date" placeholder="Date"
                                 value={toDate} onChange={(e) => setToDate(e.target.value)} />
-                            {/* <Form.Control
-                            type="search"
-                            placeholder="Search by name"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Form.Control
-                            type="search"
-                            placeholder="Search by duration"
-                            className="me-2"
-                            aria-label="Search"
-                        /> */}
-                            <Button variant="outline-success" type="submit">Buscar</Button>
+                            <Button variant="success" type="submit">Buscar</Button>
                         </Form>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {/* <h1>Welcome Back: {user.name}</h1>
-            <h1>Next activities:</h1>*/}
+    
             {activitiesByUserDate.length <= 0 &&
-                <h2 className="noActivity">
+                <h2 className="noActivity text-center my-5">
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }
-           <Row xs={1} md={4} className="g-4 mt-1 mb-5">
-  {activitiesByUserDate.map((activitiesbyUserdate) => (
-        <Col key={activitiesbyUserdate.idActivity}>
-                    <Card>
-                        <img src={'http://localhost:5000' + activitiesbyUserdate.model.imageUrl} alt="Imagen" />
+    
+            <Row xs={1} md={2} className="g-4 my-5">
+                {activitiesByUserDate.map((activitiesbyUserdate) => (
+                <Col key={activitiesbyUserdate.idActivity}>
+                    <Card className="h-100 shadow custom-card" style={{ width: '70%' }}>
+                        <Card.Img variant="top" src={'http://localhost:5000' + activitiesbyUserdate.model.imageUrl} alt="Imagen" />
                         <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
-                                <div className='success'>
-                                </div>
+                            <Card.Title className="mb-3 fw-bold text-center">{activitiesbyUserdate.model.name}</Card.Title>
+                            <Card.Text><span className="fw-bold">Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
+                            <Card.Text><span className="fw-bold">Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
+                            <div className='success'>
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
