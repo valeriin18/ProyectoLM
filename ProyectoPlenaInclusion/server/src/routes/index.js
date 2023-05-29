@@ -24,11 +24,12 @@ import { getUsers } from "../controllers/customer.js";
 import { GetProfessionals } from "../controllers/professional.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../models/RefreshToken.js";
-import { logout } from "../controllers/customer.js";
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { logout } from "../controllers/customer.js";
+
 
 
 const __filename = fileURLToPath(import.meta.url);
