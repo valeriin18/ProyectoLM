@@ -4,6 +4,8 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function Profile() {
   const [user, setUser] = useState({
@@ -91,32 +93,49 @@ axiosJWT.interceptors.request.use(async (config) => {
     console.log(response.data);
     setCustomers(response.data);
 }
-
-  const handleUpdate = async (e, user) => {
-    e.preventDefault();
-    try {
-      const { idCustomer, mail, password } = user;
-      let res;
-      if (idCustomer) {
-        res = await axios.post("/updateCustomer", {
-          idCustomer,
-          newMail: newMail || mail,
-          newPassword: newPassword || password,
-        });
-        setCustomers(customers.map((u) => {
-          if (u.idCustomer === user.idCustomer) {
-            return { ...u, mail: newMail || u.mail };
-          } else {
-            return u;
+const handleUpdate = async (e, user) => {
+  e.preventDefault();
+  confirmAlert({
+    title: 'Confirmación',
+    message: '¿Está seguro de actualizar el usuario?',
+    buttons: [
+      {
+        label: 'Sí',
+        onClick: async () => {
+          try {
+            const { idCustomer, mail, password } = user;
+            let res;
+            if (idCustomer) {
+              res = await axios.post("/updateCustomer", {
+                idCustomer,
+                newMail: newMail || mail,
+                newPassword: newPassword || password,
+              });
+              setCustomers(customers.map((u) => {
+                if (u.idCustomer === user.idCustomer) {
+                  return { ...u, mail: newMail || u.mail };
+                } else {
+                  return u;
+                }
+              }));
+              window.alert('El usuario se ha actualizado correctamente.');
+            }
+            console.log(res.data);
+          } catch (error) {
+            console.log(error);
+            window.alert('Hubo un error al actualizar el usuario.');
           }
-        }));
-      } 
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+        },
+      },
+      {
+        label: 'No',
+        onClick: () => {
+          // No hacer nada
+        },
+      },
+    ],
+  });
+};
   return (
     <div className="container">
       {customers.map((user) => (
@@ -135,7 +154,7 @@ axiosJWT.interceptors.request.use(async (config) => {
               <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
               <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
             </div>
-            <button type="submit" className="btn btn-primary">Actualizar</button>
+            <button type="submit" className="btn btn-primary" onClick={(e) => handleUpdate(e, user)}>Actualizar</button>
           </form>
         </div>
       ))}
