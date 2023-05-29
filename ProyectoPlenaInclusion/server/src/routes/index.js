@@ -60,17 +60,17 @@ router.post('/addModel', upload.single('image'), (req, res, next) => {
         next();
     }
 }, AddModel);
-router.post('/getActivity', GetModel);
-router.post('/deleteModel', deleteModel);
-router.post('/updateModel',UpdateModel);
-router.post('/addActivity',CreateActivity);
-router.post('/deleteActivity',DeleteActivity);
-router.post('/updateActivity',UpdateActivity)
+
+//PROFESSIONAL ROUTER
 router.post('/registerProfessional', RegisterProfessional);
-router.post('/registerCustomer' , RegisterCustom);
 router.post('/loginProfessional', LoginProfessional);
 router.post('/deleteProfessional', deleteProfessional);
 router.post('/updateProfessional',UpdateProfessional);
+router.post('/getProfessionals', GetProfessionals);
+
+//USER ROUTER
+router.post('/getUsers', verifyToken, getUsers);
+router.post('/registerCustomer' , RegisterCustom);
 router.post('/addParticipants', addParticipants);
 router.post('/deleteCustomer', DeleteCustomer);
 router.post('/getParticipants', GetParticipants);
@@ -80,9 +80,19 @@ router.post('/deleteParticipants', deleteParticipants);
 router.post('/getActivitiesInTime', GetActivities);
 router.post('/getParticipantsDates', verifyToken, GetParticipantsDates);
 router.post('/loginCustomer', LoginCustomer);
-router.post('/getProfessionals', GetProfessionals);
-router.get('/token', refreshToken);
-router.post('/getUsers', verifyToken, getUsers);
 router.post('/logout', logout);
+
+//ACTIVITY ROUTER
+router.post('/getActivity', GetModel);
+router.post('/deleteModel', deleteModel);
+router.post('/updateModel',UpdateModel);
+router.post('/addActivity',CreateActivity);
+router.post('/deleteActivity',DeleteActivity);
+router.post('/updateActivity',UpdateActivity)
+
+
+//TOKENS ROUTER
+router.get('/token', refreshToken);
+
 
 export default router;
