@@ -1,12 +1,11 @@
-
-import userImage from '../fotos/fondoWeb.jpeg';
-import bgImage from '../fotos/trebol.jpg';
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function Profile() {
   const [user, setUser] = useState({
@@ -15,17 +14,17 @@ function Profile() {
     });
   const [token, setToken] = useState('');
   const [customers, setCustomers] = useState([]);
-  const [professionals, setProfessionals] = useState([]);
   const [newMail, setNewMail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [expire, setExpire] = useState('');
 
   const navigation = useNavigate();
 
-  useEffect(() => {
-    refreshToken();
-    getUsers();
-}, []);
+useEffect(() => {
+  refreshToken();
+  getUsers();
+}, [user.idCustomer]);
+
 
 const refreshToken = async () => {
   try {
@@ -38,8 +37,7 @@ const refreshToken = async () => {
           idCustomer: decoded.idCustomer,
           name: decoded.name
       });
-      console.log(user.data)
-      console.log(decoded);
+      console.log(user.data)  
       setExpire(decoded.exp);
   } catch (error) {
       if (error.response) {
@@ -76,7 +74,7 @@ axiosJWT.interceptors.request.use(async (config) => {
   } else {
       config.headers.Authorization = `Bearer ${token}`;
       config.params = {
-        idCustomer: user.idCustomer
+        userId: user.userId
       }
   }
   return config;
@@ -84,7 +82,7 @@ axiosJWT.interceptors.request.use(async (config) => {
   return Promise.reject(error);
 });
 
-  const getUsers = async () => {
+  const getUsers = async (e) => {
     const response = await axiosJWT.post('/getUsers',
         {
             params: { 
@@ -95,96 +93,73 @@ axiosJWT.interceptors.request.use(async (config) => {
     console.log(response.data);
     setCustomers(response.data);
 }
-
-  const handleUpdate = async (e, user) => {
-    e.preventDefault();
-    try {
-      const { idCustomer, mail, password } = user;
-      let res;
-      if (idCustomer) {
-        res = await axios.post("/updateCustomer", {
-          idCustomer,
-          newMail: newMail || mail,
-          newPassword: newPassword || password,
-        });
-        setCustomers(customers.map((u) => {
-          if (u.idCustomer === user.idCustomer) {
-            return { ...u, mail: newMail || u.mail };
-          } else {
-            return u;
+const handleUpdate = async (e, user) => {
+  e.preventDefault();
+  confirmAlert({
+    title: 'Confirmación',
+    message: '¿Está seguro de actualizar el usuario?',
+    buttons: [
+      {
+        label: 'Sí',
+        onClick: async () => {
+          try {
+            const { idCustomer, mail, password } = user;
+            let res;
+            if (idCustomer) {
+              res = await axios.post("/updateCustomer", {
+                idCustomer,
+                newMail: newMail || mail,
+                newPassword: newPassword || password,
+              });
+              setCustomers(customers.map((u) => {
+                if (u.idCustomer === user.idCustomer) {
+                  return { ...u, mail: newMail || u.mail };
+                } else {
+                  return u;
+                }
+              }));
+              window.alert('El usuario se ha actualizado correctamente.');
+            }
+            console.log(res.data);
+          } catch (error) {
+            console.log(error);
+            window.alert('Hubo un error al actualizar el usuario.');
           }
-        }));
-      } else {
-        const { idProfessional, mail, password } = user;
-        let res1;
-        res1 = await axios.post("/updateProfessional", {
-          idProfessional,
-          newMail: newMail || mail,
-          newPassword: newPassword || password,
-        });
-        setProfessionals(professionals.map((u) => {
-          if (u.idProfessional === user.idProfessional) {
-            return { ...u, mail: newMail || u.mail };
-          } else {
-            return u;
-          }
-        }));
-      }
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+        },
+      },
+      {
+        label: 'No',
+        onClick: () => {
+          // No hacer nada
+        },
+      },
+    ],
+  });
+};
   return (
-    <section 
-            className="hero has-background-grey-light is-fullheight is-fullwidth"
-            style={{ 
-                backgroundImage: `url(${bgImage})`, 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center'
-            }}>
-    <div className="container my-4 d-flex flex-column align-items-center justify-content-center">
-      <form onSubmit={handleSubmit} className="mb-4 w-50">
-        <div className="form-group">
-          <label htmlFor="mail">Mail:</label>
-          <input type="text" className="form-control" id="mail" value={mail} onChange={(e) => setMail(e.target.value)} />
-          <br></br>
-        </div>
-        <button type="submit" className="btn btn-success btn-block mt-3">Buscar</button>
-      </form>
-    
-      <div className="row w-100 justify-content-center">
-        {customers.map((user) => (
-          <div key={user.idCustomer} className="col-md-6">
-            <div className="card mb-4 shadow-sm" style={{backgroundColor: 'rgba(255, 255, 255, 0.85)'}}>
-              <div className="card-body" >
-              <img src={userImage} alt="User" className="rounded-circle mx-auto d-block" style={{ width: "100px", height: "100px" }} />
-                <h5 className="card-title mt-2 text-center">{user.name} {user.surname1} {user.surname2}</h5>
-                <p className="card-text">ID: {user.idCustomer}</p>
-                <p className="card-text">DNI: {user.DNI}</p>
-                <p className="card-text">Año de nacimiento: {user.birthyear}</p>
-                <p className="card-text">Mail: {user.mail}</p>
-                <form onSubmit={(e) => handleUpdate(e, user)}>
-                  <div className="form-group">
-                    <label htmlFor="newMail">Nuevo Mail:</label>
-                    <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="newPassword">Nueva Contraseña:</label>
-                    <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                  </div>
-                  <button type="submit" className="btn btn-success btn-block mt-3">Actualizar</button>
-                </form>
-              </div>
+    <div className="container">
+      {customers.map((user) => (
+        <div key={user.idCustomer} className="my-4">
+          <h2>{user.name} {user.surname1} {user.surname2}</h2>
+          <p>ID: {user.idCustomer}</p>
+          <p>DNI: {user.DNI}</p>
+          <p>Birth Year: {user.birthyear}</p>
+          <p>Mail: {user.mail}</p>
+          <form onSubmit={(e) => handleUpdate(e, user)}>
+            <div className="mb-3">
+              <label htmlFor="newMail" className="form-label">Nuevo Mail:</label>
+              <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
             </div>
-          </div>
-        ))}
-      </div>
+            <div className="mb-3">
+              <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
+              <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+            </div>
+            <button type="submit" className="btn btn-primary" onClick={(e) => handleUpdate(e, user)}>Actualizar</button>
+          </form>
+        </div>
+      ))}
     </div>
-    </section>
   );
 }
 
 export default Profile;
-

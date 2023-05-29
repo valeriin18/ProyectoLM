@@ -44,9 +44,11 @@ export const GetParticipants = async(req, res) => {
 export const deleteParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
   try {
-    const participant = await participants.findByPk(idCustomer);
-    const activity = await Activity.findByPk(idActivity);
-    if (participant && activity && participant.idActivity === activity.idActivity) { // Verifica que el participante está registrado en la actividad
+    const participant = await participants.findOne({
+      where: { idCustomer, idActivity }
+    });
+
+    if (participant) {
       await participant.destroy();
       res.json({ msg: `El participante con ID ${idCustomer} ha sido eliminado correctamente` });
     } else {

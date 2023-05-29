@@ -74,7 +74,6 @@ const Dashboard = () => {
         try {
             const response = await axios.get('/token');
             setToken(response.data.accessToken);
-
             localStorage.setItem("myToken", token);
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
@@ -104,12 +103,11 @@ const Dashboard = () => {
             console.log(response.data)
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
-
             console.log(token.data)
             const decoded = jwt_decode(response.data.accessToken);
             setUser({
                 ...user, // Copy other fields
-                idCustomer : decoded.idCustomer,
+                idCustomer: decoded.idCustomer,
                 name: decoded.name
             });
             config.params = {
@@ -128,16 +126,6 @@ const Dashboard = () => {
         return Promise.reject(error);
     });
 
-    // const getUsers = async () => {
-    //     try {
-    //         const response = await axiosJWT.get('http://localhost:5050/users');
-    //         setUsers(response.data);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-
     // const getActivities = async () => {
     //     const response = await axiosJWT.get('http://localhost:5050/activities');
     //     setActivities(response.data);
@@ -152,9 +140,9 @@ const Dashboard = () => {
         e.preventDefault();
         const response = await axiosJWT.post('/getParticipantsDates',
             {
-                params: { 
-                    idCustomer : user.idCustomer, fromDate: fromDate, toDate: toDate 
-                } 
+                params: {
+                    idCustomer: user.idCustomer, fromDate: fromDate, toDate: toDate
+                }
             }
         );
         console.log(response.data);
@@ -179,18 +167,41 @@ const Dashboard = () => {
         return TotalDays;
     }
 
-    const DeleteParticipant = async (e, activityId) => {
+    const DeleteParticipant = async (e, idActivity) => {
+        e.preventDefault();
         try {
-            await axiosJWT.post('http://localhost:5050/deleteParticipant', {
-                activityId: activityId
+            await axiosJWT.post('deleteParticipants', {
+                idActivity: idActivity, idCustomer: user.idCustomer
             });
-            getActivitiesByUserDate(new Event('firstTime'));
         } catch (error) {
             if (error.response) {
                 console.log(error.response);
             }
         }
     }
+
+
+    const handleUnsubscribe = (e, idActivity) => {
+    e.preventDefault();
+    confirmAlert({
+      title: 'Confirmación',
+      message: '¿Está seguro de desapuntarse de esta actividad?',
+      buttons: [
+        {
+          label: 'Sí',
+          onClick: () => {
+            DeleteParticipant(e, idActivity);
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => {
+            // No hacer nada
+          },
+        },
+      ],
+    });
+  };
 
     const OpenActivityProfile = async (e, activityId, countdown) => {
         if (e.target == null || e.target.name != 'deleteButton' && countdown > 0) {
@@ -213,7 +224,7 @@ const Dashboard = () => {
             ]
         });
     }
-    return (    
+    return (
         <div className="container mt-5 top">
             <div className='text-center bg-light py-5'>
                 <h1 className='mb-3 display-4'>Mis actividades</h1>
@@ -245,18 +256,18 @@ const Dashboard = () => {
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }
-    
-            <Row xs={1} md={2} className="g-4 my-5">
-                {activitiesByUserDate.map((activitiesbyUserdate) => (
-                <Col key={activitiesbyUserdate.idActivity}>
-                    <Card className="h-100 shadow custom-card" style={{ width: '70%' }}>
-                        <Card.Img variant="top" src={'http://localhost:5000' + activitiesbyUserdate.model.imageUrl} alt="Imagen" />
+        <Row xs={1} md={4} className="g-4 mt-1 mb-5">
+  {activitiesByUserDate.map((activitiesbyUserdate) => (
+        <Col key={activitiesbyUserdate.idActivity}>
+                    <Card>
+                        <img src={'http://localhost:5000' + activitiesbyUserdate.model.imageUrl} alt="Imagen" />
                         <Card.Body>
-                            <Card.Title className="mb-3 fw-bold text-center">{activitiesbyUserdate.model.name}</Card.Title>
-                            <Card.Text><span className="fw-bold">Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
-                            <Card.Text><span className="fw-bold">Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
-                            <div className='success'>
-                            </div>
+                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
+                                <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
+                                <Button variant="danger" onClick={(e) => handleUnsubscribe(e, activitiesbyUserdate.idActivity)}>Desapúntate</Button>
+                                <div className='success'>
+                                </div>
                         </Card.Body>
                     </Card>
                 </Col>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import bgImage from '../fotos/fondoWeb.jpeg';
+import bgImage from '../fotos/fondoWeb.png';
 
 const Login = () => {
     const [mail, setMail] = useState('');
@@ -18,29 +18,8 @@ const Login = () => {
             });
             history("/dashboard");
         } catch (error) {
-
-            setMsg(error.response.data.msg);
-            try {
-                await axios.post('/loginCustomer', {
-                    mail: mail,
-                    password: password
-                });
-                history("/dashboard");
-            } catch (error) {
-                window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
-            }
-
-           
-                try {
-                    await axios.post('/loginProfessional', {
-                        mail: mail,
-                        password: password
-                    });
-                    history("/dashboard");
-                } catch (error) {
-                    window.alert("Error de autenticación. Verifique sus credenciales e inténtelo de nuevo.");
-                }
-
+            console.log(error);
+        setMsg("Error al iniciar sesión. Verifica tus credenciales.");
         }
     }
 
@@ -73,7 +52,7 @@ const Login = () => {
                                     <div className="controls">
                                         <input type="password" 
                                         className="form-control" 
-                                        placeholder="******" 
+                                        placeholder="**" 
                                         value={password} 
                                         onChange={(e) => setPassword(e.target.value)} />
                                     </div>

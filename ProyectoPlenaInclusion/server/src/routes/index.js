@@ -28,6 +28,9 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { logout } from "../controllers/customer.js";
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -80,4 +83,6 @@ router.post('/loginCustomer', LoginCustomer);
 router.post('/getProfessionals', GetProfessionals);
 router.get('/token', refreshToken);
 router.post('/getUsers', verifyToken, getUsers);
+router.post('/logout', logout);
+
 export default router;
