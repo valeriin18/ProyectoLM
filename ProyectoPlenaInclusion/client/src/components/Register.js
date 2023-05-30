@@ -43,7 +43,7 @@ const Register = () => {
                 specialCares: specialCare,
                 dataTutor: dataTutor,
               });
-              navigate('/dashboard');
+              navigate('/');
               window.alert('Usuario creado correctamente');
             } catch (error) {
               if (error.response) {

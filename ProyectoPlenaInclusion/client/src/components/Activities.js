@@ -182,7 +182,7 @@
               <Form className="d-flex" onSubmit={getActivities}>
                 <Form.Control className="me-2" type="date" placeholder="Fecha" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
                 <Form.Control className="me-2" type="date" placeholder="Fecha" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-                <Button variant="outline-success" type="submit">Buscar</Button>
+                <Button variant="success" type="submit">Buscar</Button>
               </Form>
             </Navbar.Collapse>
           </Container>
