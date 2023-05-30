@@ -90,6 +90,10 @@
       setToDate(toDate);
     };
 
+  /**
+  Pre: ---
+  Post:Metodo que se utiliza para obtener las actividades en las que se puede apuntar el usuario
+  */
     const getActivities = async (e) => {
       e.preventDefault();
       const response = await axios.post('/getActivitiesInTime', {
@@ -102,6 +106,10 @@
       setActivitiesInTime(response.data);
     };
 
+  /**
+  Pre: ---
+  Post: Metodo que se utiliza para apuntarse a una actividad
+  */
     const handleSignUp = (idActivity) => {
       confirmAlert({
         title: 'Confirmación',
@@ -123,7 +131,11 @@
         ],
       });
     };
-
+    
+  /**
+  Pre: ---
+  Post:Metodo que en caso de querer apuntarte a una actividad en la que ya estas apuntado no te deje
+  */
     const checkParticipant = async (idCustomer, idActivity) => {
       try {
         const response = await axios.post('/getParticipants', {
@@ -141,6 +153,10 @@
       }
     };
 
+  /**
+  Pre: ---
+  Post:Metodo que se ejecuta la peticion de /addParticipants 
+  */
     const addParticipant = async (idCustomer, idActivity) => {
       try {
         await axiosJWT.post('/addParticipants', {
