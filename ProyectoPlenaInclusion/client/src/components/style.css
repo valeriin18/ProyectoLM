@@ -1,4 +1,7 @@
-.custom-card:hover {
-    transform: scale(1.05); /* Ajusta este valor según tus necesidades */
-    transition: transform .2s; /* Controla la velocidad del efecto de zoom */
-  }
+.hover-zoom {
+  transition: transform 0.3s ease;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.05);
+}
