@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Card, Button, Container, Form, Row, Col } from 'react-bootstrap';
-import bgImage from '../fotos/fondoWeb.png';
+import bgImage from '../images/fondoWeb.png';
 const Register = () => {
   const [DNI, setDni] = useState('');
   const [name, setName] = useState('');

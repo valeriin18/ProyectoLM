@@ -1,9 +1,9 @@
 import React from 'react';
-import logoPlenaInclusion from '../fotos/logo-plena-inclusion.png';
-import logoAtencionTemprana from '../fotos/logo-atencion-temprana.png';
-import logoFundacionSermas from '../fotos/logo-fundacion-sermas.png';
-import logoAEDIS from '../fotos/logo-aedis.png';
-import logoCermiAragon from '../fotos/logo-cermi-aragon.png';
+import logoPlenaInclusion from '../images/logo-plena-inclusion.png';
+import logoAtencionTemprana from '../images/logo-atencion-temprana.png';
+import logoFundacionSermas from '../images/logo-fundacion-sermas.png';
+import logoAEDIS from '../images/logo-aedis.png';
+import logoCermiAragon from '../images/logo-cermi-aragon.png';
 
 const Footer = () => {
   return (
