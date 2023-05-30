@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import bgImage from '../images/fondoWeb.png';
 import { Link } from 'react-router-dom';
 
+  /**
+  Pre: ---
+  Post: Metodo que loguea al usuario
+  */
 const Login = () => {
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');

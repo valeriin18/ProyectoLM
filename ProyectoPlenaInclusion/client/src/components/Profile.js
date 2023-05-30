@@ -26,6 +26,11 @@ function Profile() {
     getUsers();
   }, [user.idCustomer]);
 
+  /**
+  Pre: ---
+  Post:Metodo que se utiliza para obtener un nuevo token de acceso (accessToken) llamando a la ruta /token en el servidor. 
+  Después de recibir la respuesta exitosa, se actualiza el estado token con el valor del nuevo token. 
+  */
   const refreshToken = async () => {
     try {
       const response = await axios.get('/token');

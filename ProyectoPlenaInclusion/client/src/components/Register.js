@@ -18,6 +18,10 @@ const Register = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
+  /**
+  Pre: ---
+  Post:Metodo que crea un nuevo usuario 
+  */
   const handleSubmit = async (e) => {
     e.preventDefault();
     confirmAlert({
@@ -58,10 +62,14 @@ const Register = () => {
     });
   };
 
-  const handleGenderChange = (e) => {
-    const value = e.target.checked ? 1 : 0;
-    setGender(value);
-  };
+    /**
+    Pre: ---
+    Post: Metodo que establece el genero del individuo, 0 para la mujer 1 para el hombre
+    */
+    const handleGenderChange = (e) => {
+      const value = e.target.checked ? 1 : 0;
+      setGender(value);
+    };
 
   return (
     <section 
@@ -135,9 +143,7 @@ const Register = () => {
                 </Form.Group>
               </Col>
             </Row>
-  
             <p className="text-danger">{errorMsg}</p>
-  
             <Button variant="primary" type="submit">
               Register
             </Button>

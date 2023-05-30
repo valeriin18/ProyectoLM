@@ -152,11 +152,10 @@ const Activities = () => {
       console.log(error);
     }
   };
-
   return (
     <div className="container mt-5 top">
       <div className='p-5 text-center bg-dark'>
-      <h1 className='mb-3 display-4 text-light'>Actividades Disponibles</h1>
+        <h1 className='mb-3 display-4 text-light'>Actividades Disponibles</h1>
       </div>
       <Navbar className="border-bottom border-gray pb-5 bg-white">
         <Container fluid>
@@ -180,7 +179,7 @@ const Activities = () => {
       <Row xs={1} md={4} className="g-4 mt-1 mb-6">
         {activitiesInTime.map((activity) => (
           <Col key={activity.idActivity}>
-            <Card>
+            <Card className="h-100"> {/* Añadido "h-100" */}
               <Card.Img variant="top" src={'http://localhost:5000' + activity.model.imageUrl} />
               <Card.Body className="text-center">
                 <Card.Title style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{activity.model.name}</Card.Title>

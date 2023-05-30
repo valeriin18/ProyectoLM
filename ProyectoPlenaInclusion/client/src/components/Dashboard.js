@@ -12,11 +12,10 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import { Fa } from 'react-icons/fa';
-
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 
 const Dashboard = () => {
   const [token, setToken] = useState('');
@@ -37,6 +36,10 @@ const Dashboard = () => {
     getActivitiesByUserDate(new Event('firstTime'));
   }, []);
 
+  /**
+  Pre: ---
+  Post: Esta función se utiliza para establecer los valores predeterminados de fromDate y toDate en el estado del componente.
+  */
   const defaultDate = () => {
     const curr = new Date();
     const fromDate = curr.toISOString().substring(0, 10);
@@ -46,6 +49,11 @@ const Dashboard = () => {
     setToDate(toDate);
   }
 
+  /**
+  Pre: ---
+  Post:Metodo que se utiliza para obtener un nuevo token de acceso (accessToken) llamando a la ruta /token en el servidor. 
+  Después de recibir la respuesta exitosa, se actualiza el estado token con el valor del nuevo token. 
+  */
   const refreshToken = async () => {
     try {
       const response = await axios.get('/token');
@@ -67,6 +75,9 @@ const Dashboard = () => {
 
   const axiosJWT = axios.create();
 
+  // Siempre que se realice una peticion segura se ejcuta esta
+  // funcion que actualiza el accessToken si es necesario
+  // y en config añade los headers y los datos para las queries
   axiosJWT.interceptors.request.use(async (config) => {
     const currentDate = new Date();
     if (expire * 1000 < currentDate.getTime() || expire == undefined) {
@@ -94,6 +105,10 @@ const Dashboard = () => {
     return Promise.reject(error);
   });
 
+  /**
+  Pre: ---
+  Post: Esta función se utiliza para buscar actividades en un rango de fechas y un usuario
+  */
   const getActivitiesByUserDate = async (e) => {
     e.preventDefault();
     const response = await axiosJWT.post('/getParticipantsDates', {
@@ -106,12 +121,10 @@ const Dashboard = () => {
     setActivitiesByUserDate(response.data);
   }
 
-  const days = (date_1, date_2) => {
-    const difference = date_1.getTime() - date_2.getTime();
-    const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
-    return totalDays;
-  }
-
+  /**
+  Pre: ---
+  Post: Metodo que permite desapuntar al cliente de una actividad
+  */
   const DeleteParticipant = async (e, idActivity) => {
     e.preventDefault();
     try {
@@ -125,6 +138,11 @@ const Dashboard = () => {
       }
     }
   }
+
+  /**
+  Pre: ---
+  Post: Metodo que muestra alertas antes de modificar un dato en la base de datos
+  */
   const handleUnsubscribe = (e, idActivity) => {
     e.preventDefault();
     confirmAlert({
@@ -165,7 +183,6 @@ const Dashboard = () => {
         </Container>
       </Navbar>
       {activitiesByUserDate.length <= 0 &&
-
         <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
         No tienes ninguna actividad en las fechas seleccionadas.
     </h2>
