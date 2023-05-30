@@ -1,6 +1,10 @@
 import Professional from "../models/professionalModel.js";
 import bcrypt from "bcrypt";
 
+/**
+ * Pre: ---
+ * Post: METODO PARA AÑADIR PROFESIONALES.
+ */
 export const RegisterProfessional = async (req, res) => {
   const { DNI, name, surname1, surname2, birthyear, mail, availability, password, confPassword } = req.body;
   if (password !== confPassword) return res.status(400).json({ msg: "Passwords do not match" });
@@ -23,6 +27,11 @@ export const RegisterProfessional = async (req, res) => {
     console.log(error);
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA LOGEAR PROFESIONALES.
+ */
 export const LoginProfessional = async (req, res) => {
   const { mail, password } = req.body;
   if (!mail || !password) {
@@ -43,6 +52,11 @@ export const LoginProfessional = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error" });
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA BORRAR PROFESIONALES.
+ */
 export const deleteProfessional = async (req, res) => {
   const { idProfessional } = req.body;
   try {
@@ -58,6 +72,11 @@ export const deleteProfessional = async (req, res) => {
     res.json({ msg: "Error al eliminar el profesional con ID ${id}" });
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA ACTUALIZAR PROFESIONALES.
+ */
 export const UpdateProfessional = async (req, res) => {
   const { idProfessional, newMail, newPassword } = req.body;
   try {
@@ -81,6 +100,11 @@ export const UpdateProfessional = async (req, res) => {
     res.json({ msg: "Error updating professional" });
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA MOSTRAR PROFESIONALES.
+ */
 export const GetProfessionals = async (req, res) => {
   const { mail } = req.body;
   try {

@@ -2,6 +2,10 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA PROFESSIONAL EN LA BASE DE DATOS.
+ */
 const Professional = db.define('professional',{
     idProfessional:{
         type: DataTypes.INTEGER,

@@ -4,6 +4,11 @@ import Activity from "../models/activityModel.js";
 import { Op } from "sequelize";
 import Model from "../models/modelModel.js";
 
+
+/**
+ * Pre: ---
+ * Post: METODO PARA AÑADIR PARTICIPANTES.
+ */
 export const addParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
   console.log('valor de customerId: ' + idCustomer);
@@ -26,6 +31,11 @@ export const addParticipants = async (req, res) => {
     console.log(error);
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA MOSTRAR PARTICIPANTS.
+ */
 export const GetParticipants = async (req, res) => {
   const { idCustomer } = req.body;
   try {
@@ -38,6 +48,11 @@ export const GetParticipants = async (req, res) => {
     console.log(error);
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA BORRAR PARTICIPANTS.
+ */
 export const deleteParticipants = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
   try {
@@ -55,6 +70,11 @@ export const deleteParticipants = async (req, res) => {
     res.json({ msg: `Error al eliminar el participante con ID ${idCustomer}` });
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA ACTUALIZAR LOS PARTICIPANTS.
+ */
 export const UpdateParticipant = async (req, res) => {
   const { idCustomer, idActivity } = req.body;
   try {
@@ -73,6 +93,11 @@ export const UpdateParticipant = async (req, res) => {
     res.json({ msg: "Error updating Participant" });
   }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA OBTENER LAS ACTIVIDADES QUE ESTAS APUNTADO EN UNAS FECHAS.
+ */
 export const GetParticipantsDates = async (req, res) => {
   const { idCustomer, fromDate, toDate } = req.body.params;
   try {

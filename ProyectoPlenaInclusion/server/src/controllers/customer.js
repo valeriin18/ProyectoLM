@@ -3,6 +3,10 @@ import bcrypt, { genSalt, genSaltSync } from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
 
+/**
+ * Pre: ---
+ * Post: METODO PARA REGISTRAR CUSTOMER.
+ */
 export const RegisterCustom = async(req, res) => {
     const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor} = req.body;
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -31,9 +35,14 @@ export const RegisterCustom = async(req, res) => {
         console.log(error);
     }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA ENVIAR CORREO ELECTRONICO
+ * CON LAS CREDENCIALES DE INICIO.
+ */
 const sendRegistrationEmail = async (email, name, password) => {
     try {
-      // Mail transport configuration
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -44,16 +53,12 @@ const sendRegistrationEmail = async (email, name, password) => {
           rejectUnauthorized: false,
         },
       });
-  
-      // Mail options
       const mailOptions = {
         from: 'tevoyahundirelhigado@gmail.com',
         to: email,
         subject: 'Registro exitoso',
         text: `¡Hola ${name}! Gracias por registrarte. Tus credenciales son: EMAIL: ${email} | CONTRASEÑA: ${password}`,
       };
-  
-      // Delivering mail with sendMail method
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.log(error);
@@ -65,6 +70,11 @@ const sendRegistrationEmail = async (email, name, password) => {
       console.error('Error al enviar el correo electrónico', error);
     }
   };
+
+  /**
+ * Pre: ---
+ * Post: METODO PARA BORRAR CUSTOMER.
+ */
 export const DeleteCustomer = async(req, res) => {
     const { idCustomer } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
     try {
@@ -103,6 +113,11 @@ export const UpdateCustommer = async(req, res) => {
         res.json({msg: "Error updating customer"});
     }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA LOGEARTE EN LA PAGINA SIENDO UN CUSTOMER.
+ */
 export const LoginCustomer = async(req, res) => {
     const { mail, password } = req.body;
     console.log(mail, password);
@@ -134,6 +149,10 @@ export const LoginCustomer = async(req, res) => {
     res.status(500).json({msg: "Internal Server Error"});
     }
 }
+/**
+ * Pre: ---
+ * Post: METODO PARA OBTENER LOS CUSTOMERS.
+ */
 export const getUsers = async(req, res) => {
     const { idCustomer } = req.body.params;
     try {
@@ -147,14 +166,15 @@ export const getUsers = async(req, res) => {
     }
 }
 
+/**
+ * Pre: ---
+ * Post: METODO PARA HACER UN LOGOUT.
+ */
 export const logout = async (req, res) => {
-    // Aquí debes realizar las acciones necesarias para cerrar la sesión del usuario
-    // y eliminar cualquier información relacionada con la sesión actual.
     try {
         res.clearCookie('refreshToken');
     res.json({ message: 'Logout successful' });
     } catch (error) {
-      // Manejo de errores en caso de que ocurra algún problema durante el logout
     console.log(error);
     res.status(500).json({ error: 'An error occurred during logout' });
     }

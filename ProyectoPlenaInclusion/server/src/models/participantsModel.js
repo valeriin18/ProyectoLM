@@ -4,6 +4,10 @@ import Customer from "./customerModel.js";
 import Activity from "./activityModel.js";
 const { DataTypes } = Sequelize;
 
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA PARTICIPANTS EN LA BASE DE DATOS.
+ */
 const participants = db.define("participants", {
   idCustomer: {
     type: DataTypes.INTEGER,
@@ -30,7 +34,6 @@ Customer.belongsToMany(Activity, {
   foreignKey: "idCustomer",
 });
 
-// En el modelo RepetitiveActivity
 Activity.belongsToMany(Customer, {
   through: participants,
   foreignKey: "idActivity",

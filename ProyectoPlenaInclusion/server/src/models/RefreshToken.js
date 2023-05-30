@@ -1,6 +1,10 @@
 import Customers from "./customerModel.js";
 import jwt from "jsonwebtoken";
 
+/**
+ * Pre: ---
+ * Post: CREAR REFRESH TOKEN SI NO LO ESTA.
+ */
 export const refreshToken = async (req, res) => {
     try {
         const refreshToken = req.cookies.refreshToken;

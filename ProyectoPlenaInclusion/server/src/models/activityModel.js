@@ -4,6 +4,10 @@ import Professional from "./professionalModel.js";
 import Model from "./modelModel.js";
 const { DataTypes } = Sequelize;
 
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA ACTIVITY EN LA BASE DE DATOS.
+ */
 const Activity = db.define('activity', {
     idActivity: {
         type: DataTypes.INTEGER,
@@ -46,4 +50,5 @@ Activity.belongsTo(Model, {
     foreignKey: 'idModel',
     targetKey: 'idModel'
 });
+
 export default Activity;

@@ -2,6 +2,10 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA CUSTOMER EN LA BASE DE DATOS.
+ */
 const Customers = db.define('customers', {
     idCustomer: {
         type: DataTypes.INTEGER,
