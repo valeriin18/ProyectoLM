@@ -156,7 +156,7 @@ const Activities = () => {
   return (
     <div className="container mt-5 top">
       <div className='p-5 text-center bg-dark'>
-        <h1 className='mb-3' style={{ fontSize: 30, fontWeight: 'bold', color: 'white' }}>Actividades Disponibles</h1>
+      <h1 className='mb-3 display-4 text-light'>Actividades Disponibles</h1>
       </div>
       <Navbar className="border-bottom border-gray pb-5 bg-white">
         <Container fluid>

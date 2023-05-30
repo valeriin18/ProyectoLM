@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaUserPlus, FaSignOutAlt, FaUser } from 'react-icons/fa';
-import logo from '../fotos/plenainclusion.jpg';
+import logo from '../images/plenainclusion.jpg';
 
 function NavigationBar() {
   const navigation = useNavigate();

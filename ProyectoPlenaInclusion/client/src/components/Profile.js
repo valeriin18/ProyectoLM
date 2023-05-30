@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import { Card, Button, Container } from 'react-bootstrap';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import bgImage from '../fotos/verde.jpg';
+import bgImage from '../images/verde.jpg';
 function Profile() {
   const [user, setUser] = useState({
     idCustomer: -1,
