@@ -145,7 +145,6 @@ const Dashboard = () => {
     });
   };
 
-
   return (
     <div className="container mt-5 top">
     <div className='text-center bg-dark py-5 shadow' style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
@@ -165,9 +164,10 @@ const Dashboard = () => {
         </Container>
       </Navbar>
       {activitiesByUserDate.length <= 0 &&
-      <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
-      No tienes ninguna actividad en las fechas seleccionadas.
-        </h2>
+
+        <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
+        No tienes ninguna actividad en las fechas seleccionadas.
+    </h2>
       }
       <Row xs={1} md={4} className="g-4 mt-1 mb-5">
         {activitiesByUserDate.map((activitiesbyUserdate) => (
@@ -187,7 +187,5 @@ const Dashboard = () => {
     </div>
   );
 };
-
-   
 export default Dashboard
 
