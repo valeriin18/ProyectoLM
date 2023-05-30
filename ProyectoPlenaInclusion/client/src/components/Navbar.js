@@ -27,7 +27,6 @@ function NavigationBar() {
                     <Nav.Link as={Link} to="/dashboard">Inicio</Nav.Link>
                     <Nav.Link as={Link} to="/profile">Perfil</Nav.Link>
                     <Nav.Link as={Link} to="/Activities">Actividades</Nav.Link>
-                    <Nav.Link as={Link} to="/register">Registrar</Nav.Link>
                 </Nav>
                 <Button variant="outline-primary" onClick={handleLogout}>Cerrar Sesion</Button>
             </Navbar.Collapse>

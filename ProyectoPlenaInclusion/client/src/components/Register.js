@@ -15,9 +15,10 @@ const Register = () => {
   const [specialCare, setSpecialCare] = useState(false);
   const [dataTutor, setDataTutor] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [password, setPassword] = useState(''); // Agrega el estado para almacenar la contraseña
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     confirmAlert({
       title: 'Confirmación',
@@ -39,18 +40,19 @@ const Register = () => {
                 dataTutor: dataTutor,
               });
               navigate('/dashboard');
+              window.alert('Usuario creado correctamente');
             } catch (error) {
               if (error.response) {
                 setErrorMsg(error.response.data.msg);
                 console.log(errorMsg);
               }
+              window.alert('Error al crear el usuario');
             }
           },
         },
         {
           label: 'No',
-          onClick: () => {
-          },
+          onClick: () => {},
         },
       ],
     });

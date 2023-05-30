@@ -182,27 +182,28 @@ const Dashboard = () => {
     }
 
 
-    const handleUnsubscribe = (e, idActivity) => {
-    e.preventDefault();
-    confirmAlert({
-      title: 'Confirmación',
-      message: '¿Está seguro de desapuntarse de esta actividad?',
-      buttons: [
-        {
-          label: 'Sí',
-          onClick: () => {
-            DeleteParticipant(e, idActivity);
-          },
-        },
-        {
-          label: 'No',
-          onClick: () => {
-            // No hacer nada
-          },
-        },
-      ],
-    });
-  };
+    const handleUnsubscribe = async (e, idActivity) => {
+        e.preventDefault();
+        confirmAlert({
+          title: 'Confirmación',
+          message: '¿Está seguro de desapuntarse de esta actividad?',
+          buttons: [
+            {
+              label: 'Sí',
+              onClick: async () => {
+                await DeleteParticipant(e, idActivity);
+                alert('Te has desapuntado con éxito.');
+              },
+            },
+            {
+              label: 'No',
+              onClick: () => {
+                // No hacer nada
+              },
+            },
+          ],
+        });
+      };
 
     const OpenActivityProfile = async (e, activityId, countdown) => {
         if (e.target == null || e.target.name != 'deleteButton' && countdown > 0) {
@@ -265,7 +266,7 @@ const Dashboard = () => {
             {/* <h1>Welcome Back: {user.name}</h1>
             <h1>Next activities:</h1>*/}
             {activitiesByUserDate.length <= 0 &&
-                <h2 className="noActivity">
+                <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
                     No tienes ninguna actividad en las fechas seleccionadas.
                 </h2>
             }

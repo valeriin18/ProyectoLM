@@ -154,7 +154,7 @@ const handleUpdate = async (e, user) => {
               <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
               <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
             </div>
-            <button type="submit" className="btn btn-primary" onClick={(e) => handleUpdate(e, user)}>Actualizar</button>
+            <button type="submit" className="btn btn-primary" onClick={(e) => handleUpdate(e, user)} style={{ marginBottom: '6.95%' }}>Actualizar</button>
           </form>
         </div>
       ))}

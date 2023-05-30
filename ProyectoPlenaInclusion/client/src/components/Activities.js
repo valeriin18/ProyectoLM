@@ -179,7 +179,7 @@ const Activities = () => {
         </Container>
       </Navbar>
       {activitiesInTime.length <= 0 &&
-        <h2 className="noActivity">
+        <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
           No hay actividad en las fechas seleccionadas.
         </h2>
       }

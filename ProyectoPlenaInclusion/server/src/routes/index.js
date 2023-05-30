@@ -85,4 +85,5 @@ router.get('/token', refreshToken);
 router.post('/getUsers', verifyToken, getUsers);
 router.post('/logout', logout);
 
+
 export default router;
