@@ -10,6 +10,7 @@ import { Navigate } from 'react-router-dom';
 import  Navbar  from "./components/Navbar";
 import Profile from "./components/Profile";
 import Activities from "./components/Activities";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -17,10 +18,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<><Navbar /><Dashboard/> </>} />
-          <Route path="/register" element={<><Navbar /><Register/> </>} />
-          <Route path="/profile" element={<><Navbar /><Profile/> </>} />
-          <Route path="/Activities" element={<><Navbar /><Activities/> </>} />
+          <Route path="/dashboard" element={<><Navbar /><Dashboard/><Footer/></>} />
+          <Route path="/register" element={<><Register/></>} />
+          <Route path="/profile" element={<><Navbar /><Profile/><Footer/></>} />
+          <Route path="/Activities" element={<><Navbar /><Activities/><Footer/></>} />
           {/* <Route path="/addActivity" element={<><Navbar/><AddActivity/><Footer/></>} />
           <Route path="/activityProfile/:activityId" element={<><Navbar/><ActivityProfile/><Footer/></>} />
           <Route path="/searchActivities" element={<><Navbar/> <SearchActivities/> <Footer/></>} />
