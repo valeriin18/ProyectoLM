@@ -2,6 +2,10 @@ import Activity from '../models/activityModel.js';
 import { Op } from "sequelize";
 import Model from "../models/modelModel.js";
 
+/**
+ * Pre: ---
+ * Post: METODO PARA CREAR ACTIVIDADES.
+ */
 export const CreateActivity = async (req, res) => {
     const { idActivity, idProfessional, datetime, idModel } = req.body;
     try {
@@ -17,6 +21,11 @@ export const CreateActivity = async (req, res) => {
         res.json({ msg: "Error one of the folders is incomplete" });
     }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA BORRAR ACTIVIDADES.
+ */
 export const DeleteActivity = async (req, res) => {
     const { idActivity } = req.body;
     try {
@@ -32,6 +41,11 @@ export const DeleteActivity = async (req, res) => {
         res.json({ msg: "Error al eliminar la actividad con ID ${id}" });
     }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO PARA ACTUALIZAR ACTIVIDADES.
+ */
 export const UpdateActivity = async (req, res) => {
     const { idActivity, idProfessional, datetime, idModel, createdAt, updatedAt } = req.body;
     try {
@@ -53,6 +67,11 @@ export const UpdateActivity = async (req, res) => {
         res.json({ msg: "Error updating activity" });
     }
 }
+
+/**
+ * Pre: ---
+ * Post: METODO MOSTRAR ACTIVIDADES EN UN TIEMPO.
+ */
 export const GetActivities = async (req, res) => {
     const { fromDate, toDate } = req.body.params;
     console.log('fromDate:', fromDate); // Agrega este console.log para verificar el valor y tipo de fromDate

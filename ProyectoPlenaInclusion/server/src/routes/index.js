@@ -26,20 +26,29 @@ import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../models/RefreshToken.js";
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { logout } from "../controllers/customer.js";
 
-
-
+/**
+ * Pre: ---
+ * Post: VARIABLES PARA RUTA ACTUAL
+ */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/**
+ * Pre: ---
+ * Post: EXPRESS ROUTER
+ */
 const router = express.Router();
 router.get('/', (req, res) => {    
     res.render('pages/index');
 });
 
+/**
+ * Pre: ---
+ * Post: METODO OBTENER RUTA REAL HASTA DIRECTORIO ACTUAL
+ */
 const uploadsDirectory = path.join(__dirname, '../uploads'); // ajusta este camino según tu estructura de directorios
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -52,6 +61,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+/**
+ * Pre: ---
+ * Post: METODO UPLOAD IMAGEN
+ */
 router.post('/addModel', upload.single('image'), (req, res, next) => {
     if (!req.file) {
         res.status(400).json({ error: "No file uploaded" });
@@ -61,14 +74,20 @@ router.post('/addModel', upload.single('image'), (req, res, next) => {
     }
 }, AddModel);
 
-//PROFESSIONAL ROUTER
+/**
+ * Pre: ---
+ * Post: PROFESSIONAL ROUTER
+ */
 router.post('/registerProfessional', RegisterProfessional);
 router.post('/loginProfessional', LoginProfessional);
 router.post('/deleteProfessional', deleteProfessional);
 router.post('/updateProfessional',UpdateProfessional);
 router.post('/getProfessionals', GetProfessionals);
 
-//USER ROUTER
+/**
+ * Pre: ---
+ * Post: USER ROUTER
+ */
 router.post('/getUsers', verifyToken, getUsers);
 router.post('/registerCustomer' , RegisterCustom);
 router.post('/addParticipants', addParticipants);
@@ -91,7 +110,10 @@ router.post('/deleteActivity',DeleteActivity);
 router.post('/updateActivity',UpdateActivity)
 
 
-//TOKENS ROUTER
+/**
+ * Pre: ---
+ * Post: TOKENS ROUTER
+ */
 router.get('/token', refreshToken);
 
 

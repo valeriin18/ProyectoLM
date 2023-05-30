@@ -2,6 +2,10 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA MODEL EN LA BASE DE DATOS.
+ */
 const Model = db.define('model', {
     idModel: {
         type: DataTypes.INTEGER,
