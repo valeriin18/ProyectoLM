@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import { Card, Button, Container } from 'react-bootstrap';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-
+import bgImage from '../fotos/verde.jpg';
 function Profile() {
   const [user, setUser] = useState({
     idCustomer: -1,
@@ -126,34 +126,48 @@ function Profile() {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100">
-      <Card className="w-50">
-        <Card.Body>
-          {customers.map((user) => (
-            <div key={user.idCustomer} className="my-4">
-              <h2 className="text-center mb-4">{user.name} {user.surname1} {user.surname2}</h2>
-              <div>
-                <p>ID: {user.idCustomer}</p>
-                <p>DNI: {user.DNI}</p>
-                <p>Birth Year: {user.birthyear}</p>
-                <p>Mail: {user.mail}</p>
-              </div>
-              <form onSubmit={(e) => handleUpdate(e, user)}>
-                <div className="mb-3">
-                  <label htmlFor="newMail" className="form-label">Nuevo Mail:</label>
-                  <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
+    <section 
+      className="hero has-background-grey-light is-fullheight is-fullwidth"
+      style={{ 
+        backgroundImage: `url(${bgImage})`, 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center'
+      }}
+    >
+      <Container className="d-flex justify-content-center align-items-center min-vh-100">
+        <Card className="w-50 border-0 shadow-lg">
+          <Card.Body>
+            {customers.map((user) => (
+              <div key={user.idCustomer} className="my-4 text-center">
+                <img src={user.photo} alt="Foto de perfil" className="rounded-circle img-thumbnail mx-auto d-block" style={{ width: '150px', height: '150px' }} />
+                <h2 className="text-center mb-4">{user.name} {user.surname1} {user.surname2}</h2>
+                <div>
+                  <p>ID: {user.idCustomer}</p>
+                  <p>DNI: {user.DNI}</p>
+                  <p>Birth Year: {user.birthyear}</p>
+                  <p>Mail: {user.mail}</p>
                 </div>
-                <div className="mb-3">
-                <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={(e) => handleUpdate(e, user)} style={{ marginBottom: '6.95%' }}>Actualizar</button>
-              </form>
-            </div>
-          ))}
-        </Card.Body>
-      </Card>
-    </Container>
+                <form onSubmit={(e) => handleUpdate(e, user)}>
+                  <hr className="my-4" /> {/* Línea */}
+                  <p className="mb-3"><strong>Actualizar datos:</strong></p> {/* Párrafo en negrita */}
+                  <div className="mb-3">
+                    <label htmlFor="newMail" className="form-label">Nuevo Mail:</label>
+                    <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
+                    <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                  </div>
+                  <button type="submit" className="btn btn-success" style={{ marginBottom: '6.95%' }}>Actualizar</button>
+                </form>
+              </div>
+            ))}
+          </Card.Body>
+        </Card>
+      </Container>
+    </section>
   );
+  
 }
 
 export default Profile;

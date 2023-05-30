@@ -164,6 +164,7 @@ const Dashboard = () => {
         </Container>
       </Navbar>
       {activitiesByUserDate.length <= 0 &&
+
         <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
         No tienes ninguna actividad en las fechas seleccionadas.
     </h2>
@@ -186,6 +187,5 @@ const Dashboard = () => {
     </div>
   );
 };
-
 export default Dashboard
 
