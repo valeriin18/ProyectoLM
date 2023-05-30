@@ -173,7 +173,9 @@ const Activities = () => {
         </Container>
       </Navbar>
       {activitiesInTime.length <= 0 &&
-        <h2 className="noActivity text-center my-5">No hay actividad en las fechas seleccionadas.</h2>
+        <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
+          No hay actividad en las fechas seleccionadas.
+        </h2>
       }
       <Row xs={1} md={4} className="g-4 mt-1 mb-6">
         {activitiesInTime.map((activity) => (

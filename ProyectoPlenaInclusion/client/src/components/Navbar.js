@@ -18,8 +18,7 @@ function NavigationBar() {
       console.log(error);
     }
   };
-
-  return (
+    return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
         <Navbar.Brand as={Link} to="/dashboard">

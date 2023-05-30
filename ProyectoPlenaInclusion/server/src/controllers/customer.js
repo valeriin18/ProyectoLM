@@ -1,6 +1,7 @@
 import Customers from "../models/customerModel.js";
 import bcrypt, { genSalt, genSaltSync } from "bcrypt";
 import jwt from "jsonwebtoken";
+import nodemailer from 'nodemailer';
 
 export const RegisterCustom = async(req, res) => {
     const { DNI, name, surname1, surname2, birthyear, mail, gender, specialCares, dataTutor} = req.body;
@@ -24,11 +25,46 @@ export const RegisterCustom = async(req, res) => {
             specialCares: specialCares,
             dataTutor: dataTutor
         })
+        await sendRegistrationEmail(mail, name, password);
         res.json(password);
     } catch (error) {
         console.log(error);
     }
 }
+const sendRegistrationEmail = async (email, name, password) => {
+    try {
+      // Mail transport configuration
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'tevoyahundirelhigado@gmail.com',
+          pass: 'hqasrpfqnughfhib',
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+  
+      // Mail options
+      const mailOptions = {
+        from: 'tevoyahundirelhigado@gmail.com',
+        to: email,
+        subject: 'Registro exitoso',
+        text: `¡Hola ${name}! Gracias por registrarte. Tus credenciales son: EMAIL: ${email} | CONTRASEÑA: ${password}`,
+      };
+  
+      // Delivering mail with sendMail method
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Correo electrónico enviado: ' + info.response);
+        }
+      });
+    } catch (error) {
+      console.error('Error al enviar el correo electrónico', error);
+    }
+  };
 export const DeleteCustomer = async(req, res) => {
     const { idCustomer } = req.body; // Obtener el ID de la actividad a eliminar desde los parámetros de la solicitud
     try {

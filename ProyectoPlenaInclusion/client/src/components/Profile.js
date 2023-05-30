@@ -144,10 +144,9 @@ function Profile() {
                   <input type="text" className="form-control" id="newMail" value={newMail} onChange={(e) => setNewMail(e.target.value)} />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="newPassword" className="form-label">Nueva Contraseña:</label>
-                  <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                </div>
-                <Button variant="success" type="submit" onClick={(e) => handleUpdate(e, user)}>Actualizar</Button>
+                <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+            </div>
+            <button type="submit" className="btn btn-primary" onClick={(e) => handleUpdate(e, user)} style={{ marginBottom: '6.95%' }}>Actualizar</button>
               </form>
             </div>
           ))}
