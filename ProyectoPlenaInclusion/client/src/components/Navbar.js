@@ -35,9 +35,6 @@ function NavigationBar() {
             <Nav.Link as={Link} to="/profile">
               <FaUser style={{ fontSize: "24px" }} />
             </Nav.Link>
-            <Nav.Link as={Link} to="/register">
-              <FaUserPlus style={{ fontSize: "24px" }} />
-            </Nav.Link>
             <Button variant="outline-danger" onClick={handleLogout}>
               <FaSignOutAlt style={{ fontSize: "24px" }} />
             </Button>
