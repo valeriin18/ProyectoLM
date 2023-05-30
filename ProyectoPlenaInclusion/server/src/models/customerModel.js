@@ -2,52 +2,52 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
-const Customers = db.define('customers',{
-    idCustomer:{
+const Customers = db.define('customers', {
+    idCustomer: {
         type: DataTypes.INTEGER,
-        primaryKey : true,
-        autoIncrement : true
+        primaryKey: true,
+        autoIncrement: true
     },
-    DNI:{
+    DNI: {
         type: DataTypes.STRING
     },
-    name:{
+    name: {
         type: DataTypes.STRING
     },
-    surname1:{
+    surname1: {
         type: DataTypes.STRING
     },
-    surname2:{
+    surname2: {
         type: DataTypes.STRING
     },
-    birthyear:{
+    birthyear: {
         type: DataTypes.DATE
     },
-    mail:{
+    mail: {
         type: DataTypes.STRING
     },
-    password:{
+    password: {
         type: DataTypes.STRING
     },
-    gender:{
+    gender: {
         type: DataTypes.BOOLEAN
     },
-    specialcares:{
+    specialcares: {
         type: DataTypes.BOOLEAN
     },
-    dataTutor:{
+    dataTutor: {
         type: DataTypes.STRING
     },
-    accesToken:{
+    accesToken: {
         type: DataTypes.STRING
     },
-    refreshToken:{
+    refreshToken: {
         type: DataTypes.STRING
     }
-},{
-    freezeTableName:true
+}, {
+    freezeTableName: true
 });
-(async () =>{
+(async () => {
     await db.sync();
 })();
 export default Customers;
