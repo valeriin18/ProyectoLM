@@ -2,6 +2,10 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA PROFESSIONAL EN LA BASE DE DATOS.
+ */
 const Professional = db.define('professional',{
     idProfessional:{
         type: DataTypes.INTEGER,
@@ -21,7 +25,7 @@ const Professional = db.define('professional',{
         type: DataTypes.STRING
     },
     birthyear:{
-        type: DataTypes.INTEGER
+        type: DataTypes.DATE
     },
     mail:{
         type: DataTypes.STRING
@@ -32,7 +36,13 @@ const Professional = db.define('professional',{
     availability: {
         type: DataTypes.BOOLEAN, 
         defaultValue: false 
-      }
+    },
+    accesToken:{
+        type: DataTypes.STRING
+    },
+    refreshToken:{
+        type: DataTypes.STRING
+    }
 },{
     freezeTableName: true
 });

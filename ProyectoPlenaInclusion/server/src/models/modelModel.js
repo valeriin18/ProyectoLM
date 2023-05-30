@@ -1,25 +1,33 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 const { DataTypes } = Sequelize;
-const Model = db.define('model',{
-    idModel:{
+
+/**
+ * Pre: ---
+ * Post: CREACION DE TABLA MODEL EN LA BASE DE DATOS.
+ */
+const Model = db.define('model', {
+    idModel: {
         type: DataTypes.INTEGER,
-        primaryKey : true,
-        autoIncrement : true
+        primaryKey: true,
+        autoIncrement: true
     },
-    idProfessional:{
+    idProfessional: {
         type: DataTypes.STRING
     },
-    name:{
+    name: {
         type: DataTypes.STRING
     },
-    description:{
+    description: {
+        type: DataTypes.STRING
+    },
+    imageUrl: {
         type: DataTypes.STRING
     }
-},{
-    freezeTableName:true
+}, {
+    freezeTableName: true
 });
-(async () =>{
+(async () => {
     await db.sync();
 })();
 export default Model;
