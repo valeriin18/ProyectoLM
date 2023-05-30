@@ -12,6 +12,8 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
+import { Fa } from 'react-icons/fa';
+
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -144,29 +146,6 @@ const Dashboard = () => {
       ],
     });
   };
-
-  const OpenActivityProfile = (e, activityId, countdown) => {
-    if (e.target == null || e.target.name !== 'deleteButton' && countdown > 0) {
-      navigation('/activityProfile/' + activityId);
-    }
-  }
-
-  const BeforeDeleteAlert = (e, activityId) => {
-    confirmAlert({
-      title: 'Abandonar actividad',
-      message: '¿Estás seguro que deseas abandonar esta actividad?',
-      buttons: [
-        {
-          label: 'Sí',
-          onClick: () => DeleteParticipant(e, activityId)
-        },
-        {
-          label: 'No'
-        }
-      ]
-    });
-  };
-
   return (
     <div className="container mt-5 top">
     <div className='text-center bg-dark py-5 shadow' style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
@@ -186,7 +165,9 @@ const Dashboard = () => {
         </Container>
       </Navbar>
       {activitiesByUserDate.length <= 0 &&
-        <h2 className="noActivity text-center my-5">No tienes ninguna actividad en las fechas seleccionadas.</h2>
+        <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
+        No tienes ninguna actividad en las fechas seleccionadas.
+    </h2>
       }
       <Row xs={1} md={4} className="g-4 mt-1 mb-5">
         {activitiesByUserDate.map((activitiesbyUserdate) => (
@@ -207,83 +188,5 @@ const Dashboard = () => {
   );
 };
 
-    const BeforeDeleteAlert = (e, activityId) => {
-        confirmAlert({
-            title: 'Abandonar actividad',
-            message: '¿Estás seguro que deseas abandonar esta actividad?.',
-            buttons: [
-                {
-                    label: 'Sí',
-                    onClick: () => DeleteParticipant(e, activityId)
-                },
-                {
-                    label: 'No'
-                }
-            ]
-        });
-    }
-    return (
-        <div className="container mt-5 top">
-            <div className='p-5 text-center'>
-                <h1 className='mb-3' style={{ fontSize: 30, fontWeight: 'bold' }}>Mis actividades</h1>
-            </div>
-            <Navbar className="border-bottom border-gray pb-5">
-                <Container fluid>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            className="me-auto my-2 my-lg-0"
-                            style={{ maxHeight: '100px' }}
-                            navbarScroll
-                        >
-                        </Nav>
-                        <Form className="d-flex" onSubmit={getActivitiesByUserDate}>
-                            <Form.Control className="me-2" type="date" placeholder="Date"
-                                value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
-                            <Form.Control className="me-2" type="date" placeholder="Date"
-                                value={toDate} onChange={(e) => setToDate(e.target.value)} />
-                            {/* <Form.Control
-                            type="search"
-                            placeholder="Search by name"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Form.Control
-                            type="search"
-                            placeholder="Search by duration"
-                            className="me-2"
-                            aria-label="Search"
-                        /> */}
-                            <Button variant="outline-success" type="submit">Buscar</Button>
-                        </Form>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            {/* <h1>Welcome Back: {user.name}</h1>
-            <h1>Next activities:</h1>*/}
-            {activitiesByUserDate.length <= 0 &&
-                <h2 className="noActivity" style={{ marginBottom: '14.75%' }}>
-                    No tienes ninguna actividad en las fechas seleccionadas.
-                </h2>
-            }
-        <Row xs={1} md={4} className="g-4 mt-1 mb-5">
-  {activitiesByUserDate.map((activitiesbyUserdate) => (
-        <Col key={activitiesbyUserdate.idActivity}>
-                    <Card>
-                        <img src={'http://localhost:5000' + activitiesbyUserdate.model.imageUrl} alt="Imagen" />
-                        <Card.Body>
-                                <Card.Title><span style={{ fontWeight: 'bold' }}>Nombre:</span> {activitiesbyUserdate.model.name}</Card.Title>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Fecha:</span> {activitiesbyUserdate.datetime}</Card.Text>
-                                <Card.Text><span style={{ fontWeight: 'bold' }}>Descripcion:</span> {activitiesbyUserdate.model.description}</Card.Text>
-                                <Button variant="danger" onClick={(e) => handleUnsubscribe(e, activitiesbyUserdate.idActivity)}>Desapúntate</Button>
-                                <div className='success'>
-                                </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                ))}
-            </Row>
-        </div>
-    )
 export default Dashboard
 
